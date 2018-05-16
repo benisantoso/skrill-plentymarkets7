@@ -491,7 +491,7 @@ class PaymentService
 			$parameters['trn_id'] = $transactionId;
 
 			$parametersLog = $parameters;
-			$parametersLog['password'] = '*****';
+			// $parametersLog['password'] = '*****';
 
 			$this->getLogger(__METHOD__)->error('Skrill:parametersLog', $parametersLog);
 

@@ -1,5 +1,5 @@
 <div class="alert alert-warning" role="alert">
-    <strong><i>Important:</i></strong> The Skrill plugin has been developed for use with the online store Ceres and only works with its structure or other template plugins. IO plugin is required. For the best compatibility please use IO/Ceres with version 1.4.0 - 2.0.0.
+    <strong><i>Important:</i></strong> The Skrill plugin has been developed for use with the online store Ceres and only works with its structure or other template plugins. IO plugin is required. For the best compatibility please use IO/Ceres with version 1.4.0 - 2.17.1.
 </div>
 <br>
 <div class="alert alert-warning" role="alert">

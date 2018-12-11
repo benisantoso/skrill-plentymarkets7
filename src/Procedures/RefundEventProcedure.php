@@ -101,8 +101,9 @@ class RefundEventProcedure
 						$refundResult = $paymentService->refund($transactionId, $payment);
 
 						$this->getLogger(__METHOD__)->error('Skrill:refundResult', $refundResult);
+						$this->getLogger(__METHOD__)->error('Skrill:responseError1', $refundResult['response']->error);
 
-						if ($refundResult['error'])
+						if (isset($refundResult['response']->error) || $refundResult['error'])
 						{
 							throw new \Exception('Refund Skrill payment failed!');
 						}

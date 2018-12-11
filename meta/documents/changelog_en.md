@@ -66,3 +66,8 @@
 
 #### Features :
 * Implement paysafecash payment method.
+
+## Release 1.0.10 (2018-12-11)
+
+#### Features :
+* Fix bugs refund payment.

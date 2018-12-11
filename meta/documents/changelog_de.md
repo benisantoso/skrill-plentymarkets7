@@ -66,3 +66,8 @@
 
 ### Erweiterungen :
 * Implementieren Sie die paysafecash-Zahlungsmethode.
+
+## Veröffentlichung 1.0.10 (2018-12-11)
+
+### Erweiterungen :
+* Reparieren Sie Fehler Rückerstattung Zahlung.

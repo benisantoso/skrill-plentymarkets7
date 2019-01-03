@@ -71,3 +71,4 @@
 
 #### Features :
 * Fix bugs refund payment.
+* Fix Bug : Wrong redirect page if refresh after payment success

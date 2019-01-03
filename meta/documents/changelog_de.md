@@ -71,3 +71,4 @@
 
 ### Erweiterungen :
 * Reparieren Sie Fehler Rückerstattung Zahlung.
+* Fix Bug: Falsche Weiterleitungsseite, wenn nach Erfolg der Zahlung aktualisiert wurde

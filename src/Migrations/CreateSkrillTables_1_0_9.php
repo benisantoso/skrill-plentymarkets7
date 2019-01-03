@@ -9,10 +9,10 @@ use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 /**
 * Migration to create skrill configuration tables
 *
-* Class CreateSkrillTables
+* Class CreateSkrillTables_1_0_9
 * @package Skrill\Migrations
 */
-class CreateSkrillTables
+class CreateSkrillTables_1_0_9
 {
 	/**
 	 * Run on plugin build

@@ -7,8 +7,10 @@ use Plenty\Modules\Order\Models\Order;
 use Plenty\Modules\Payment\Models\Payment;
 use Plenty\Modules\Payment\Models\PaymentProperty;
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 
 use Skrill\Services\PaymentService;
+use Skrill\Services\OrderService;
 use Skrill\Helper\PaymentHelper;
 
 /**
@@ -30,7 +32,9 @@ class UpdateOrderStatusEventProcedure
 					EventProceduresTriggered $eventTriggered,
 					PaymentRepositoryContract $paymentRepository,
 					PaymentService $paymentService,
-					PaymentHelper $paymentHelper
+					OrderService $orderService,
+					PaymentHelper $paymentHelper,
+					OrderRepositoryContract $orderRepository
 	) {
 		/** @var Order $order */
 		$order = $eventTriggered->getOrder();
@@ -89,26 +93,15 @@ class UpdateOrderStatusEventProcedure
 
 							$state = $paymentHelper->mapTransactionState((string) $paymentStatus['status']);
 
-							if ($isCredentialValid && $payment->status != $state)
+							if ($isCredentialValid && $payment->status == $state)
 							{
 								$payment->status = $state;
 
 								if ($state == Payment::STATUS_APPROVED)
 								{
-									$payment->unaccountable = 0;
-									$payment->updateOrderPaymentStatus = true;
+									$orderService->updateOrderStatus($orderId, 5);
 								}
 							}
-
-							$paymentHelper->updatePaymentPropertyValue(
-											$payment->properties,
-											PaymentProperty::TYPE_BOOKING_TEXT,
-											$paymentHelper->getPaymentBookingText($paymentStatus, $isCredentialValid)
-							);
-
-							$this->getLogger(__METHOD__)->error('Skrill:update_payment', $payment);
-
-							$paymentRepository->updatePayment($payment);
 						}
 					}
 				}

@@ -49,3 +49,26 @@
 
 ### Erweiterungen :
 * Fix Bug: Falsche Weiterleitungsseite, wenn nach Erfolg der Zahlung aktualisiert wurde
+
+## Veröffentlichung 1.0.7 (2018-06-07)
+
+### Erweiterungen :
+* Fix Bug: Bestellstatus aktualisieren.
+* Beheben Sie Probleme automatisch per E-Mail Kunde.
+* Ändern Sie sofort das Logo und den Namen.
+
+## Veröffentlichung 1.0.8 (2018-08-01)
+
+### Erweiterungen :
+* Fix Bug: Der Korbbetrag ist null.
+
+## Veröffentlichung 1.0.9 (2018-10-26)
+
+### Erweiterungen :
+* Implementieren Sie die paysafecash-Zahlungsmethode.
+
+## Veröffentlichung 1.0.10 (2018-12-11)
+
+### Erweiterungen :
+* Reparieren Sie Fehler Rückerstattung Zahlung.
+* Fix Bug: Falsche Weiterleitungsseite, wenn nach Erfolg der Zahlung aktualisiert wurde

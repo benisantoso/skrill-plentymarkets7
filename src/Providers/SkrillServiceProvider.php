@@ -19,6 +19,7 @@ use Plenty\Plugin\ServiceProvider;
 
 use Skrill\Services\PaymentService;
 use Skrill\Helper\PaymentHelper;
+use Skrill\Methods\PchPaymentMethod;
 use Skrill\Methods\AccPaymentMethod;
 use Skrill\Methods\AciPaymentMethod;
 use Skrill\Methods\AdbPaymentMethod;
@@ -87,6 +88,7 @@ class SkrillServiceProvider extends ServiceProvider
 					PaymentMethodRepositoryContract $paymentMethodService,
 					EventProceduresService $eventProceduresService
 	) {
+		$this->registerPaymentMethod($payContainer, 'SKRILL_PCH', PchPaymentMethod::class);
 		$this->registerPaymentMethod($payContainer, 'SKRILL_APM', ApmPaymentMethod::class);
 		$this->registerPaymentMethod($payContainer, 'SKRILL_WLT', WltPaymentMethod::class);
 		$this->registerPaymentMethod($payContainer, 'SKRILL_PSC', PscPaymentMethod::class);

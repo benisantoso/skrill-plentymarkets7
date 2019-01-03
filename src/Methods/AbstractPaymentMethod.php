@@ -218,7 +218,6 @@ class AbstractPaymentMethod extends PaymentMethodService
 		$session = pluginApp(FrontendSessionStorageFactoryContract::class);
 		$lang = $session->getLocaleSettings()->language;
 		$name = '';
-
 		if (array_key_exists('language', $this->paymentService->settings))
 		{
 			if (array_key_exists($lang, $this->paymentService->settings['language']))
@@ -234,7 +233,6 @@ class AbstractPaymentMethod extends PaymentMethodService
 		{
 			return $this->name;
 		}
-
 		return $name;
 	}
 
@@ -258,7 +256,6 @@ class AbstractPaymentMethod extends PaymentMethodService
 	{
 		$app = pluginApp(Application::class);
 		$icon = $app->getUrlPath('skrill').'/images/logos/'.$this->getLogoFileName();
-
 		return $icon;
 	}
 

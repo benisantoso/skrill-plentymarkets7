@@ -49,3 +49,26 @@
 
 #### Features :
 * Fix Bug : Wrong redirect page if refresh after payment success
+
+## Release 1.0.7 (2018-06-07)
+
+#### Features :
+* Fix Bug : update order status.
+* Fix issues automaticaly email customer.
+* Change sofort logo and name.
+
+## Release 1.0.8 (2018-08-01)
+
+#### Features :
+* Fix Bug : basket amount is null.
+
+## Release 1.0.9 (2018-10-26)
+
+#### Features :
+* Implement paysafecash payment method.
+
+## Release 1.0.10 (2018-12-11)
+
+#### Features :
+* Fix bugs refund payment.
+* Fix Bug : Wrong redirect page if refresh after payment success

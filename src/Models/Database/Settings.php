@@ -20,6 +20,10 @@ class Settings extends Model
 	const AVAILABLE_LANGUAGES = array('de', 'en');
 
 	const AVAILABLE_PAYMENT_METHODS = array(
+		'skrill_pch' => array(
+			'de' => array('paymentName' => 'Paysafecash'),
+			'en' => array('paymentName' => 'Paysafecash'),
+		),
 		'skrill_apm' => array(
 			'de' => array('paymentName' => 'Alle Karten und alternativen Zahlungsmethoden'),
 			'en' => array('paymentName' => 'All Cards and Alternative Payment Methods'),
@@ -82,7 +86,7 @@ class Settings extends Model
 		),
 		'skrill_sft' => array(
 			'de' => array('paymentName' => 'Sofort'),
-			'en' => array('paymentName' => 'Sofort'),
+			'en' => array('paymentName' => 'Online Bank Transfer'),
 		),
 		'skrill_ebt' => array(
 			'de' => array('paymentName' => 'Nordea Solo'),

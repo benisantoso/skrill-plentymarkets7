@@ -8,10 +8,10 @@ use Skrill\Helper\PaymentHelper;
 /**
 * Migration to create payment methods
 *
-* Class CreatePaymentMethod
+* Class CreatePaymentMethod_1_0_9
 * @package Skrill\Migrations
 */
-class CreatePaymentMethod
+class CreatePaymentMethod_1_0_9
 {
 	/**
 	 * @var PaymentMethodRepositoryContract
@@ -24,7 +24,7 @@ class CreatePaymentMethod
 	private $paymentHelper;
 
 	/**
-	 * CreatePaymentMethod constructor.
+	 * CreatePaymentMethod_1_0_9 constructor.
 	 *
 	 * @param PaymentMethodRepositoryContract $paymentMethodRepository
 	 * @param PaymentHelper $paymentHelper
@@ -42,6 +42,7 @@ class CreatePaymentMethod
 	 */
 	public function run()
 	{
+		$this->createPaymentMethodByPaymentKey('SKRILL_PCH', 'Paysafecash');
 		$this->createPaymentMethodByPaymentKey('SKRILL_APM', 'All Cards and Alternative Payment Methods');
 		$this->createPaymentMethodByPaymentKey('SKRILL_WLT', 'Skrill Wallet');
 		$this->createPaymentMethodByPaymentKey('SKRILL_PSC', 'Paysafecard');

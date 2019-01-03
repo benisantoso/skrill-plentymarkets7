@@ -181,6 +181,12 @@
                                 "menu": "settings/orders/skrill",
                                 "urlKey": "settings-skrill-btc",
                                 "entryPoint": "index.html?action=skrill_btc"
+                            },
+                            {
+                                "label": "Paysafecash",
+                                "menu": "settings/orders/skrill",
+                                "urlKey": "settings-skrill-pch",
+                                "entryPoint": "index.html?action=skrill_pch"
                             }
                           ]
 }

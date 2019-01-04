@@ -71,4 +71,8 @@
 
 ### Erweiterungen :
 * Reparieren Sie Fehler Rückerstattung Zahlung.
-* Fix Bug: Falsche Weiterleitungsseite, wenn nach Erfolg der Zahlung aktualisiert wurde
+
+## Veröffentlichung 1.0.11 (2019-01-04)
+
+### Erweiterungen :
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.

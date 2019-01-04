@@ -71,4 +71,8 @@
 
 #### Features :
 * Fix bugs refund payment.
-* Fix Bug : Wrong redirect page if refresh after payment success
+
+## Release 1.0.11 (2019-01-04)
+
+#### Features :
+* update user_gude_de and user_guide_en files

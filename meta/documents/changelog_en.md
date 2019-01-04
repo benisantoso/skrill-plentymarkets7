@@ -71,3 +71,8 @@
 
 #### Features :
 * Fix bugs refund payment.
+
+## Release 1.0.11 (2019-01-04)
+
+#### Features :
+* update user_gude_de and user_guide_en files

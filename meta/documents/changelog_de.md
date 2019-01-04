@@ -71,3 +71,8 @@
 
 ### Erweiterungen :
 * Reparieren Sie Fehler Rückerstattung Zahlung.
+
+## Veröffentlichung 1.0.11 (2019-01-04)
+
+### Erweiterungen :
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.

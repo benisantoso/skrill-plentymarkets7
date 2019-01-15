@@ -76,3 +76,8 @@
 
 ### Erweiterungen :
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+
+## Veröffentlichung 1.0.12 (2019-01-15)
+
+### Erweiterungen :
+* Fehlerbehebung: Probleme mit dem Logo-URL-Feld.

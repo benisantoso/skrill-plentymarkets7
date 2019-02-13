@@ -81,3 +81,8 @@
 
 #### Features :
 * Bug fix: Issues with logo URL field.
+
+## Release 1.0.12 (2019-02-13)
+
+#### Features :
+* Bug fix: change BasketAmount to invoiceTotal.

@@ -81,3 +81,8 @@
 
 ### Erweiterungen :
 * Fehlerbehebung: Probleme mit dem Logo-URL-Feld.
+
+## Veröffentlichung 1.0.12 (2019-02-13)
+
+### Erweiterungen :
+* Fehlerbehebung: Ändern Sie BasketBetrag in rechnungssumme.

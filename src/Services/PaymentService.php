@@ -227,7 +227,7 @@ class PaymentService
 			'postal_code' => $billingAddress['postalCode'],
 			'city' => $billingAddress['city'],
 			'country' => $billingAddress['country'],
-			'amount' => $basketData->basketAmount,
+			'amount' => $orderData->order->amounts[0]->invoiceTotal,
 			'currency' => $basketData->currency,
 			'detail1_description' => 'Order',
 			'detail1_text' => $orderId,

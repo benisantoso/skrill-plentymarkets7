@@ -51,8 +51,8 @@
 				</div>
 				<div class="div-separator clear"></div>
 				<div>
-					<label for="Logo Url">{{ trans('Skrill::Settings.SKRILL_BACKEND_LOGO', [], 'messages', locale) }}</label>
-					<input type="text" class="input-text" name="logoUrl" value="{{ setting.logoUrl }}"/>
+					<label for="Logo Url">{{ trans('Skrill::Settings.SKRILL_BACKEND_LOGO', [], 'messages', locale) }} *</label>
+					<input type="text" class="input-text" name="logoUrl" value="{{ setting.logoUrl }}" required />
 				</div>
 				<div class="clear"></div>
 				<div class="div-tooltips">

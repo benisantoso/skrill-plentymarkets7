@@ -75,4 +75,14 @@
 ## Release 1.0.11 (2019-01-04)
 
 #### Features :
-* update user_gude_de and user_guide_en files
+* update user_gude_de and user_guide_en files.
+
+## Release 1.0.12 (2019-01-15)
+
+#### Features :
+* Bug fix: Issues with logo URL field.
+
+## Release 1.0.12 (2019-02-13)
+
+#### Features :
+* Bug fix: change BasketAmount to invoiceTotal.

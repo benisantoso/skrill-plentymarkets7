@@ -86,3 +86,8 @@
 
 ### Erweiterungen :
 * Fehlerbehebung: Ändern Sie BasketBetrag in rechnungssumme.
+
+## Veröffentlichung 1.0.13 (2019-03-01)
+
+### Erweiterungen :
+* Fehlerbehebung: Problem zwischen der ausgewählten Shopsprache und der Skril Gateway-Sprache

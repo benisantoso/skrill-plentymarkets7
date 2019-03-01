@@ -86,3 +86,8 @@
 
 #### Features :
 * Bug fix: change BasketAmount to invoiceTotal.
+
+## Release 1.0.13 (2019-03-01)
+
+#### Features :
+* Bug fix: Issue between selected shop language and Skril Gateway language

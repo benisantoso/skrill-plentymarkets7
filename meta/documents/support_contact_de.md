@@ -1,11 +1,7 @@
 ## Webseite
 
-[https://www.skrill.com/de/](https://www.skrill.com/de/)
+[https://www.skrill.com/de/geschaeftlich/](https://www.skrill.com/de/geschaeftlich/)
 
 ## Email Addresses
 
 newbusiness@paysafe.com
-
-## Phone Numbers
-
-+44 2083389332

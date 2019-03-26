@@ -91,3 +91,13 @@
 
 ### Erweiterungen :
 * Fehlerbehebung: Problem zwischen der ausgewählten Shopsprache und der Skril Gateway-Sprache
+
+## Veröffentlichung 1.0.14 (2019-03-08)
+
+### Erweiterungen :
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+
+## Veröffentlichung 1.0.14 (2019-03-13)
+
+### Erweiterungen :
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.

@@ -101,3 +101,8 @@
 
 #### Features :
 * update user_gude_de and user_guide_en files.
+
+## Release 1.0.15 (2019-03-26)
+
+#### Features :
+* update user_gude_de and user_guide_en files.

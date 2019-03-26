@@ -101,3 +101,8 @@
 
 ### Erweiterungen :
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+
+## Veröffentlichung 1.0.15 (2019-03-26)
+
+### Erweiterungen :
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.

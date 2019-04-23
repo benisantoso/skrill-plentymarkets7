@@ -112,7 +112,8 @@
 ### Erweiterungen :
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 
-## Veröffentlichung 1.0.15 (2019-04-22)
+## Veröffentlichung 1.0.15 (2019-04-23)
 
 ### Erweiterungen :
 * Behebung von Problemen beim Überschreiben von Container-Links.
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.

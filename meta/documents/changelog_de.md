@@ -116,3 +116,13 @@
 
 ### Erweiterungen :
 * Behebung von Problemen beim Überschreiben von Container-Links.
+
+## Veröffentlichung 1.0.16 (2019-04-29)
+
+### Erweiterungen :
+* Hinzufügen der Skrill-Supportfunktion für mehrere Shops.
+
+## Veröffentlichung 1.0.17 (2019-05-13)
+
+### Erweiterungen :
+* Hinzufügen der Skrill-Supportfunktion für mehrere Shops.

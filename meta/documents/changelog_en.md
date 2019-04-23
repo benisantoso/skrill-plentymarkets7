@@ -116,3 +116,13 @@
 
 #### Features :
 * fix issues override Container-links.
+
+## Release 1.0.16 (2019-04-29)
+
+#### Features :
+* adding Skrill support feature for multiple shop.
+
+## Release 1.0.17 (2019-05-13)
+
+#### Features :
+* adding Skrill support feature for multiple shop.

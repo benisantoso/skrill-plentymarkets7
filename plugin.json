@@ -3,7 +3,7 @@
     "marketplaceName": {"de":"Skrill", "en":"Skrill"},
     "namespace": "Skrill",
     "type": "payment",
-    "version": "1.0.14",
+    "version": "1.0.15",
     "license": "OSL-3.0",
     "pluginIcon": "icon_plugin_xs.png",
     "price": 0.00,
@@ -28,12 +28,19 @@
     "phone": "+44 2083389332",
     "serviceProvider": "Skrill\\Providers\\SkrillServiceProvider",
     "containers"        : [],
-    "dataProviders"     : [],
     "javaScriptFiles"   : [],
     "require"           : [],
     "dependencies"      : [],
     "runOnBuild"        : [
         "Skrill\\Migrations\\CreatePaymentMethod_1_0_9",
         "Skrill\\Migrations\\CreateSkrillTables_1_0_9"
+    ],
+    "dataProviders"     :
+    [
+        {
+            "key":"Skrill\\Containers\\SkrillPaymentsContainers",
+            "name":"Skrill Payment Method",
+            "description":"To Show the Skrill Payment Method"
+        }
     ]
 }

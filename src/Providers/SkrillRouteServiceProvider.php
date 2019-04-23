@@ -31,8 +31,11 @@ class SkrillRouteServiceProvider extends RouteServiceProvider
 						}
 		);
 
-		// Routes for display Skrill settings
-		$router->get('skrill/settings/{settingType}', 'Skrill\Controllers\SettingsController@loadConfiguration');
+		// Routes for display Shop Client
+		$router->get('skrill/settings/{settingType}', 'Skrill\Controllers\SettingsController@loadShopClient');
+
+		// Routes for display Skrill Configuration
+		$router->get('skrill/configuration/{clientId}/{settingType}', 'Skrill\Controllers\SettingsController@loadConfiguration');
 
 		// Routes for save Skrill settings
 		$router->post('skrill/settings/save', 'Skrill\Controllers\SettingsController@saveConfiguration');

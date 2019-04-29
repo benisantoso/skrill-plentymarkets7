@@ -128,20 +128,31 @@ class SettingsService extends DatabaseBaseService
 	public function getClients()
 	{
 		$webstoreRepository = pluginApp(WebstoreRepositoryContract::class);
-
-		$clients = array();
-
 		$result = $webstoreRepository->loadAll();
+
+		return $result;
+	}
+
+	/**
+	 * Get clients ID of the system
+	 *
+	 * @return array
+	 */
+	public function getClientsId()
+	{
+		$clientsId = array();
+
+		$result = $this->getClients();
 
 		foreach ($result as $record)
 		{
 			if ($record->storeIdentifier > 0)
 			{
-				$clients[] = $record->storeIdentifier;
+				$clientsId[] = $record->storeIdentifier;
 			}
 		}
 
-		return $clients;
+		return $clientsId;
 	}
 
 	/**
@@ -150,7 +161,7 @@ class SettingsService extends DatabaseBaseService
 	 */
 	public function setInitialSettings()
 	{
-		$clients = $this->getClients();
+		$clients = $this->getClientsId();
 		$paymentMethods = Settings::AVAILABLE_PAYMENT_METHODS;
 
 		foreach ($clients as $plentyId)

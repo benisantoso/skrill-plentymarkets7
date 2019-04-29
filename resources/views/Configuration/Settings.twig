@@ -8,7 +8,7 @@
 <script type="text/javascript" src="{{ plugin_path('Skrill') }}/js/settings.js" ></script>
 </head>
 <body>
-
+	<div id="loader" style="width: 100%; height: 100%; z-index:10000; position:fixed; display:none; opacity: 0.8; background:#000 url('{{ plugin_path('Skrill') }}/images/assets/loader.gif') center center no-repeat;"></div>
 {% if settingType is not empty %}
 	<h3>{{ trans('Skrill::Settings.' ~ settingType ~ '_title', [], 'messages', locale) }}</h3>
 		<div class="message success" id="successMessage" style="display: none;">
@@ -17,8 +17,16 @@
 		<div class="message failed" id="errorMessage" style="display: none;">
 			{{ trans('Skrill::Settings.ERROR_GENERAL_SAVE_SETTINGS', [], 'messages', locale) }}
 		</div>
-
-	<div id="skrillSettings">
+	<div class="skrill-client">
+		<ul class="shop-client">
+			{% for key, values in clients %}
+				<li class="shop-client-item" client-id="{{ values.storeIdentifier }}" setting-type="{{ settingType }}">
+					<a href="javascript:void(0)">{{ values.name }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div id="skrillSettings" style="display: none;">
 		<form method="post" name="saveSettings" id="saveSettings" class="settings">
 			<input type="hidden" name="settingType" value="{{ settingType }}" />
 			<input type="hidden" name="plentyId" value="{{ plentyId }}" />
@@ -170,21 +178,13 @@
 					<div class="div-separator clear"></div>
 					<div>
 						<label for="Enabled">{{ trans('Skrill::Settings.BACKEND_CH_ACTIVE', [], 'messages', locale) }}</label>
-						{% if setting.enabled == 1 %}
-							<input type="checkbox" name="enabled" value="1" checked />
-						{% else %}
-							<input type="checkbox" name="enabled" value="1"/>
-						{% endif %}
+						<input type="checkbox" name="enabled" id="enabled" value="1"/>
 					</div>
 				{% endif %}
 				<div class="div-separator clear"></div>
 				<div>
 					<label for="Show Separately">{{ trans('Skrill::Settings.SKRILL_BACKEND_PM_MODE', [], 'messages', locale) }}</label>
-					{% if setting.showSeparately %}
-						<input type="checkbox" name="showSeparately" value="1" checked="checked" />
-					{% else %}
-						<input type="checkbox" name="showSeparately" value="1"/>
-					{% endif %}
+					<input type="checkbox" name="showSeparately" id="showSeparately" value="1"/>
 				</div>
 			{% endif %}
 			<div class="div-separator clear"></div>

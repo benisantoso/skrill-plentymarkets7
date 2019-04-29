@@ -66,6 +66,43 @@ img {
     border-color: #ebcccc;
     color: #a94442;
 }
+
+/* Stile for Button client Shop listed */
+.skrill-client {
+    float: left;
+    width: 20%;
+}
+
+#skrillSettings {
+    float: right;
+    width: 80%;
+}
+
+li.shop-client-item {
+    list-style: none;
+    text-align: center;
+    background: #5b5d66;
+    color: white;
+    line-height: 35px;
+    width: 220px;
+    margin-top: 2px;
+}
+
+li.shop-client-item > a {
+    text-decoration: none;
+    color: white;
+}
+
+li.shop-client-item:hover, li.shop-client-item.active {
+    list-style: none;
+    text-align: center;
+    background: #0cb3e6;
+    color: white;
+    line-height: 35px;
+    width: 220px;
+    margin-top: 2px !important;
+}
+
 @media screen and (max-width: 768px) {
 	.div-tooltips {
 		margin-left: 0px;

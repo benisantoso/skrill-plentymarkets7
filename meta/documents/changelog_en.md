@@ -117,3 +117,8 @@
 #### Features :
 * fix issues override Container-links.
 * update user_gude_de and user_guide_en files.
+
+## Release 1.0.16 (2019-05-07)
+
+#### Features :
+* add IO plugin as requiered in the plugin.json.

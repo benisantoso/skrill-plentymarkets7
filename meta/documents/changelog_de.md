@@ -117,12 +117,17 @@
 ### Erweiterungen :
 * Behebung von Problemen beim Überschreiben von Container-Links.
 
-## Veröffentlichung 1.0.16 (2019-04-29)
+## Veröffentlichung 1.0.16 (2019-05-07)
 
 ### Erweiterungen :
-* Hinzufügen der Skrill-Supportfunktion für mehrere Shops.
+* Fügen Sie das IO Plugin nach Bedarf in plugin.json hinzu.
 
 ## Veröffentlichung 1.0.17 (2019-05-13)
 
 ### Erweiterungen :
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 * Hinzufügen der Skrill-Supportfunktion für mehrere Shops.
+* Problem mit der Cash / Invoice-Backend-Ansicht behoben
+* Problem mit aktivierten / deaktivierten Zahlungsmethoden behoben
+* Problem mit dem angemeldeten Kunden beheben und zur Kasse gehen
+* Problem beim Minimieren des Browserfensters behoben und versuchen, Skrill-Zahlungsmethoden in Plenty Admin zu öffnen

@@ -8,14 +8,14 @@ function changeLanguage(language) {
 	document.getElementById('skrillPaymentName'+jsUcfirst(language)).style.display = 'block';
 }
 
-var shopClientList = document.querySelectorAll('.shop-client-item');
-[].forEach.call(shopClientList, function(elm){
+var shopClientItems = document.querySelectorAll('.shop-client-item');
+[].forEach.call(shopClientItems, function(elm){
 	$(elm).click(function() {
 		$('#loader').show();
 		$('#saveSettings')[0].reset();
 		var settingType = $(this).attr('setting-type');
 		var clientId = $(this).attr('client-id');
-		$(shopClientList).removeClass('active');
+		$(shopClientItems).removeClass('active');
 		$(this).addClass('active');
 		$.ajax({
 			url : '/skrill/configuration/'+clientId+'/'+settingType+'/',

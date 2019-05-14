@@ -117,12 +117,17 @@
 #### Features :
 * fix issues override Container-links.
 
-## Release 1.0.16 (2019-04-29)
+## Release 1.0.16 (2019-05-07)
 
 #### Features :
-* adding Skrill support feature for multiple shop.
+* add IO plugin as requiered in the plugin.json.
 
 ## Release 1.0.17 (2019-05-13)
 
 #### Features :
+* update user_gude_de and user_guide_en files.
 * adding Skrill support feature for multiple shop.
+* fix Cash / Invoice backend view issue
+* fix Issue with enable/disable payment methods
+* fix issue with logged customer and proceed to checkout
+* fix issue when minimize browser window and try to open Skrill payment methods in Plenty Admin

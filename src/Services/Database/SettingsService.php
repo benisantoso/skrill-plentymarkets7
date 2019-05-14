@@ -142,9 +142,9 @@ class SettingsService extends DatabaseBaseService
 	{
 		$clientsId = array();
 
-		$result = $this->getClients();
+		$clients = $this->getClients();
 
-		foreach ($result as $record)
+		foreach ($clients as $record)
 		{
 			if ($record->storeIdentifier > 0)
 			{
@@ -161,10 +161,10 @@ class SettingsService extends DatabaseBaseService
 	 */
 	public function setInitialSettings()
 	{
-		$clients = $this->getClientsId();
+		$clientsId = $this->getClientsId();
 		$paymentMethods = Settings::AVAILABLE_PAYMENT_METHODS;
 
-		foreach ($clients as $plentyId)
+		foreach ($clientsId as $plentyId)
 		{
 			foreach ($paymentMethods as $key => $value)
 			{

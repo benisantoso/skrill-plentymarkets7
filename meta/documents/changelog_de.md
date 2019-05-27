@@ -123,7 +123,8 @@
 ### Erweiterungen :
 * Fügen Sie das IO Plugin nach Bedarf in plugin.json hinzu.
 
-## Veröffentlichung 1.0.17 (2019-05-13)
+## Veröffentlichung 1.0.17 (2019-05-27)
 
 ### Erweiterungen :
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.

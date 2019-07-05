@@ -39,6 +39,14 @@ class AdbPaymentMethod extends AbstractPaymentMethod
 	 */
 	public function getDescription()
 	{
-		return 'Banco Santander Rio | Banco Itau | Banco do Brasil | Banco Bradesco';
+		switch ($this->getBillingCountryCode()) {
+			case 'BRA':
+				return 'Banco Bradesco | Banco do Brasil | Banco Itau';
+				break;
+			
+			default:
+				return 'Banco Santander Rio';
+				break;
+		}
 	}
 }

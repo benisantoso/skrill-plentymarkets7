@@ -129,3 +129,8 @@
 * update user_gude_de and user_guide_en files.
 * update user_gude_de and user_guide_en files.
 * update user_gude_de and user_guide_en files.
+
+## Release 1.0.18 (2019-07-05)
+
+#### Features :
+* make Astropay to show up the logos per country.

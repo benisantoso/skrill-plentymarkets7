@@ -117,3 +117,8 @@
 ### Erweiterungen :
 * Behebung von Problemen beim Überschreiben von Container-Links.
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+
+## Veröffentlichung 1.0.16 (2019-05-07)
+
+### Erweiterungen :
+* Fügen Sie das IO Plugin nach Bedarf in plugin.json hinzu.

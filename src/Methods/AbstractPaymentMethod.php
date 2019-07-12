@@ -192,12 +192,21 @@ class AbstractPaymentMethod extends PaymentMethodService
 		return false;
 	}
 
-
+	/**
+	 * get Customer invoice Address ID
+	 *
+	 * @return int
+	 */
 	protected function getCustomerInvoiceAddressId()
 	{
 		return $this->checkout->getCustomerInvoiceAddressId();
 	}
 
+	/**
+	 * get Billing Country ID
+	 *
+	 * @return string/boolean
+	 */
 	protected function getBillingCountryCode()
 	{
 		if ($this->getCustomerInvoiceAddressId()) {

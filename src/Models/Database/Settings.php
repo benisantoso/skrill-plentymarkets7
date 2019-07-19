@@ -85,8 +85,8 @@ class Settings extends Model
 			'en' => array('paymentName' => 'Direct Debit / ELV'),
 		),
 		'skrill_sft' => array(
-			'de' => array('paymentName' => 'Sofort'),
-			'en' => array('paymentName' => 'Online Bank Transfer'),
+			'de' => array('paymentName' => 'Klarna'),
+			'en' => array('paymentName' => 'Klarna'),
 		),
 		'skrill_ebt' => array(
 			'de' => array('paymentName' => 'Nordea Solo'),
@@ -125,7 +125,7 @@ class Settings extends Model
 			'en' => array('paymentName' => 'Cash / Invoice'),
 		),
 		'skrill_adb' => array(
-			'de' => array('paymentName' => 'Sofort Bank-Überweisung'),
+			'de' => array('paymentName' => 'Direkt Bank-Überweisung'),
 			'en' => array('paymentName' => 'Direct Bank Transfer'),
 		),
 		'skrill_aob' => array(

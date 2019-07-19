@@ -135,3 +135,4 @@
 ### Erweiterungen :
 * Lassen Sie Astropay die Logos pro Land anzeigen.
 * Fügen Sie Belgien, Bulgarien, Estland, Lettland, die Niederlande und die USA als unterstützte Länder für Rapid Transfer hinzu.
+* Aktualisieren Sie das Sofort-Logo mit dem Klarna-Logo

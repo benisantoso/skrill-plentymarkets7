@@ -58,7 +58,7 @@ class CreatePaymentMethod_1_0_9
 		$this->createPaymentMethodByPaymentKey('SKRILL_OBT', 'Rapid Transfer');
 		$this->createPaymentMethodByPaymentKey('SKRILL_GIR', 'Giropay');
 		$this->createPaymentMethodByPaymentKey('SKRILL_DID', 'Direct Debit / ELV');
-		$this->createPaymentMethodByPaymentKey('SKRILL_SFT', 'Sofort');
+		$this->createPaymentMethodByPaymentKey('SKRILL_SFT', 'Klarna');
 		$this->createPaymentMethodByPaymentKey('SKRILL_EBT', 'Nordea Solo');
 		$this->createPaymentMethodByPaymentKey('SKRILL_IDL', 'iDEAL');
 		$this->createPaymentMethodByPaymentKey('SKRILL_NPY', 'EPS (Netpay)');

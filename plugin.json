@@ -19,7 +19,7 @@
         "Payment Gateway",
         "Debit Cards",
         "Payment Method",
-        "Sofort",
+        "Klarna",
         "Giropay"
     ],
     "author": "PAYRETO GmbH",
@@ -32,8 +32,8 @@
     "require"           : ["IO"],
     "dependencies"      : [],
     "runOnBuild"        : [
-        "Skrill\\Migrations\\CreatePaymentMethod_1_0_9",
-        "Skrill\\Migrations\\CreateSkrillTables_1_0_9"
+        "Skrill\\Migrations\\CreatePaymentMethod_1_0_18",
+        "Skrill\\Migrations\\CreateSkrillTables_1_0_18"
     ],
     "dataProviders"     :
     [

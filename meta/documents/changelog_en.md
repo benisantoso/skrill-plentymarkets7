@@ -122,3 +122,10 @@
 
 #### Features :
 * add IO plugin as requiered in the plugin.json.
+
+## Release 1.0.17 (2019-06-28)
+
+#### Features :
+* update user_gude_de and user_guide_en files.
+* update user_gude_de and user_guide_en files.
+* update user_gude_de and user_guide_en files.

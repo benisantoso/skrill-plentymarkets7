@@ -136,3 +136,4 @@
 * make Astropay to show up the logos per country.
 * Add Belgium, Bulgaria, Estonia, Latvia, Netherlands, USA as supported countries for Rapid Transfer
 * Update Sofort logo with Klarna logo
+* order all new countries by name for Rapid Transfer

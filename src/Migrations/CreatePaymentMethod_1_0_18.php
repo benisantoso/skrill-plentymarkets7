@@ -8,10 +8,10 @@ use Skrill\Helper\PaymentHelper;
 /**
 * Migration to create payment methods
 *
-* Class CreatePaymentMethod_1_0_9
+* Class CreatePaymentMethod_1_0_18
 * @package Skrill\Migrations
 */
-class CreatePaymentMethod_1_0_9
+class CreatePaymentMethod_1_0_18
 {
 	/**
 	 * @var PaymentMethodRepositoryContract
@@ -24,7 +24,7 @@ class CreatePaymentMethod_1_0_9
 	private $paymentHelper;
 
 	/**
-	 * CreatePaymentMethod_1_0_9 constructor.
+	 * CreatePaymentMethod_1_0_18 constructor.
 	 *
 	 * @param PaymentMethodRepositoryContract $paymentMethodRepository
 	 * @param PaymentHelper $paymentHelper

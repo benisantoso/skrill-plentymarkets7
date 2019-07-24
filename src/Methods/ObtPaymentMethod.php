@@ -21,8 +21,8 @@ class ObtPaymentMethod extends AbstractPaymentMethod
 	 * @var allowedBillingCountries
 	 */
 	protected $allowedBillingCountries = array(
-		'AUT','DNK','FIN','FRA','DEU','HUN','ITA','NOR','POL','PRT','ESP','SWE',
-		'GBR','BEL','BGR','EST','LVA','NLD','USA'
+		'AUT','BEL','BGR','DNK','ESP','EST','FIN','FRA','DEU','HUN',
+		'ITA','LVA','NLD','NOR','POL','PRT','SWE','GBR','USA'
 	);
 
 	/**

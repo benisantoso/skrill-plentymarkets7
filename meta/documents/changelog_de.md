@@ -137,3 +137,4 @@
 * Fügen Sie Belgien, Bulgarien, Estland, Lettland, die Niederlande und die USA als unterstützte Länder für Rapid Transfer hinzu.
 * Aktualisieren Sie das Sofort-Logo mit dem Klarna-Logo
 * Bestellen Sie alle neuen Länder mit Namen für Rapid Transfer
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.

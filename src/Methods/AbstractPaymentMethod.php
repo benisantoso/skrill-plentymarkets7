@@ -5,6 +5,7 @@ namespace Skrill\Methods;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodService;
 use Plenty\Modules\Frontend\Contracts\Checkout;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 use Plenty\Plugin\Application;
 use Plenty\Plugin\Log\Loggable;
 use Skrill\Services\PaymentService;
@@ -16,6 +17,10 @@ use Skrill\Services\PaymentService;
 class AbstractPaymentMethod extends PaymentMethodService
 {
 	use Loggable;
+	
+	const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_REDIRECT_URL;
+    const INITIALIZE_PAYMENT = true;
+    const FORM_TEMPLATE = 'Skrill::Payment.PaymentWidget';
 
 	/**
 	 * @var Checkout
@@ -92,233 +97,265 @@ class AbstractPaymentMethod extends PaymentMethodService
 	}
 
 	/**
-	 * Check whether the payment setting is enabled
-	 *
-	 * @return bool
-	 */
-	protected function isEnabled()
-	{
-		if (array_key_exists('enabled', $this->paymentService->settings) && $this->paymentService->settings['enabled'] == 1)
-		{
-			return true;
-		}
-		return false;
-	}
+     * Check whether the payment setting is enabled
+     *
+     * @return bool
+     */
+    protected function isEnabled()
+    {
+        if (array_key_exists('enabled', $this->paymentService->settings) && $this->paymentService->settings['enabled'] == 1)
+        {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * Check whether the payment setting is show separately
-	 *
-	 * @return bool
-	 */
-	protected function isShowSeparately()
-	{
-		if (array_key_exists('showSeparately', $this->paymentService->settings) &&
-			$this->paymentService->settings['showSeparately'] == 1)
-		{
-			return true;
-		}
-		return false;
-	}
+    /**
+     * Check whether the payment setting is show separately
+     *
+     * @return bool
+     */
+    protected function isShowSeparately()
+    {
+        if (array_key_exists('showSeparately', $this->paymentService->settings) &&
+            $this->paymentService->settings['showSeparately'] == 1)
+        {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * get allowed billing countries
-	 *
-	 * @return array
-	 */
-	protected function getAllowedBillingCountries()
-	{
-		return $this->allowedBillingCountries;
-	}
+    /**
+     * get allowed billing countries
+     *
+     * @return array
+     */
+    protected function getAllowedBillingCountries()
+    {
+        return $this->allowedBillingCountries;
+    }
 
-	/**
-	 * get unallowed billing countries
-	 *
-	 * @return array
-	 */
-	protected function getUnallowedBillingCountries()
-	{
-		return $this->unallowedBillingCountries;
-	}
+    /**
+     * get unallowed billing countries
+     *
+     * @return array
+     */
+    protected function getUnallowedBillingCountries()
+    {
+        return $this->unallowedBillingCountries;
+    }
 
-	/**
-	 * get excepted billing countries
-	 *
-	 * @return array
-	 */
-	protected function getExceptedBillingCountries()
-	{
-		return $this->exceptedBillingCountries;
-	}
+    /**
+     * get excepted billing countries
+     *
+     * @return array
+     */
+    protected function getExceptedBillingCountries()
+    {
+        return $this->exceptedBillingCountries;
+    }
 
-	/**
-	 * get logo file name
-	 *
-	 * @return string
-	 */
-	protected function getLogoFileName()
-	{
-		return $this->logoFileName;
-	}
+    /**
+     * get logo file name
+     *
+     * @return string
+     */
+    protected function getLogoFileName()
+    {
+        return $this->logoFileName;
+    }
 
-	/**
-	 * check whether billing countries is allowed
-	 *
-	 * @return array
-	 */
-	protected function isBillingCountriesAllowed()
-	{
-		if (!empty($this->getBillingCountryCode()))
-		{
-			$billingCountryCode = $this->getBillingCountryCode();
+    /**
+     * check whether billing countries is allowed
+     *
+     * @return array
+     */
+    protected function isBillingCountriesAllowed()
+    {
+        if (!empty($this->getBillingCountryCode()))
+        {
+            $billingCountryCode = $this->getBillingCountryCode();
+            $unallowedBillingCountries = array_merge(
+                            $this->getUnallowedBillingCountries(),
+                            $this->getExceptedBillingCountries()
+            );
+            if (is_array($unallowedBillingCountries) && in_array($billingCountryCode, $unallowedBillingCountries))
+            {
+                return false;
+            }
+            $allowedBillingCountries = $this->getAllowedBillingCountries();
+            if (is_array($allowedBillingCountries) && in_array($billingCountryCode, $allowedBillingCountries))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-			$unallowedBillingCountries = array_merge(
-							$this->getUnallowedBillingCountries(),
-							$this->getExceptedBillingCountries()
-			);
+    /**
+     * get Customer invoice Address ID
+     *
+     * @return int
+     */
+    protected function getCustomerInvoiceAddressId()
+    {
+        return $this->checkout->getCustomerInvoiceAddressId();
+    }
 
-			if (is_array($unallowedBillingCountries) && in_array($billingCountryCode, $unallowedBillingCountries))
-			{
-				return false;
-			}
+    /**
+     * get Billing Country ID
+     *
+     * @return string/boolean
+     */
+    protected function getBillingCountryCode()
+    {
+        if ($this->getCustomerInvoiceAddressId()) {
+            return $this->paymentService->getBillingCountryCode($this->getCustomerInvoiceAddressId());
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Check whether the payment method is active
+     *
+     * @return bool
+     */
+    public function isActive()
+    {
+        if ($this->isEnabled() && $this->isShowSeparately() && $this->isBillingCountriesAllowed())
+        {
+            return true;
+        }
+        return false;
+    }
+ 
+    /**
+     * Get the name of the payment method
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        $session = pluginApp(FrontendSessionStorageFactoryContract::class);
+        $lang = $session->getLocaleSettings()->language;
+        $name = '';
+        if (array_key_exists('language', $this->paymentService->settings))
+        {
+            if (array_key_exists($lang, $this->paymentService->settings['language']))
+            {
+                if (array_key_exists('paymentName', $this->paymentService->settings['language'][$lang]))
+                {
+                    $name = $this->paymentService->settings['language'][$lang]['paymentName'];
+                }
+            }
+        }
+        if (!strlen($name))
+        {
+            return $this->name;
+        }
+        return $name;
+    }
+ 
+    /**
+     * Get the path of the icon
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        $billingCountryCode = $this->getBillingCountryCode();
+        $app = pluginApp(Application::class);
+        if ($this->settingsType == 'skrill_aob'
+            || $this->settingsType == 'skrill_aci'
+            || $this->settingsType == 'skrill_adb'
+        ) {
+            $logoFileName = strtoupper(substr($this->settingsType, 7)).'_'.$billingCountryCode.'.png';
+        } else {
+            $logoFileName = $this->getLogoFileName();
+        }
+        $icon = $app->getUrlPath('skrill').'/images/logos/'.$logoFileName;
+        return $icon;
+    }
+ 
+    /**
+     * Get the description of the payment method. The description can be entered in the config.json.
+     *
+     * @param ConfigRepository $configRepository
+     * @return string
+     */
+    public function getDescription():string
+    {
+        return '';
+    }
 
-			$allowedBillingCountries = $this->getAllowedBillingCountries();
+    /**
+     * @inheritdoc
+     */
+    public function isExpressCheckout(): bool
+    {
+        return false;
+    }
 
-			if (is_array($allowedBillingCountries) && in_array($billingCountryCode, $allowedBillingCountries))
-			{
-				return true;
-			}
-		}
+    /**
+     * @inheritdoc
+     */
+    public function getFee(): float
+    {
+        return 0.00;
+    }
 
-		return false;
-	}
+    /**
+     * @inheritdoc
+     */
+    public function isSelectable(): bool
+    {
+        return true;
+    }
 
-	/**
-	 * get Customer invoice Address ID
-	 *
-	 * @return int
-	 */
-	protected function getCustomerInvoiceAddressId()
-	{
-		return $this->checkout->getCustomerInvoiceAddressId();
-	}
+    /**
+     * @inheritdoc
+     */
+    public function isSwitchableTo(): bool
+    {
+        return false;
+    }
 
-	/**
-	 * get Billing Country ID
-	 *
-	 * @return string/boolean
-	 */
-	protected function getBillingCountryCode()
-	{
-		if ($this->getCustomerInvoiceAddressId()) {
-			return $this->paymentService->getBillingCountryCode($this->getCustomerInvoiceAddressId());
-		} else {
-			return false;
-		}
-	}
+    /**
+     * @inheritdoc
+     */
+    public function isSwitchableFrom(): bool
+    {
+        return false;
+    }
 
-	/**
-	 * Check whether the payment method is active
-	 *
-	 * @return bool
-	 */
-	public function isActive()
-	{
-		if ($this->isEnabled() && $this->isShowSeparately() && $this->isBillingCountriesAllowed())
-		{
-			return true;
-		}
-		return false;
-	}
+    /**
+     * Returns the type of the result returned by the payment method initialization.
+     *
+     * @return string
+     */
+    public function getReturnType(): string
+    {
+        return static::RETURN_TYPE;
+    }
 
-	/**
-	 * Get the name of the payment method
-	 *
-	 * @return string
-	 */
-	public function getName()
-	{
-		$session = pluginApp(FrontendSessionStorageFactoryContract::class);
-		$lang = $session->getLocaleSettings()->language;
-		$name = '';
-		if (array_key_exists('language', $this->paymentService->settings))
-		{
-			if (array_key_exists($lang, $this->paymentService->settings['language']))
-			{
-				if (array_key_exists('paymentName', $this->paymentService->settings['language'][$lang]))
-				{
-					$name = $this->paymentService->settings['language'][$lang]['paymentName'];
-				}
-			}
-		}
+    /**
+     * Returns true if the payment has to be initialized with transaction (i.e. to fetch redirect url).
+     *
+     * @return bool
+     */
+    public function hasToBeInitialized(): bool
+    {
+        return static::INITIALIZE_PAYMENT;
+    }
 
-		if (!strlen($name))
-		{
-			return $this->name;
-		}
-		return $name;
-	}
-
-	/**
-	 * Get additional costs for Skrill.
-	 * Skrill did not allow additional costs
-	 *
-	 * @return float
-	 */
-	public function getFee()
-	{
-		return $this->fee;
-	}
-
-	/**
-	 * Get the path of the icon
-	 *
-	 * @return string
-	 */
-	public function getIcon()
-	{
-		$billingCountryCode = $this->getBillingCountryCode();
-		$app = pluginApp(Application::class);
-		if ($this->settingsType == 'skrill_aob'
-			|| $this->settingsType == 'skrill_aci'
-			|| $this->settingsType == 'skrill_adb'
-		) {
-			$logoFileName = strtoupper(substr($this->settingsType, 7)).'_'.$billingCountryCode.'.png';
-		} else {
-			$logoFileName = $this->getLogoFileName();
-		}
-		$icon = $app->getUrlPath('skrill').'/images/logos/'.$logoFileName;
-		return $icon;
-	}
-
-	/**
-	 * Get the description of the payment method.
-	 *
-	 * @return string
-	 */
-	public function getDescription()
-	{
-		return '';
-	}
-
-	/**
-	 * Check if it is allowed to switch to this payment method
-	 *
-	 * @param int $orderId
-	 * @return bool
-	 */
-	public function isSwitchableTo($orderId)
-	{
-		return false;
-	}
-
-	/**
-	 * Check if it is allowed to switch from this payment method
-	 *
-	 * @param int $orderId
-	 * @return bool
-	 */
-	public function isSwitchableFrom($orderId)
-	{
-		return true;
-	}
+    /**
+     * Returns the template of the payment form.
+     *
+     * @return string
+     */
+    public function getFormTemplate(): string
+    {
+        return static::FORM_TEMPLATE;
+    }
 }

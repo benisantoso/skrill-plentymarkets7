@@ -3,6 +3,7 @@
 namespace Skrill\Methods;
 
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 
 /**
 * Class ApmPaymentMethod
@@ -12,10 +13,16 @@ class ApmPaymentMethod extends AbstractPaymentMethod
 {
 	use Loggable;
 
+	const KEY = 'SKRILL_APM';
+	const DEFAULT_NAME = 'All Credit Card and Alternative Payment Methods';
+	const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
+	const INITIALIZE_PAYMENT = true;
+    
+
 	/**
 	 * @var name
 	 */
-	protected $name = 'All Credit Card and Alternative Payment Methods';
+	protected $name = self::DEFAULT_NAME;
 
 	/**
 	 * @var logoFileName

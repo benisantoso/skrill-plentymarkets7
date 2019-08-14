@@ -3,6 +3,7 @@
 namespace Skrill\Models\Database;
 
 use Plenty\Modules\Plugin\DataBase\Contracts\Model;
+use Skrill\Constants\Plugin;
 
 /**
 * Class Settings
@@ -156,6 +157,6 @@ class Settings extends Model
 	 */
 	public function getTableName()
 	{
-		return 'Skrill::settings';
+		return Plugin::NAME . '::settings';
 	}
 }

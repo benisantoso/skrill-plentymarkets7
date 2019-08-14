@@ -147,12 +147,12 @@ class SkrillServiceProvider extends ServiceProvider
 						function (GetPaymentMethodContent $event) use ($paymentHelper, $basket, $paymentService, $paymentMethodService) {
 							if ($paymentHelper->isSkrillPaymentMopId($event->getMop()))
 							{
-								$content = $paymentService->getPaymentContent(
-												$basket->load(),
-												$paymentMethodService->findByPaymentMethodId($event->getMop())
-								);
-								$event->setValue(isset($content['content']) ? $content['content'] : null);
-								$event->setType(isset($content['type']) ? $content['type'] : '');
+								// $content = $paymentService->getPaymentContent(
+								// 				$basket->load(),
+								// 				$paymentMethodService->findByPaymentMethodId($event->getMop())
+								// );
+								$event->setValue('<p>Skrill Widget</p>');
+								$event->setType('htmlContent');
 							}
 						}
 		);

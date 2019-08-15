@@ -20,7 +20,7 @@ class AobPaymentMethod extends AbstractPaymentMethod
 	/**
 	 * @var allowedBillingCountries
 	 */
-	protected $allowedBillingCountries = array('BRA','CHL','CHN','COL');
+	protected $allowedBillingCountries = array('BRA','CHL','COL');
 
 	/**
 	 * @var logoFileName
@@ -39,6 +39,18 @@ class AobPaymentMethod extends AbstractPaymentMethod
 	 */
 	public function getDescription()
 	{
-		return 'HSBC | Caixa | Santander | PSEi | WebPay | Bancolombia';
+		switch ($this->getBillingCountryCode()) {
+			case 'BRA':
+				return 'Santander | Caixa | HSBC';
+				break;
+
+			case 'CHL':
+				return 'WebPay';
+				break;
+			
+			default:
+				return 'Bancolombia | PSEi';
+				break;
+		}
 	}
 }

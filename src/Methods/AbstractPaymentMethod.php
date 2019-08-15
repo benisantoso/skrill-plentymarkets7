@@ -167,11 +167,9 @@ class AbstractPaymentMethod extends PaymentMethodService
 	 */
 	protected function isBillingCountriesAllowed()
 	{
-		$customerInvoiceAddressId = $this->checkout->getCustomerInvoiceAddressId();
-
-		if (!empty($customerInvoiceAddressId))
+		if (!empty($this->getBillingCountryCode()))
 		{
-			$billingCountryCode = $this->paymentService->getBillingCountryCode($customerInvoiceAddressId);
+			$billingCountryCode = $this->getBillingCountryCode();
 
 			$unallowedBillingCountries = array_merge(
 							$this->getUnallowedBillingCountries(),
@@ -192,6 +190,30 @@ class AbstractPaymentMethod extends PaymentMethodService
 		}
 
 		return false;
+	}
+
+	/**
+	 * get Customer invoice Address ID
+	 *
+	 * @return int
+	 */
+	protected function getCustomerInvoiceAddressId()
+	{
+		return $this->checkout->getCustomerInvoiceAddressId();
+	}
+
+	/**
+	 * get Billing Country ID
+	 *
+	 * @return string/boolean
+	 */
+	protected function getBillingCountryCode()
+	{
+		if ($this->getCustomerInvoiceAddressId()) {
+			return $this->paymentService->getBillingCountryCode($this->getCustomerInvoiceAddressId());
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -254,8 +276,17 @@ class AbstractPaymentMethod extends PaymentMethodService
 	 */
 	public function getIcon()
 	{
+		$billingCountryCode = $this->getBillingCountryCode();
 		$app = pluginApp(Application::class);
-		$icon = $app->getUrlPath('skrill').'/images/logos/'.$this->getLogoFileName();
+		if ($this->settingsType == 'skrill_aob'
+			|| $this->settingsType == 'skrill_aci'
+			|| $this->settingsType == 'skrill_adb'
+		) {
+			$logoFileName = strtoupper(substr($this->settingsType, 7)).'_'.$billingCountryCode.'.png';
+		} else {
+			$logoFileName = $this->getLogoFileName();
+		}
+		$icon = $app->getUrlPath('skrill').'/images/logos/'.$logoFileName;
 		return $icon;
 	}
 

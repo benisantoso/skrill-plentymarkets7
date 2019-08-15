@@ -39,7 +39,34 @@ class AciPaymentMethod extends AbstractPaymentMethod
 	 */
 	public function getDescription()
 	{
-		return 'RedLink|Pago Facil| Boleto|Servi Pag|Efecty|Davivienda|Éxito|Banco de Occidente|'.
-			'Carulla| EDEQ|SurtiMax|BBVA Bancomer|OXXO| Banamex|Santander|Redpagos';
+		switch ($this->getBillingCountryCode()) {
+			case 'BRA':
+				return 'Boleto';
+				break;
+
+			case 'ARG':
+				return 'RedLink | Pago Facil';
+				break;
+
+			case 'CHL':
+				return 'Servi Pag';
+				break;
+
+			case 'COL':
+				return 'Davivienda | EDEQ | Carulla | Efecty | Éxito |  SurtiMax';
+				break;
+
+			case 'MEX':
+				return 'Santander | Banamex | BBVA Bancomer | OXXO';
+				break;
+
+			case 'PER':
+				return 'Banco de Occidente';
+				break;
+			
+			default:
+				return 'Redpagos';
+				break;
+		}
 	}
 }

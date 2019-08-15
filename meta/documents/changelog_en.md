@@ -129,3 +129,12 @@
 * update user_gude_de and user_guide_en files.
 * update user_gude_de and user_guide_en files.
 * update user_gude_de and user_guide_en files.
+
+## Release 1.0.18 (2019-07-18)
+
+#### Features :
+* make Astropay to show up the logos per country.
+* Add Belgium, Bulgaria, Estonia, Latvia, Netherlands, USA as supported countries for Rapid Transfer
+* Update Sofort logo with Klarna logo
+* order all new countries by name for Rapid Transfer
+* update user_gude_de and user_guide_en files.

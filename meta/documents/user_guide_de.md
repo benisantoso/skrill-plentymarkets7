@@ -1,11 +1,15 @@
 <div class="alert alert-warning" role="alert">
-    <strong><i>Wichtig:</i></strong> Das Skrill-Plugin wurde zur Verwendung mit dem Online-Store Ceres entwickelt und funkioniert nur mit dessen Struktur oder Plugins anderer Vorlagen. Ein IO-Plugin wird benötigt. Für die optimale Kompatibilität empfiehlt sich IO/Ceres Version 1.4.0 - 4.0.2.
+    <strong><i>Wichtig:</i></strong> Das Skrill-Plugin wurde zur Verwendung mit dem Online-Store Ceres entwickelt und funkioniert nur mit dessen Struktur oder Plugins anderer Vorlagen. Ein IO-Plugin wird benötigt. Für die optimale Kompatibilität empfiehlt sich IO/Ceres Version 1.4.0 - 4.1.1.
 </div>
 <br>
 <div class="alert alert-warning" role="alert">
     <strong><i>Wichtig:</i></strong> Achten Sie darauf, dass die Position des Skrill-Plugins kleiner ist als die IO/Ceres-Position. Dieses Problem lässt sich vermeiden, indem die Position der IO/Ceres-Plugins auf 99 eingestellt wird.
 </div>
 
+## Skrill Händler-Onboarding:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/I8msslID-sA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+<br>
 Plugins, die Sie auf plentyMarketplace gekauft haben, werden im Menü Plugins » Purchases (Plugins » Käufe) Ihres plentymarkets-Systems abgelegt. Im Folgenden wird beschrieben, wie Sie die gekauften Plugins installieren.
 
 ## Installieren der Plugins

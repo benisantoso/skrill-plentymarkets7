@@ -3,6 +3,7 @@
 namespace Skrill\Methods;
 
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 
 /**
 * Class AupPaymentMethod
@@ -12,10 +13,16 @@ class AupPaymentMethod extends AbstractPaymentMethod
 {
 	use Loggable;
 
+	const KEY = 'SKRILL_AUP';
+	const DEFAULT_NAME = 'Unionpay';
+	const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
+	const INITIALIZE_PAYMENT = true;
+    
+
 	/**
 	 * @var name
 	 */
-	protected $name = 'Unionpay';
+	protected $name = self::DEFAULT_NAME;
 
 	/**
 	 * @var allowedBillingCountries

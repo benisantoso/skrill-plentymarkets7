@@ -10,7 +10,6 @@ use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Frontend\Services\SystemService;
 use Skrill\Services\Database\SettingsService;
-use Skrill\Helper\PaymentHelper;
 
 /**
 * Class SettingsController
@@ -42,31 +41,23 @@ class SettingsController extends Controller
 	private $settingsService;
 
 	/**
-	 * @var paymentHelper
-	 */
-	private $paymentHelper;
-
-	/**
 	 * SettingsController constructor.
 	 *
 	 * @param Request $request
 	 * @param Response $response
 	 * @param SystemService $systemService
 	 * @param SettingsService $settingsService
-	 * @param PaymentHelper $paymentHelper
 	 */
 	public function __construct(
 					Request $request,
 					Response $response,
 					SystemService $systemService,
-					SettingsService $settingsService,
-					PaymentHelper $paymentHelper
+					SettingsService $settingsService
 	) {
 		$this->request = $request;
 		$this->response = $response;
 		$this->systemService = $systemService;
 		$this->settingsService = $settingsService;
-		$this->paymentHelper = $paymentHelper;
 	}
 
 	/**

@@ -138,3 +138,8 @@
 * Update Sofort logo with Klarna logo
 * order all new countries by name for Rapid Transfer
 * update user_gude_de and user_guide_en files.
+
+## Release 1.0.19 (2019-08-23)
+
+#### Features :
+* Create payment widget front of payment method instead of redirect.

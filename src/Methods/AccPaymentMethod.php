@@ -3,6 +3,7 @@
 namespace Skrill\Methods;
 
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 
 /**
 * Class AccPaymentMethod
@@ -12,10 +13,16 @@ class AccPaymentMethod extends AbstractPaymentMethod
 {
 	use Loggable;
 
+    const KEY = 'SKRILL_ACC';
+    const DEFAULT_NAME = 'Credit Card';
+    const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
+    const INITIALIZE_PAYMENT = true;
+    
+
 	/**
 	 * @var name
 	 */
-	protected $name = 'Credit Cards';
+	protected $name = self::DEFAULT_NAME;
 
 	/**
 	 * @var logoFileName

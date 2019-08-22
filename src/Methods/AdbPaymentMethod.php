@@ -3,6 +3,7 @@
 namespace Skrill\Methods;
 
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 
 /**
 * Class AdbPaymentMethod
@@ -12,10 +13,16 @@ class AdbPaymentMethod extends AbstractPaymentMethod
 {
 	use Loggable;
 
+	const KEY = 'SKRILL_ADB';
+	const DEFAULT_NAME = 'Direct Bank Transfer';
+	const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
+	const INITIALIZE_PAYMENT = true;
+    
+
 	/**
 	 * @var name
 	 */
-	protected $name = 'Direct Bank Transfer';
+	protected $name = self::DEFAULT_NAME;
 
 	/**
 	 * @var allowedBillingCountries
@@ -37,7 +44,7 @@ class AdbPaymentMethod extends AbstractPaymentMethod
 	 *
 	 * @return string
 	 */
-	public function getDescription()
+	public function getDescription():string
 	{
 		switch ($this->getBillingCountryCode()) {
 			case 'BRA':

@@ -3,6 +3,7 @@
 namespace Skrill\Methods;
 
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 
 /**
 * Class AciPaymentMethod
@@ -12,10 +13,16 @@ class AciPaymentMethod extends AbstractPaymentMethod
 {
 	use Loggable;
 
+	const KEY = 'SKRILL_ACI';
+    const DEFAULT_NAME = 'Cash / Invoice';
+    const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
+    const INITIALIZE_PAYMENT = true;
+    
+
 	/**
 	 * @var name
 	 */
-	protected $name = 'Cash / Invoice';
+	protected $name = self::DEFAULT_NAME;
 
 	/**
 	 * @var allowedBillingCountries
@@ -37,7 +44,7 @@ class AciPaymentMethod extends AbstractPaymentMethod
 	 *
 	 * @return string
 	 */
-	public function getDescription()
+	public function getDescription():string
 	{
 		switch ($this->getBillingCountryCode()) {
 			case 'BRA':

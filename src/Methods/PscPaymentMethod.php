@@ -3,6 +3,7 @@
 namespace Skrill\Methods;
 
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 
 /**
 * Class PscPaymentMethod
@@ -12,10 +13,16 @@ class PscPaymentMethod extends AbstractPaymentMethod
 {
 	use Loggable;
 
+	const KEY = 'SKRILL_PSC';
+	const DEFAULT_NAME = 'Paysafecard';
+	const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
+	const INITIALIZE_PAYMENT = true;
+    
+
 	/**
 	 * @var name
 	 */
-	protected $name = 'Paysafecard';
+	protected $name = self::DEFAULT_NAME;
 
 	/**
 	 * @var allowedBillingCountries

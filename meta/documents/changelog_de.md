@@ -138,3 +138,8 @@
 * Aktualisieren Sie das Sofort-Logo mit dem Klarna-Logo
 * Bestellen Sie alle neuen Länder mit Namen für Rapid Transfer
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+
+## Veröffentlichung 1.0.19 (2019-08-23)
+
+### Erweiterungen :
+* Erstellen Sie ein Zahlungs-Widget vor der Zahlungsmethode, anstatt diese umzuleiten.

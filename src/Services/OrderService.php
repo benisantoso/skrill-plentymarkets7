@@ -42,6 +42,7 @@ class OrderService
 	/**
 	 * OrderService constructor.
 	 * @param OrderRepositoryContract $orderRepository
+	 * @param BasketServiceContract $basketService
 	 */
 	public function __construct(OrderRepositoryContract $orderRepository, BasketServiceContract $basketService)
 	{

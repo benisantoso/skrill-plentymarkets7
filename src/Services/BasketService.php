@@ -194,9 +194,9 @@ class BasketService implements BasketServiceContract
     public function getBasketItem(int $basketItemId): array
     {
         $basketItem = $this->basketItemRepo->findOneById($basketItemId);
-        // if ($basketItem === null) {
-        //     return array();
-        // }
+        if ($basketItem === null) {
+            return array();
+        }
         $this->getLogger(__METHOD__)->error('Skrill:basketItem', $basketItem->toArray());
         return $basketItem->toArray();
     }

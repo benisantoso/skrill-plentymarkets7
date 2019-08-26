@@ -17,6 +17,7 @@ use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Modules\Frontend\Services\SystemService;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Templates\Twig;
+use Plenty\Plugin\Application;
 
 use Skrill\Services\OrderService;
 use Skrill\Helper\PaymentHelper;
@@ -242,6 +243,7 @@ class PaymentService
 		$this->getLogger(__METHOD__)->error('Skrill:paymentMethod', $paymentMethod);
 
 		$methodInstance = $this->paymentHelper->getPaymentMethodInstance($paymentMethod);
+		$app = pluginApp(Application::class);
 		$this->getLogger(__METHOD__)->error('Skrill:methodInstance', $methodInstance);
 
 		$type = $methodInstance->getReturnType();
@@ -289,9 +291,11 @@ class PaymentService
 		}
 		else
 		{
+			$loader = $app->getUrlPath('skrill').'/images/gif/load.gif';
 			$paymentPageUrl = $this->gatewayService->getPaymentPageUrl($sidResult);
 			$parameters = [
-                'sid' => $paymentPageUrl
+                'sid' => $paymentPageUrl,
+                'loader' => $loader
             ];
             $value      = $this->renderPaymentForm('Skrill::Payment.PaymentWidget', $parameters);
 		}

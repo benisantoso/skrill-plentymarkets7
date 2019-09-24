@@ -143,3 +143,4 @@
 
 #### Features :
 * Create payment widget front of payment method instead of redirect.
+* Add Greece as supported country for Paysafecash.

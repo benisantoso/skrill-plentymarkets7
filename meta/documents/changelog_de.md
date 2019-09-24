@@ -143,3 +143,4 @@
 
 ### Erweiterungen :
 * Erstellen Sie ein Zahlungs-Widget vor der Zahlungsmethode, anstatt diese umzuleiten.
+* Fügen Sie Griechenland als unterstütztes Land für Paysafecash hinzu.

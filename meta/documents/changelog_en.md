@@ -144,3 +144,8 @@
 #### Features :
 * Compatibility Testing - Ceres 4.2.0
 * Marketing materials - changes
+
+## Release 1.0.20 (2019-09-30)
+
+#### Features :
+* Marketing materials - changes

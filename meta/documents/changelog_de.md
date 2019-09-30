@@ -144,3 +144,8 @@
 ### Erweiterungen :
 * Kompatilitätsprüfung  - Ceres 4.2.0
 * Marketing-Materialien -  Änderungen
+
+## Veröffentlichung 1.0.20 (2019-09-30)
+
+### Erweiterungen :
+* Marketing-Materialien -  Änderungen

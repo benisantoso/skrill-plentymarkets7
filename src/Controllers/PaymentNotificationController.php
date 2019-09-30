@@ -5,6 +5,8 @@ namespace Skrill\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Log\Loggable;
+
+use Skrill\Service\RestApiService;
 use Skrill\Helper\PaymentHelper;
 use Skrill\Models\Repositories\SkrillOrderTransactionRepository;
 
@@ -30,6 +32,12 @@ class PaymentNotificationController extends Controller
 
 	/**
 	 *
+	 * @var RestApiService
+	 */
+	private $restApiService;
+
+	/**
+	 *
 	 * @var SkrillOrderTransactionRepository
 	 */
 	private $skrillOrderTransaction;
@@ -43,11 +51,13 @@ class PaymentNotificationController extends Controller
 	public function __construct(
 		Request $request,
 		PaymentHelper $paymentHelper,
-		SkrillOrderTransactionRepository $skrillOrderTransaction
+		SkrillOrderTransactionRepository $skrillOrderTransaction,
+		RestApiService $restApiService
 	) {
 		$this->request = $request;
 		$this->paymentHelper = $paymentHelper;
 		$this->skrillOrderTransaction = $skrillOrderTransaction;
+		$this->restApiService = $restApiService;
 	}
 
 	/**
@@ -56,6 +66,7 @@ class PaymentNotificationController extends Controller
 	 */
 	public function handleStatusUrl()
 	{
+		$this->restApiService->placeOrder(); 
 		$this->getLogger(__METHOD__)->error('Skrill:status_url', $this->request->all());
 
 		$paymentStatus = $this->request->all();

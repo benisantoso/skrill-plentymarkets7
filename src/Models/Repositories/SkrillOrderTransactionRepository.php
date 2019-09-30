@@ -36,24 +36,9 @@ class SkrillOrderTransactionRepository
         $now = date('Y-m-d H:i:s');
         
         $skrillOrderTransactionRelation->order_id = $orderId;
+        $skrillOrderTransactionRelation->plentyId = $responseStatus['plentyId'];
         $skrillOrderTransactionRelation->transaction_id = $responseStatus['transaction_id'];
-        $skrillOrderTransactionRelation->country = $responseStatus['country'];
-        $skrillOrderTransactionRelation->mb_amount = $responseStatus['mb_amount'];
-        $skrillOrderTransactionRelation->amount = $responseStatus['amount'];
-        $skrillOrderTransactionRelation->md5sig = $responseStatus['md5sig'];
-        $skrillOrderTransactionRelation->merchant_id = $responseStatus['merchant_id'];
-        $skrillOrderTransactionRelation->platform = $responseStatus['platform'];
-        $skrillOrderTransactionRelation->payment_type = $responseStatus['payment_type'];
-        $skrillOrderTransactionRelation->mb_transaction_id = $responseStatus['mb_transaction_id'];
-        $skrillOrderTransactionRelation->mb_currency = $responseStatus['mb_currency'];
-        $skrillOrderTransactionRelation->pay_from_email = $responseStatus['pay_from_email'];
-        $skrillOrderTransactionRelation->sha2sig = $responseStatus['sha2sig'];
-        $skrillOrderTransactionRelation->pay_to_email = $responseStatus['pay_to_email'];
-        $skrillOrderTransactionRelation->currency = $responseStatus['currency'];
-        $skrillOrderTransactionRelation->customer_id = $responseStatus['customer_id'];
-        $skrillOrderTransactionRelation->status = $responseStatus['status'];
-        $skrillOrderTransactionRelation->paymentKey = $responseStatus['paymentKey'];
-        $skrillOrderTransactionRelation->mopId = $responseStatus['mopId'];
+        $skrillOrderTransactionRelation->responseStatus = json_encode($responseStatus);
 
         $skrillOrderTransactionRelation->assignedAt = $skrillOrderTransactionRelation->createdAt = $skrillOrderTransactionRelation->updatedAt = $now;
 
@@ -107,27 +92,14 @@ class SkrillOrderTransactionRepository
         if (!$skrillOrderTransactionRelation instanceof SkrillOrderTransaction) {
             $skrillOrderTransactionRelation = $this->createSkrillOrderTransaction($orderId, $responseStatus);
         } else {
-            if ($orderId <= 0) {
+            $id = $skrillOrderTransactionRelation->id;
+            if ($id <= 0) {
+                $skrillOrderTransactionRelation->id = $id;
+                $skrillOrderTransactionRelation->order_id = $orderId;
+                $skrillOrderTransactionRelation->plentyId = $responseStatus['plentyId'];
                 $skrillOrderTransactionRelation->transaction_id = $responseStatus['transaction_id'];
-                $skrillOrderTransactionRelation->country = $responseStatus['country'];
-                $skrillOrderTransactionRelation->mb_amount = $responseStatus['mb_amount'];
-                $skrillOrderTransactionRelation->amount = $responseStatus['amount'];
-                $skrillOrderTransactionRelation->md5sig = $responseStatus['md5sig'];
-                $skrillOrderTransactionRelation->merchant_id = $responseStatus['merchant_id'];
-                $skrillOrderTransactionRelation->platform = $responseStatus['platform'];
-                $skrillOrderTransactionRelation->payment_type = $responseStatus['payment_type'];
-                $skrillOrderTransactionRelation->mb_transaction_id = $responseStatus['mb_transaction_id'];
-                $skrillOrderTransactionRelation->mb_currency = $responseStatus['mb_currency'];
-                $skrillOrderTransactionRelation->pay_from_email = $responseStatus['pay_from_email'];
-                $skrillOrderTransactionRelation->sha2sig = $responseStatus['sha2sig'];
-                $skrillOrderTransactionRelation->pay_to_email = $responseStatus['pay_to_email'];
-                $skrillOrderTransactionRelation->currency = $responseStatus['currency'];
-                $skrillOrderTransactionRelation->customer_id = $responseStatus['customer_id'];
-                $skrillOrderTransactionRelation->status = $responseStatus['status'];
-                $skrillOrderTransactionRelation->paymentKey = $responseStatus['paymentKey'];
-                $skrillOrderTransactionRelation->mopId = $responseStatus['mopId'];
+                $skrillOrderTransactionRelation->responseStatus = json_encode($responseStatus);
             }
-            $skrillOrderTransactionRelation->order_id = $orderId;
             $skrillOrderTransactionRelation = $this->updateSkrillOrderTransactionIdRelation($skrillOrderTransactionRelation);
         }
         return $skrillOrderTransactionRelation;

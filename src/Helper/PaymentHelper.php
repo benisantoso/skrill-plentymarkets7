@@ -18,6 +18,7 @@ use Plenty\Modules\Frontend\Events\FrontendLanguageChanged;
 use Plenty\Modules\Frontend\Events\FrontendShippingCountryChanged;
 use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Item\VariationDescription\Contracts\VariationDescriptionRepositoryContract;
 use IO\Services\CustomerService;
 
 use Skrill\Methods\PchPaymentMethod;
@@ -1019,6 +1020,26 @@ class PaymentHelper
 	public function isPaymentSignatureEqualsGeneratedSignature($paymentSignature, $generatedSignature)
 	{
 		return $paymentSignature == $generatedSignature;
+	}
+
+	/**
+	 * get Variation Description
+	 *
+	 * @param BasketItem $basketItem
+	 * @return string
+	 */
+	public function getVariationDescription($variationId)
+	{
+		$variationDescriptionContract = pluginApp(VariationDescriptionRepositoryContract::class);
+		$authHelper = pluginApp(AuthHelper::class);
+
+        $variationDescription = $authHelper->processUnguarded(
+            function () use ($variationDescriptionContract, $variationId) {
+                return $variationDescriptionContract->findByVariationId($variationId);
+            }
+        );
+
+		return $variationDescription;
 	}
 
 }

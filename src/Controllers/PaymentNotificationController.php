@@ -5,6 +5,8 @@ namespace Skrill\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Log\Loggable;
+
+use Skrill\Services\RestApiService;
 use Skrill\Helper\PaymentHelper;
 use Skrill\Models\Repositories\SkrillOrderTransactionRepository;
 
@@ -30,6 +32,12 @@ class PaymentNotificationController extends Controller
 
 	/**
 	 *
+	 * @var RestApiService
+	 */
+	private $restApiService;
+
+	/**
+	 *
 	 * @var SkrillOrderTransactionRepository
 	 */
 	private $skrillOrderTransaction;
@@ -43,11 +51,13 @@ class PaymentNotificationController extends Controller
 	public function __construct(
 		Request $request,
 		PaymentHelper $paymentHelper,
-		SkrillOrderTransactionRepository $skrillOrderTransaction
+		SkrillOrderTransactionRepository $skrillOrderTransaction,
+		RestApiService $restApiService
 	) {
 		$this->request = $request;
 		$this->paymentHelper = $paymentHelper;
 		$this->skrillOrderTransaction = $skrillOrderTransaction;
+		$this->restApiService = $restApiService;
 	}
 
 	/**
@@ -56,21 +66,19 @@ class PaymentNotificationController extends Controller
 	 */
 	public function handleStatusUrl()
 	{
-		$this->getLogger(__METHOD__)->error('Skrill:status_url', $this->request->all());
-
 		$paymentStatus = $this->request->all();
+		$orderData = $this->restApiService->placeOrder($paymentStatus['basketId']);
+		$orderId = $orderData->id;
+		$plentyId = $orderData->plentyId;
 		$transactionId = $paymentStatus['transaction_id'];
-		$mopId = $paymentStatus['mopId'];
+
+		$paymentStatus['orderId'] = $orderId;
+		$this->paymentHelper->updatePlentyPayment($paymentStatus);
+		
+		$paymentStatus['plentyId'] = $plentyId;
+		$this->skrillOrderTransaction->createOrUpdateRelation($orderId, $paymentStatus);
+
 		$skrillOrderTrx = $this->skrillOrderTransaction->getSkrillOrderTransactionByTransactionId($transactionId);
-		$this->getLogger(__METHOD__)->error('Skrill:skrillOrderTrxOnStatusUrl', $skrillOrderTrx);
-
-		if ($skrillOrderTrx) {
-			$paymentStatus['orderId'] = $skrillOrderTrx->order_id;
-			$this->paymentHelper->updatePlentyPayment($paymentStatus);
-		}
-
-		$this->skrillOrderTransaction->createOrUpdateRelation(0, $paymentStatus);
-
 		return 'ok';
 	}
 

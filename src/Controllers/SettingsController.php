@@ -140,6 +140,7 @@ class SettingsController extends Controller
 		$plentyId = $this->request->get('plentyId');
 		$apiPassword = $this->request->get('apiPassword');
 		$secretWord = $this->request->get('secretWord');
+		$backendPassword = $this->request->get('backendPassword');
 
 		$oldConfiguration = $this->loadSetting($plentyId, $settingType);
 
@@ -150,6 +151,11 @@ class SettingsController extends Controller
 		if ($secretWord == '*****')
 		{
 			$secretWord = $oldConfiguration['secretWord'];
+		}
+
+		if ($backendPassword == '*****')
+		{
+			$backendPassword = $oldConfiguration['backendPassword'];
 		}
 
 		if ($settingType == 'skrill_general')
@@ -164,6 +170,8 @@ class SettingsController extends Controller
 				'secretWord' => $secretWord,
 				'display' => $this->request->get('display'),
 				'merchantEmail' => $this->request->get('merchantEmail'),
+				'backendUsername' => $this->request->get('backendUsername'),
+				'backendPassword' => $backendPassword
 			);
 		}
 		else

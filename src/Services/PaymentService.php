@@ -19,12 +19,15 @@ use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Plugin\Application;
 
+use IO\Services\BasketService;
+
 use Skrill\Services\OrderService;
 use Skrill\Helper\PaymentHelper;
 use Skrill\Services\Database\SettingsService;
 use Skrill\Services\GatewayService;
 use Skrill\Constants\SessionKeys;
 use Skrill\Models\Repositories\SkrillOrderTransactionRepository;
+use Skrill\Services\Database\SkrillBasketDataService;
 use Skrill\Configs\MethodConfigContract;
 
 use Skrill\Methods\PchPaymentMethod;
@@ -130,7 +133,7 @@ class PaymentService
 	 *
 	 * @var BasketServiceContract
 	 */
-	private $basketService;
+	private $basketServiceContract;
 
 	/**
 	 *
@@ -156,6 +159,11 @@ class PaymentService
 	public $settings = [];
 
 	/**
+	 * @var SkrillBasketDataService
+	 */
+	public $skrillBasketDataService;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param ItemRepositoryContract $itemRepository
@@ -168,10 +176,11 @@ class PaymentService
 	 * @param GatewayService $gatewayService
 	 * @param OrderService $orderService
 	 * @param OrderRepositoryContract $orderRepository
-	 * @param BasketServiceContract $basketService
+	 * @param BasketServiceContract $basketServiceContract
 	 * @param Twig $twig
 	 * @param SkrillOrderTransactionRepository $skrillOrderTransRepo
 	 * @param MethodConfigContract $methodConfigContract
+	 * @param SkrillBasketDataService $skrillBasketDataService
 	 */
 	public function __construct(
 					ItemRepositoryContract $itemRepository,
@@ -184,10 +193,11 @@ class PaymentService
 					GatewayService $gatewayService,
 					OrderService $orderService,
 					OrderRepositoryContract $orderRepository,
-					BasketServiceContract $basketService,
+					BasketServiceContract $basketServiceContract,
 					Twig $twig,
 					SkrillOrderTransactionRepository $skrillOrderTransRepo,
-					MethodConfigContract $methodConfigContract
+					MethodConfigContract $methodConfigContract,
+					SkrillBasketDataService $skrillBasketDataService
 	) {
 		$this->itemRepository = $itemRepository;
 		$this->sessionStorageFactory = $sessionStorageFactory;
@@ -199,10 +209,11 @@ class PaymentService
 		$this->gatewayService = $gatewayService;
 		$this->orderService = $orderService;
 		$this->orderRepository = $orderRepository;
-		$this->basketService = $basketService;
+		$this->basketServiceContract = $basketServiceContract;
 		$this->twig = $twig;
 		$this->skrillOrderTransRepo = $skrillOrderTransRepo;
 		$this->methodConfigContract = $methodConfigContract;
+		$this->skrillBasketDataService = $skrillBasketDataService;
 	}
 
 	/**
@@ -240,7 +251,8 @@ class PaymentService
 	 */
 	public function getPaymentContent(string $paymentMethod, int $mopId)
 	{
-		$this->getLogger(__METHOD__)->error('Skrill:paymentMethod', $paymentMethod);
+		$this->getLogger(__METHOD__)->error('Skrill:Start payment widget Content :', null);
+		$this->settingsService->getClients();
 
 		$methodInstance = $this->paymentHelper->getPaymentMethodInstance($paymentMethod);
 		$app = pluginApp(Application::class);
@@ -249,8 +261,8 @@ class PaymentService
 		$type = $methodInstance->getReturnType();
 		$value = '';
 		$sidResult = null;
-
-		$basket     = $this->basketService->getBasket();
+		$basket     = $this->basketServiceContract->getBasket();
+		$this->getLogger(__METHOD__)->error('Skrill:Bakset :', $basket);
 
 		$skrillSettings = $this->getSkrillSettings();
 
@@ -259,15 +271,18 @@ class PaymentService
 			|| empty($skrillSettings['recipient'])
 			|| empty($skrillSettings['logoUrl'])
 			|| empty($skrillSettings['apiPassword'])
-			|| empty($skrillSettings['secretWord']))
-		{
+			|| empty($skrillSettings['secretWord'])
+		) {
+			$this->getLogger(__METHOD__)->error('Skrill:The Merchant Skrill configuration is not complete. Please contact the Merchant :', '');
 			return [
 				'type' => GetPaymentMethodContent::RETURN_TYPE_ERROR,
 				'value' => 'The Merchant Skrill configuration is not complete. Please contact the Merchant'
 			];
 		}
 
-		$this->getLogger(__METHOD__)->error('Skrill:basket', $basket);
+		$this->skrillBasketDataService->createOrUpdateBasketData($basket->id, $this->getBasketData($basket, $this->systemService->getPlentyId()));
+		$skrillBasketData = $this->skrillBasketDataService->getSkrillBasketDataByBasketId($basket->id);
+		$this->getLogger(__METHOD__)->error('Skrill:skrillBasketData', $skrillBasketData);
 
 		try
 		{
@@ -318,6 +333,126 @@ class PaymentService
         return $this->twig->render($template, $parameters);
     }
 
+
+    /**
+     * getBasketData
+     *
+     * @param array $basket
+     * @param int $plentyId
+     * @return array $basketsData
+     */
+    protected function getBasketData(Basket $basket, int $plentyId)
+    {
+    	$basketsData = [
+    		'typeId' 			=> 1,
+    		'ownerId' 			=> 0,
+    		'plentyId' 			=> $plentyId,
+    		'locationId' 		=> 1,
+    		'statusId' 			=> 3,
+    		'orderItems' 		=> $this->getOrderItems($basket),
+    		'properties' 		=> [
+    			[
+    				'typeId' 	=> 1,
+    				'value' 	=> "1"
+    			]
+    		],
+    		'addressRelations' 	=> $this->getAddressRelations(),
+    		'relations' 			=> [
+    			[
+    				'referenceType' => 'contact',
+	    			'referenceId' 	=> $basket->customerId,
+	    			'relation' 		=> 'receiver'
+    			]
+    		]
+    	];
+
+    	return $basketsData;
+    }
+
+    /**
+     * get Order Items
+     *
+     * @param array $basket
+     * @return array $orderItems
+     */
+    protected function getOrderItems(Basket $basket)
+    {
+    	$basketService = pluginApp(BasketService::class);
+    	$basketItemsForTemplate = $basketService->getBasketItemsForTemplate();
+    	$this->getLogger(__METHOD__)->error('Skrill:basketItemsForTemplate :', $basketItemsForTemplate);
+    	$this->getLogger(__METHOD__)->error('Skrill:basketItems :', $basket->basketItems);
+
+    	foreach ($basket->basketItems as $key => $item) {
+			$itemName = $this->paymentHelper->getVariationDescription($item->variationId);
+			$orderItems[$key] = [
+				'typeId' => 1,
+				'referrerId' => $item->referrerId,
+				'itemVariationId' => $item->variationId,
+				'quantity' => $item->quantity,
+				'vatRate' => $item->vat,
+				'orderItemName' => $itemName[0]->name,
+				'shippingProfileId' => $item->shippingProfileId
+			];
+
+			foreach ($basketItemsForTemplate as $basketItem) {
+				if ($basketItem['id'] == $item->id) {
+					$orderItems[$key]['amounts'] = [
+						[
+							'isSystemCurrency' => true,
+							'currency' => $basket->currency,
+							'exchangeRate' => 1,
+							'priceOriginalGross' => $basketItem['variation']['data']['prices']['default']['data']['basePrice'],
+							'priceOriginalNet' => $basketItem['variation']['data']['prices']['default']['data']['basePriceNet'],
+							'priceGross' => $basketItem['variation']['data']['prices']['default']['data']['unitPrice'],
+							'priceNet' => $basketItem['variation']['data']['prices']['default']['data']['unitPriceNet'],
+							'discount' => $basketItem['variation']['data']['prices']['default']['data']['customerClassDiscount'],
+							'isPercentage' => true
+						]
+					];
+
+					$orderItems[$key]['properties'] = [
+						[
+							'typeId' => 1,
+							'value' => "1"
+						]
+					];
+
+					$orderItems[$key]['orderProperties'] = [
+						[
+							'propertyId' => 4,
+							'value' => $basketItem['variation']['data']['images']['all'][0]['url']
+						]
+					];
+				}
+			}
+		} 
+
+		return $orderItems;
+    }
+
+    /**
+     * get Address Relations
+     *
+     * @param array $basket
+     * @return array $addressRelations
+     */
+    private function getAddressRelations()
+    {
+    	$addresses = $this->basketServiceContract->getCustomerAddressData();
+		$addressRelations = [
+			[
+				'typeId' => 1,
+				'addressId' => $addresses['billing']->id
+			],
+			[
+				'typeId' => 2,
+				'addressId' => $addresses['shipping']->id
+			]
+		];
+
+    	return $addressRelations;
+    }
+
     /**
      * @param Basket $basket
      * @param string $paymentMethod
@@ -354,12 +489,13 @@ class PaymentService
         string $transactionId,
         array $additionalParams = []
     ){
+    	$this->getLogger(__METHOD__)->error('Skrill:Start', $basketArray);
+
         $basketArray = $basket->toArray();
-        $this->getLogger(__METHOD__)->error('Skrill:basketArray', $basketArray);
         $paymentKey = $this->methodConfigContract->getPaymentMethodKey($paymentMethod);
 
         // set customer personal information & address data
-        $addresses      = $this->basketService->getCustomerAddressData();
+        $addresses      = $this->basketServiceContract->getCustomerAddressData();
         $this->getLogger(__METHOD__)->error('Skrill:addresses', $addresses);
         $billingAddress = $addresses['billing'];
 
@@ -376,7 +512,7 @@ class PaymentService
 			'return_url' => $this->paymentHelper->getDomain().
 				'/payment/skrill/return?basketId='.$basket->id.'&mopId='.$mopId,
 			'status_url' => $this->paymentHelper->getDomain().
-				'/payment/skrill/status?&paymentKey='.$paymentKey.'&mopId='.$mopId,
+				'/payment/skrill/status?&paymentKey='.$paymentKey.'&mopId='.$mopId.'&basketId='.$basket->id,
 			'cancel_url' => $this->paymentHelper->getDomain().'/checkout',
 			'language' => $this->getLanguage(),
 			'logo_url' => $additionalParams['logoUrl'],

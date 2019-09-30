@@ -114,29 +114,11 @@ class PaymentController extends Controller
 		$skrillOrderTrx = $this->skrillOrderTransaction->getSkrillOrderTransactionByTransactionId($this->request->get('transaction_id'));
 		$this->getLogger(__METHOD__)->error('Skrill:skrillOrderTrx', $skrillOrderTrx);
 
-		$orderData = $this->orderService->placeOrder();
-		$transactionId = $this->request->get('transaction_id');
-		$mopId = $this->request->get('mopId');
-		$orderId = $orderData->order->id;
-		$this->resetBasket();
-
-		if ($skrillOrderTrx->status) {
-			$this->getLogger(__METHOD__)->error('Skrill:responseStatus', (array) $skrillOrderTrx);
-			$paymentStatus = (array) $skrillOrderTrx;
-		} else {
-			$paymentStatus['transaction_id'] = $transactionId;
-			$paymentStatus['currency'] = $orderData->order->amounts[0]->currency;
-			$paymentStatus['amount'] = $orderData->order->amounts[0]->invoiceTotal;
-			$paymentStatus['status'] = $this->paymentHelper->mapTransactionState(0);
+		if ($skrillOrderTrx->order_id > 0) {
+			$this->resetBasket();
 		}
 
-		$paymentStatus['orderId'] = $orderId;
-		$this->getLogger(__METHOD__)->error('Skrill:paymentStatusOnReturnUrl', $paymentStatus);
-
-		$this->paymentHelper->updatePlentyPayment($paymentStatus);
-		$this->skrillOrderTransaction->createOrUpdateRelation($orderId, array('transaction_id' => $transactionId));
-
-		return $this->response->redirectTo('execute-payment/'.$orderId);
+		return $this->response->redirectTo('execute-payment/'.$skrillOrderTrx->order_id);
 	}
 
 	/**

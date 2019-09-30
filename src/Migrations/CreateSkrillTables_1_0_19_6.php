@@ -4,6 +4,7 @@ namespace Skrill\Migrations;
 
 use Skrill\Models\Database\Settings;
 use Skrill\Models\Database\SkrillOrderTransaction;
+use Skrill\Models\Database\SkrillBasketData;
 use Skrill\Services\Database\SettingsService;
 use Skrill\Helper\PaymentHelper;
 use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
@@ -11,10 +12,10 @@ use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 /**
 * Migration to create skrill configuration tables
 *
-* Class CreateSkrillTables_1_0_19
+* Class CreateSkrillTables_1_0_19_6
 * @package Skrill\Migrations
 */
-class CreateSkrillTables_1_0_19
+class CreateSkrillTables_1_0_19_6
 {
 
 	private $paymentHelper;
@@ -47,7 +48,7 @@ class CreateSkrillTables_1_0_19
 		$migrate->createTable(Settings::class);
 
 		/**
-		 * Create the settings table
+		 * Create the SkrillOrderTransaction table
 		 */
 		try {
 			$migrate->deleteTable(SkrillOrderTransaction::class);
@@ -57,6 +58,18 @@ class CreateSkrillTables_1_0_19
 			//Table does not exist
 		}
 		$migrate->createTable(SkrillOrderTransaction::class);
+
+		/**
+		 * Create the SkrillBasketData table
+		 */
+		try {
+			$migrate->deleteTable(SkrillBasketData::class);
+		}
+		catch (\Exception $e)
+		{
+			//Table does not exist
+		}
+		$migrate->createTable(SkrillBasketData::class);
 
 		$this->paymentHelper->createMopsIfNotExist();
 

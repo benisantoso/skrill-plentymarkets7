@@ -3,6 +3,7 @@
 namespace Skrill\Methods;
 
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 
 /**
 * Class AmxPaymentMethod
@@ -12,10 +13,16 @@ class AmxPaymentMethod extends AbstractPaymentMethod
 {
 	use Loggable;
 
+	const KEY = 'SKRILL_AMX';
+	const DEFAULT_NAME = 'American Express';
+	const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
+	const INITIALIZE_PAYMENT = true;
+    
+
 	/**
 	 * @var name
 	 */
-	protected $name = 'American Express';
+	protected $name = self::DEFAULT_NAME;
 
 	/**
 	 * @var exceptedBillingCountries

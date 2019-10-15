@@ -5,7 +5,10 @@ namespace Skrill\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Log\Loggable;
+
+use Skrill\Services\RestApiService;
 use Skrill\Helper\PaymentHelper;
+use Skrill\Models\Repositories\SkrillOrderTransactionRepository;
 
 /**
 * Class PaymentNotificationController
@@ -28,15 +31,35 @@ class PaymentNotificationController extends Controller
 	private $paymentHelper;
 
 	/**
+	 *
+	 * @var RestApiService
+	 */
+	private $restApiService;
+
+	/**
+	 *
+	 * @var SkrillOrderTransactionRepository
+	 */
+	private $skrillOrderTransaction;
+
+	/**
 	 * PaymentNotificationController constructor.
 	 *
 	 * @param Request $request
 	 * @param PaymentHelper $paymentHelper
+	 * @param SkrillOrderTransactionRepository
+	 * @param RestApiService
 	 */
-	public function __construct(Request $request, PaymentHelper $paymentHelper)
-	{
+	public function __construct(
+		Request $request,
+		PaymentHelper $paymentHelper,
+		SkrillOrderTransactionRepository $skrillOrderTransaction,
+		RestApiService $restApiService
+	) {
 		$this->request = $request;
 		$this->paymentHelper = $paymentHelper;
+		$this->skrillOrderTransaction = $skrillOrderTransaction;
+		$this->restApiService = $restApiService;
 	}
 
 	/**
@@ -45,11 +68,19 @@ class PaymentNotificationController extends Controller
 	 */
 	public function handleStatusUrl()
 	{
-		$this->getLogger(__METHOD__)->error('Skrill:status_url', $this->request->all());
-
 		$paymentStatus = $this->request->all();
-		$this->paymentHelper->updatePlentyPayment($paymentStatus);
+		$orderData = $this->restApiService->placeOrder($paymentStatus['basketId']);
+		$orderId = $orderData->id;
+		$plentyId = $orderData->plentyId;
+		$transactionId = $paymentStatus['transaction_id'];
 
+		$paymentStatus['orderId'] = $orderId;
+		$this->paymentHelper->updatePlentyPayment($paymentStatus);
+		
+		$paymentStatus['plentyId'] = $plentyId;
+		$this->skrillOrderTransaction->createOrUpdateRelation($orderId, $paymentStatus);
+
+		$skrillOrderTrx = $this->skrillOrderTransaction->getSkrillOrderTransactionByTransactionId($transactionId);
 		return 'ok';
 	}
 

@@ -3,6 +3,7 @@
 namespace Skrill\Methods;
 
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 
 /**
 * Class WltPaymentMethod
@@ -12,10 +13,16 @@ class WltPaymentMethod extends AbstractPaymentMethod
 {
 	use Loggable;
 
+	const KEY = 'SKRILL_WLT';
+	const DEFAULT_NAME = 'Skrill Wallet';
+	const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
+	const INITIALIZE_PAYMENT = true;
+    
+
 	/**
 	 * @var name
 	 */
-	protected $name = 'Skrill Wallet';
+	protected $name = self::DEFAULT_NAME;
 
 	/**
 	 * @var logoFileName

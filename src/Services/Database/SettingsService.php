@@ -132,6 +132,7 @@ class SettingsService extends DatabaseBaseService
 		$clients = array();
 
 		$result = $webstoreRepository->loadAll();
+		$this->getLogger(__METHOD__)->error('Skrill:result', $result);
 
 		foreach ($result as $record)
 		{

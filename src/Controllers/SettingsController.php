@@ -10,7 +10,6 @@ use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Frontend\Services\SystemService;
 use Skrill\Services\Database\SettingsService;
-use Skrill\Helper\PaymentHelper;
 
 /**
 * Class SettingsController
@@ -42,31 +41,23 @@ class SettingsController extends Controller
 	private $settingsService;
 
 	/**
-	 * @var paymentHelper
-	 */
-	private $paymentHelper;
-
-	/**
 	 * SettingsController constructor.
 	 *
 	 * @param Request $request
 	 * @param Response $response
 	 * @param SystemService $systemService
 	 * @param SettingsService $settingsService
-	 * @param PaymentHelper $paymentHelper
 	 */
 	public function __construct(
 					Request $request,
 					Response $response,
 					SystemService $systemService,
-					SettingsService $settingsService,
-					PaymentHelper $paymentHelper
+					SettingsService $settingsService
 	) {
 		$this->request = $request;
 		$this->response = $response;
 		$this->systemService = $systemService;
 		$this->settingsService = $settingsService;
-		$this->paymentHelper = $paymentHelper;
 	}
 
 	/**
@@ -149,6 +140,7 @@ class SettingsController extends Controller
 		$plentyId = $this->request->get('plentyId');
 		$apiPassword = $this->request->get('apiPassword');
 		$secretWord = $this->request->get('secretWord');
+		$backendPassword = $this->request->get('backendPassword');
 
 		$oldConfiguration = $this->loadSetting($plentyId, $settingType);
 
@@ -159,6 +151,11 @@ class SettingsController extends Controller
 		if ($secretWord == '*****')
 		{
 			$secretWord = $oldConfiguration['secretWord'];
+		}
+
+		if ($backendPassword == '*****')
+		{
+			$backendPassword = $oldConfiguration['backendPassword'];
 		}
 
 		if ($settingType == 'skrill_general')
@@ -173,6 +170,8 @@ class SettingsController extends Controller
 				'secretWord' => $secretWord,
 				'display' => $this->request->get('display'),
 				'merchantEmail' => $this->request->get('merchantEmail'),
+				'backendUsername' => $this->request->get('backendUsername'),
+				'backendPassword' => $backendPassword
 			);
 		}
 		else

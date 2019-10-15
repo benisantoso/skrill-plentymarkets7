@@ -149,3 +149,8 @@
 
 #### Features :
 * Marketing materials - changes
+
+## Release 1.0.21 (2019-10-15)
+
+#### Features :
+* Create payment widget front of payment method instead of redirect

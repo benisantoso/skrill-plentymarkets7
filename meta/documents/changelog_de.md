@@ -149,3 +149,8 @@
 
 ### Erweiterungen :
 * Marketing-Materialien -  Änderungen
+
+## Veröffentlichung 1.0.21 (2019-10-15)
+
+### Erweiterungen :
+* Erstellen Sie ein Zahlungs-Widget vor der Zahlungsmethode, anstatt diese umzuleiten

@@ -18,6 +18,8 @@ use IO\Services\CheckoutService;
 use IO\Services\CustomerService;
 use Plenty\Plugin\Log\Loggable;
 
+use Skrill\Services\BasketServiceContract;
+
 /**
 * Class OrderService
 * @package Skrill\Services
@@ -33,12 +35,19 @@ class OrderService
 	private $orderRepository;
 
 	/**
+	 * @var BasketServiceContract
+	 */
+	private $basketService;
+
+	/**
 	 * OrderService constructor.
 	 * @param OrderRepositoryContract $orderRepository
+	 * @param BasketServiceContract $basketService
 	 */
-	public function __construct(OrderRepositoryContract $orderRepository)
+	public function __construct(OrderRepositoryContract $orderRepository, BasketServiceContract $basketService)
 	{
 		$this->orderRepository = $orderRepository;
+		$this->basketService = $basketService;
 	}
 
 	/**

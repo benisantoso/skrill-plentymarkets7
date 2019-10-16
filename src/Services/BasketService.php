@@ -8,7 +8,6 @@ use Plenty\Modules\Authorization\Services\AuthHelper;
 use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Modules\Basket\Models\Basket;
 use Plenty\Modules\Basket\Models\BasketItem;
-use Plenty\Modules\Item\Item\Contracts\ItemRepositoryContract;
 use Plenty\Modules\Item\Item\Models\Item;
 use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
 use Plenty\Modules\Basket\Contracts\BasketItemRepositoryContract;
@@ -23,9 +22,6 @@ class BasketService implements BasketServiceContract
 
     /** @var AuthHelper */
     private $authHelper;
-
-    /** @var ItemRepositoryContract */
-    private $itemRepo;
 
     /** @var AddressRepositoryContract */
     private $addressRepo;
@@ -46,19 +42,16 @@ class BasketService implements BasketServiceContract
      * @param AddressRepositoryContract $addressRepository
      * @param BasketRepositoryContract $basketRepo
      * @param LibService $libraryService
-     * @param ItemRepositoryContract $itemRepo
      * @param AuthHelper $authHelper
      */
     public function __construct(
         CountryRepositoryContract $countryRepository,
         AddressRepositoryContract $addressRepository,
         BasketRepositoryContract $basketRepo,
-        ItemRepositoryContract $itemRepo,
         AuthHelper $authHelper,
         BasketItemRepositoryContract $basketItemRepo
     ) {
         $this->authHelper          = $authHelper;
-        $this->itemRepo            = $itemRepo;
         $this->addressRepo         = $addressRepository;
         $this->basketRepo          = $basketRepo;
         $this->countryRepository   = $countryRepository;

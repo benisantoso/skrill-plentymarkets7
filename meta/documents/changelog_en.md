@@ -155,3 +155,4 @@
 #### Features :
 * Create payment widget front of payment method instead of redirect
 * update user_gude_de and user_guide_en files.
+* add DE translation.

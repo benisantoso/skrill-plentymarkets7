@@ -155,3 +155,4 @@
 ### Erweiterungen :
 * Erstellen Sie ein Zahlungs-Widget vor der Zahlungsmethode, anstatt diese umzuleiten
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+* DE Übersetzung hinzufügen.

@@ -1,16 +1,7 @@
-{% extends getPartial('page-design') %}
-{% import "Ceres::PageDesign.Macros.LayoutContainer" as LayoutContainer %}
-
-{% block PartialHead %}
-    <title>{{ trans("Ceres::Template.orderCheckout") }} | {{ config("Ceres.header.company_name") }}</title>
-{% endblock %}
-
-{% block PageBody %}
-
-    <div class="page-content checkout container-max">
-    	<div>
-	    	<iframe src="{{ paymentPageUrl }}" frameborder="0" width="100%" height="700px"></iframe>
-		</div>
-    </div>
-
-{% endblock %}
+<style type="text/css">
+	.modal-content {
+		background-color: transparent;
+		border: none;
+	}
+</style>
+<iframe src="{{ sid }}" frameborder="0" width="100%" height="700px" style="min-height: -webkit-fill-available;"></iframe>

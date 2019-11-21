@@ -11,6 +11,10 @@ use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFact
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Templates\Twig;
 use Skrill\Services\GatewayService;
+use Skrill\Constants\SessionKeys;
+use Skrill\Models\Repositories\SkrillOrderTransactionRepository;
+use Skrill\Services\OrderService;
+use Skrill\Helper\PaymentHelper;
 
 /**
 * Class PaymentController
@@ -52,6 +56,24 @@ class PaymentController extends Controller
 	private $gatewayService;
 
 	/**
+	 *
+	 * @var SkrillOrderTransactionRepository
+	 */
+	private $skrillOrderTransaction;
+
+	/**
+	 *
+	 * @var OrderService
+	 */
+	private $orderService;
+
+	/**
+	 *
+	 * @var PaymentHelper
+	 */
+	private $paymentHelper;
+
+	/**
 	 * PaymentController constructor.
 	 *
 	 * @param Request $request
@@ -65,7 +87,10 @@ class PaymentController extends Controller
 					BasketItemRepositoryContract $basketItemRepository,
 					OrderRepositoryContract $orderRepository,
 					FrontendSessionStorageFactoryContract $sessionStorage,
-					GatewayService $gatewayService
+					GatewayService $gatewayService,
+					SkrillOrderTransactionRepository $skrillOrderTransaction,
+					OrderService $orderService,
+					PaymentHelper $paymentHelper
 	) {
 		$this->request = $request;
 		$this->response = $response;
@@ -73,6 +98,9 @@ class PaymentController extends Controller
 		$this->orderRepository = $orderRepository;
 		$this->sessionStorage = $sessionStorage;
 		$this->gatewayService = $gatewayService;
+		$this->skrillOrderTransaction = $skrillOrderTransaction;
+		$this->orderService = $orderService;
+		$this->paymentHelper = $paymentHelper;
 	}
 
 	/**
@@ -81,13 +109,16 @@ class PaymentController extends Controller
 	public function handleReturnUrl()
 	{
 		$this->getLogger(__METHOD__)->error('Skrill:return_url', $this->request->all());
-		$this->sessionStorage->getPlugin()->setValue('skrillTransactionId', $this->request->get('transaction_id'));
+		$this->sessionStorage->getPlugin()->setValue(SessionKeys::SESSION_KEY_TRANSACTION_ID, $this->request->get('transaction_id'));
+		sleep(10);
+		$skrillOrderTrx = $this->skrillOrderTransaction->getSkrillOrderTransactionByTransactionId($this->request->get('transaction_id'));
+		$this->getLogger(__METHOD__)->error('Skrill:skrillOrderTrx', $skrillOrderTrx);
 
-		$orderId = $this->request->get('orderId');
+		if ($skrillOrderTrx->order_id > 0) {
+			$this->resetBasket();
+		}
 
-		$this->resetBasket();
-
-		return $this->response->redirectTo('execute-payment/'.$orderId);
+		return $this->response->redirectTo('execute-payment/'.$skrillOrderTrx->order_id);
 	}
 
 	/**
@@ -100,27 +131,5 @@ class PaymentController extends Controller
 		{
 			$this->basketItemRepository->removeBasketItem($basketItem->id);
 		}
-	}
-
-	/**
-	 * display payment widget
-	 *
-	 * @param Twig $twig
-	 * @param string $sid
-	 * @param int $orderId
-	 */
-	public function displayPaymentWidget(Twig $twig, $sid, $orderId)
-	{
-		$orders = $this->orderRepository->findOrderById($orderId);
-
-		if ($orders->statusId == 5) {
-			$this->resetBasket();
-			return $this->response->redirectTo('execute-payment/'.$orderId);
-		}
-
-		$paymentPageUrl = $this->gatewayService->getPaymentPageUrl($sid);
-		$this->getLogger(__METHOD__)->error('Skrill:paymentPageUrl', $paymentPageUrl);
-
-		return $twig->render('Skrill::Payment.PaymentWidget', ['paymentPageUrl' => $paymentPageUrl]);
 	}
 }

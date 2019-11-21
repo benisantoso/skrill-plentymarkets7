@@ -110,6 +110,24 @@
 				<div class="div-tooltips">
 					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_MERCHANTEMAIL', [], 'messages', locale) }}</span>
 				</div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Backend Username">{{ trans('Skrill::Settings.SKRILL_BACKEND_USERNAME', [], 'messages', locale) }}</label>
+					<input type="text" class="input-text" name="backendUsername" value="{{ setting.backendUsername }}"/>
+				</div>
+				<div class="clear"></div>
+				<div class="div-tooltips">
+					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_USERNAME', [], 'messages', locale) }}</span>
+				</div>
+				<div class="div-separator clear"></div>
+				<div>
+					<label for="Backend Password">{{ trans('Skrill::Settings.SKRILL_BACKEND_PASSWORD', [], 'messages', locale) }}</label>
+					<input type="password" class="input-text" name="backendPassword" value="*****"/>
+				</div>
+				<div class="clear"></div>
+				<div class="div-tooltips">
+					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_PASSWORD', [], 'messages', locale) }}</span>
+				</div>
 			{% else %}
 				<div class="div-separator clear"></div>
 				<div class="div-img">

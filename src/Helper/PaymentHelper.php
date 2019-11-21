@@ -11,9 +11,50 @@ use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Modules\Authorization\Services\AuthHelper;
 use Plenty\Modules\Payment\Models\Payment;
 use Plenty\Modules\Order\Models\Order;
+use Plenty\Modules\Basket\Events\Basket\AfterBasketChanged;
+use Plenty\Modules\Basket\Events\Basket\AfterBasketCreate;
+use Plenty\Modules\Basket\Events\BasketItem\AfterBasketItemAdd;
+use Plenty\Modules\Frontend\Events\FrontendLanguageChanged;
+use Plenty\Modules\Frontend\Events\FrontendShippingCountryChanged;
 use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Item\VariationDescription\Contracts\VariationDescriptionRepositoryContract;
 use IO\Services\CustomerService;
+
+use Skrill\Methods\PchPaymentMethod;
+use Skrill\Methods\AccPaymentMethod;
+use Skrill\Methods\AciPaymentMethod;
+use Skrill\Methods\AdbPaymentMethod;
+use Skrill\Methods\AliPaymentMethod;
+use Skrill\Methods\AmxPaymentMethod;
+use Skrill\Methods\AobPaymentMethod;
+use Skrill\Methods\ApmPaymentMethod;
+use Skrill\Methods\AupPaymentMethod;
+use Skrill\Methods\BtcPaymentMethod;
+use Skrill\Methods\CsiPaymentMethod;
+use Skrill\Methods\DidPaymentMethod;
+use Skrill\Methods\DnkPaymentMethod;
+use Skrill\Methods\EbtPaymentMethod;
+use Skrill\Methods\EpyPaymentMethod;
+use Skrill\Methods\GcbPaymentMethod;
+use Skrill\Methods\GirPaymentMethod;
+use Skrill\Methods\IdlPaymentMethod;
+use Skrill\Methods\MaePaymentMethod;
+use Skrill\Methods\MscPaymentMethod;
+use Skrill\Methods\NpyPaymentMethod;
+use Skrill\Methods\NtlPaymentMethod;
+use Skrill\Methods\ObtPaymentMethod;
+use Skrill\Methods\PliPaymentMethod;
+use Skrill\Methods\PscPaymentMethod;
+use Skrill\Methods\PspPaymentMethod;
+use Skrill\Methods\PwyPaymentMethod;
+use Skrill\Methods\SftPaymentMethod;
+use Skrill\Methods\VsaPaymentMethod;
+use Skrill\Methods\WltPaymentMethod;
+
+
+use Skrill\Constants\Plugin;
+use Skrill\Configs\MethodConfig;
 
 /**
 * Class PaymentHelper
@@ -22,6 +63,8 @@ use IO\Services\CustomerService;
 class PaymentHelper
 {
 	use Loggable;
+
+	const NO_PAYMENTMETHOD_FOUND = -1;
 
 	/**
 	 * @var PaymentMethodRepositoryContract
@@ -48,6 +91,9 @@ class PaymentHelper
 	 */
 	private $orderRepository;
 
+	/** @var MethodConfig $methodConfig */
+    private $methodConfig;
+
 	/**
 	 * PaymentHelper constructor.
 	 *
@@ -60,6 +106,7 @@ class PaymentHelper
 	public function __construct(
 					PaymentMethodRepositoryContract $paymentMethodRepository,
 					PaymentRepositoryContract $paymentRepository,
+					MethodConfig $methodConfig,
 					PaymentPropertyRepositoryContract $paymentPropertyRepository,
 					PaymentOrderRelationRepositoryContract $paymentOrderRelationRepository,
 					OrderRepositoryContract $orderRepository
@@ -69,6 +116,7 @@ class PaymentHelper
 		$this->paymentRepository                = $paymentRepository;
 		$this->paymentPropertyRepository        = $paymentPropertyRepository;
 		$this->orderRepository                  = $orderRepository;
+		$this->methodConfig 					= $methodConfig;
 	}
 
 	/**
@@ -83,6 +131,211 @@ class PaymentHelper
 		$customerId = $customerService->getContactId();
 		return $customerId;
 	}
+
+	/**
+     * Create the payment method IDs that don't exist yet.
+     */
+    public function createMopsIfNotExist()
+    {
+        foreach ($this->methodConfig::getPaymentMethods() as $paymentMethod) {
+            $this->createMopIfNotExists($paymentMethod);
+        }
+    }
+
+	/**
+     * Create the payment method ID if it doesn't exist yet
+     *
+     * @param string $paymentMethodClass
+     */
+    public function createMopIfNotExists(string $paymentMethodClass)
+    {
+        if ($this->getPaymentMethodId($paymentMethodClass) === self::NO_PAYMENTMETHOD_FOUND) {
+            $paymentMethodData = [
+                'pluginKey' => Plugin::KEY,
+                'paymentKey' => $this->methodConfig->getPaymentMethodKey($paymentMethodClass),
+                'name' => $this->methodConfig->getPaymentMethodDefaultName($paymentMethodClass)
+            ];
+
+            $this->paymentMethodRepository->createPaymentMethod($paymentMethodData);
+        }
+    }
+
+    /**
+     * Load the payment method ID for the given plugin key.
+     *
+     * @param string $paymentMethodClass
+     *
+     * @return int
+     */
+    public function getPaymentMethodId(string $paymentMethodClass)
+    {
+        $paymentMethods = $this->paymentMethodRepository->allForPlugin(Plugin::KEY);
+
+        if (!empty($paymentMethods)) {
+            /** @var PaymentMethod $payMethod */
+            foreach ($paymentMethods as $payMethod) {
+                if ($payMethod->paymentKey === $this->methodConfig->getPaymentMethodKey($paymentMethodClass)) {
+                    return $payMethod->id;
+                }
+            }
+        }
+
+        return self::NO_PAYMENTMETHOD_FOUND;
+    }
+
+    /**
+     * Returns the payment method key ('plugin_name::payment_key')
+     *
+     * @param string $paymentMethodClass
+     *
+     * @return string
+     */
+    public function getPluginPaymentMethodKey(string $paymentMethodClass): string
+    {
+        return Plugin::KEY . '::' . $this->methodConfig->getPaymentMethodKey($paymentMethodClass);
+    }
+
+    /**
+     * Returns a list of events that should be observed.
+     *
+     * @return array
+     */
+    public function getPaymentMethodEventList(): array
+    {
+        return [
+            AfterBasketChanged::class,
+            AfterBasketItemAdd::class,
+            AfterBasketCreate::class,
+            FrontendLanguageChanged::class,
+            FrontendShippingCountryChanged::class
+        ];
+    }
+
+    /**
+     * @param $mop
+     * @return string
+     */
+    public function mapMopToPaymentMethod($mop): string
+    {
+        $paymentMethod = '';
+
+        foreach ($this->methodConfig::getPaymentMethods() as $paymentMethodClass) {
+            if ($this->getPaymentMethodId($paymentMethodClass) == $mop) {
+            	$paymentMethod = $paymentMethodClass;
+            }
+        }
+        $this->getLogger(__METHOD__)->error('Skrill:paymentMethod', $paymentMethod);
+
+        return $paymentMethod;
+    }
+
+    /**
+     * @param string $paymentMethod
+     * @return PaymentMethodContract|null
+     */
+    public function getPaymentMethodInstance(string $paymentMethod)
+    {
+        /** @var PaymentMethodContract $instance */
+        
+        switch ($paymentMethod) {
+        	case PchPaymentMethod::class:
+        		$instance = pluginApp(PchPaymentMethod::class);
+        		break;
+        	case AccPaymentMethod::class:
+        		$instance = pluginApp(AccPaymentMethod::class);
+        		break;
+        	case AciPaymentMethod::class:
+        		$instance = pluginApp(AciPaymentMethod::class);
+        		break;
+        	case AdbPaymentMethod::class:
+        		$instance = pluginApp(AdbPaymentMethod::class);
+        		break;
+        	case AliPaymentMethod::class:
+        		$instance = pluginApp(AliPaymentMethod::class);
+        		break;
+        	case AmxPaymentMethod::class:
+        		$instance = pluginApp(AmxPaymentMethod::class);
+        		break;
+        	case AobPaymentMethod::class:
+        		$instance = pluginApp(AobPaymentMethod::class);
+        		break;
+        	case ApmPaymentMethod::class:
+        		$instance = pluginApp(ApmPaymentMethod::class);
+        		break;
+        	case AupPaymentMethod::class:
+        		$instance = pluginApp(AupPaymentMethod::class);
+        		break;
+        	case BtcPaymentMethod::class:
+        		$instance = pluginApp(BtcPaymentMethod::class);
+        		break;
+        	case CsiPaymentMethod::class:
+        		$instance = pluginApp(CsiPaymentMethod::class);
+        		break;
+        	case DidPaymentMethod::class:
+        		$instance = pluginApp(DidPaymentMethod::class);
+        		break;
+        	case DnkPaymentMethod::class:
+        		$instance = pluginApp(DnkPaymentMethod::class);
+        		break;
+        	case EbtPaymentMethod::class:
+        		$instance = pluginApp(EbtPaymentMethod::class);
+        		break;
+        	case EpyPaymentMethod::class:
+        		$instance = pluginApp(EpyPaymentMethod::class);
+        		break;
+        	case GcbPaymentMethod::class:
+        		$instance = pluginApp(GcbPaymentMethod::class);
+        		break;
+        	case GirPaymentMethod::class:
+        		$instance = pluginApp(GirPaymentMethod::class);
+        		break;
+        	case IdlPaymentMethod::class:
+        		$instance = pluginApp(IdlPaymentMethod::class);
+        		break;
+        	case MaePaymentMethod::class:
+        		$instance = pluginApp(MaePaymentMethod::class);
+        		break;
+        	case MscPaymentMethod::class:
+        		$instance = pluginApp(MscPaymentMethod::class);
+        		break;
+        	case NpyPaymentMethod::class:
+        		$instance = pluginApp(NpyPaymentMethod::class);
+        		break;
+        	case NtlPaymentMethod::class:
+        		$instance = pluginApp(NtlPaymentMethod::class);
+        		break;
+        	case ObtPaymentMethod::class:
+        		$instance = pluginApp(ObtPaymentMethod::class);
+        		break;
+        	case PliPaymentMethod::class:
+        		$instance = pluginApp(PliPaymentMethod::class);
+        		break;
+        	case PscPaymentMethod::class:
+        		$instance = pluginApp(PscPaymentMethod::class);
+        		break;
+        	case PspPaymentMethod::class:
+        		$instance = pluginApp(PspPaymentMethod::class);
+        		break;
+        	case PwyPaymentMethod::class:
+        		$instance = pluginApp(PwyPaymentMethod::class);
+        		break;
+        	case SftPaymentMethod::class:
+        		$instance = pluginApp(SftPaymentMethod::class);
+        		break;
+        	case VsaPaymentMethod::class:
+        		$instance = pluginApp(VsaPaymentMethod::class);
+        		break;
+        	case WltPaymentMethod::class:
+        		$instance = pluginApp(WltPaymentMethod::class);
+        		break;
+        	
+        	default:
+        		$instance = null;
+        		break;
+        }
+
+        return $instance;
+    }
 
 	/**
 	 * get Customer Login status
@@ -134,7 +387,7 @@ class PaymentHelper
 	 */
 	public function isSkrillPaymentMopId($mopId)
 	{
-		$paymentMethods = $this->paymentMethodRepository->allForPlugin('skrill');
+		$paymentMethods = $this->paymentMethodRepository->allForPlugin(Plugin::KEY);
 
 		if (!is_null($paymentMethods))
 		{
@@ -464,6 +717,8 @@ class PaymentHelper
 			}
 		}
 
+		$this->getLogger(__METHOD__)->error('Skrill:payments', $status);
+
 		$this->getLogger(__METHOD__)->error('Skrill:status', $status);
 
 		if ($status == Payment::STATUS_REFUSED)
@@ -765,6 +1020,26 @@ class PaymentHelper
 	public function isPaymentSignatureEqualsGeneratedSignature($paymentSignature, $generatedSignature)
 	{
 		return $paymentSignature == $generatedSignature;
+	}
+
+	/**
+	 * get Variation Description
+	 *
+	 * @param int $variationId
+	 * @return string
+	 */
+	public function getVariationDescription($variationId)
+	{
+		$variationDescriptionContract = pluginApp(VariationDescriptionRepositoryContract::class);
+		$authHelper = pluginApp(AuthHelper::class);
+
+        $variationDescription = $authHelper->processUnguarded(
+            function () use ($variationDescriptionContract, $variationId) {
+                return $variationDescriptionContract->findByVariationId($variationId);
+            }
+        );
+
+		return $variationDescription;
 	}
 
 }

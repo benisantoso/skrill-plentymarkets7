@@ -1,5 +1,5 @@
 <div class="alert alert-warning" role="alert">
-    <strong><i>Important:</i></strong> The Skrill plugin has been developed for use with the online store Ceres and only works with its structure or other template plugins. IO plugin is required. For the best compatibility please use IO/Ceres with version 1.4.0 - 4.2.0.
+    <strong><i>Important:</i></strong> The Skrill plugin has been developed for use with the online store Ceres and only works with its structure or other template plugins. IO plugin is required. For the best compatibility please use IO/Ceres with version 1.4.0 - 4.3.2.
 </div>
 <br>
 <div class="alert alert-warning" role="alert">
@@ -8,6 +8,9 @@
 
 ## Skrill Merchant On Boarding:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/s34TCs3rIF4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+<br>
+For further details regarding the promotion, please click <a href="https://www.skrill.com/en/promo-plentymarkets/?utm_source=plentymarkets&utm_medium=banner&utm_campaign=RTautumn%20(" target="_blank">here</a>.
 <br>
 <br>
 Plugins that you buy on plentyMarketplace will be saved in the Plugins » Purchases menu of your plentymarkets system. Proceed as described below to install the purchased plugins.

@@ -144,3 +144,15 @@
 #### Features :
 * Compatibility Testing - Ceres 4.2.0
 * Marketing materials - changes
+
+## Release 1.0.20 (2019-09-30)
+
+#### Features :
+* Marketing materials - changes
+
+## Release 1.0.21 (2019-10-15)
+
+#### Features :
+* Create payment widget front of payment method instead of redirect
+* update user_gude_de and user_guide_en files.
+* add DE translation.

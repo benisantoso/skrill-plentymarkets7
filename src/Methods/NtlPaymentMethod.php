@@ -3,6 +3,7 @@
 namespace Skrill\Methods;
 
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Payment\Events\Checkout\GetPaymentMethodContent;
 
 /**
 * Class NtlPaymentMethod
@@ -12,10 +13,16 @@ class NtlPaymentMethod extends AbstractPaymentMethod
 {
 	use Loggable;
 
+	const KEY = 'SKRILL_NTL';
+	const DEFAULT_NAME = 'Neteller';
+	const RETURN_TYPE = GetPaymentMethodContent::RETURN_TYPE_HTML;
+	const INITIALIZE_PAYMENT = true;
+    
+
 	/**
 	 * @var name
 	 */
-	protected $name = 'Neteller';
+	protected $name = self::DEFAULT_NAME;
 
 	/**
 	 * @var exceptedBillingCountries

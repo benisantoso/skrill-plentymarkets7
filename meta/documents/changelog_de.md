@@ -144,3 +144,15 @@
 ### Erweiterungen :
 * Kompatilitätsprüfung  - Ceres 4.2.0
 * Marketing-Materialien -  Änderungen
+
+## Veröffentlichung 1.0.20 (2019-09-30)
+
+### Erweiterungen :
+* Marketing-Materialien -  Änderungen
+
+## Veröffentlichung 1.0.21 (2019-10-15)
+
+### Erweiterungen :
+* Erstellen Sie ein Zahlungs-Widget vor der Zahlungsmethode, anstatt diese umzuleiten
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+* DE Übersetzung hinzufügen.

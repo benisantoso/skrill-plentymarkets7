@@ -161,3 +161,4 @@
 
 #### Features :
 * Add Greece as supported country for Paysafecash
+* Add Switzerland as supported country for Paysafecash

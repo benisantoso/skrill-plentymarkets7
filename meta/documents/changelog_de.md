@@ -161,3 +161,4 @@
 
 ### Erweiterungen :
 * Fügen Sie Griechenland als unterstütztes Land für Paysafecash hinzu
+* Fügen Sie die Schweiz als unterstütztes Land für Paysafecash hinzu

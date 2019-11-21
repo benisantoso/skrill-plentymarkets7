@@ -156,3 +156,8 @@
 * Create payment widget front of payment method instead of redirect
 * update user_gude_de and user_guide_en files.
 * add DE translation.
+
+## Release 1.0.22 (2019-11-21)
+
+#### Features :
+* Add Greece as supported country for Paysafecash

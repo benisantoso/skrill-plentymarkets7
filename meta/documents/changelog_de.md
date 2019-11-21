@@ -156,3 +156,8 @@
 * Erstellen Sie ein Zahlungs-Widget vor der Zahlungsmethode, anstatt diese umzuleiten
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 * DE Übersetzung hinzufügen.
+
+## Veröffentlichung 1.0.22 (2019-11-21)
+
+### Erweiterungen :
+* Fügen Sie Griechenland als unterstütztes Land für Paysafecash hinzu

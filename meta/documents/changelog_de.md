@@ -162,3 +162,4 @@
 ### Erweiterungen :
 * Fügen Sie Griechenland als unterstütztes Land für Paysafecash hinzu
 * Fügen Sie die Schweiz als unterstütztes Land für Paysafecash hinzu
+* Fehlerbehebung: Auf der Seite mit den ausgewählten Zahlungsmethoden werden gleichzeitig alle Kreditkarten und die VISA-Kreditkarte angezeigt

@@ -162,3 +162,4 @@
 #### Features :
 * Add Greece as supported country for Paysafecash
 * Add Switzerland as supported country for Paysafecash
+* bug fix: at select_payment_method page showing at the same time All Credit cards and VISA credit card

@@ -89,6 +89,7 @@ class AbstractPaymentMethod extends PaymentMethodService
 	 *
 	 * @param Checkout $checkout
 	 * @param PaymentService $paymentService
+     * @param SettingService $settingsService
 	 */
 	public function __construct(Checkout $checkout, PaymentService $paymentService)
 	{
@@ -108,6 +109,24 @@ class AbstractPaymentMethod extends PaymentMethodService
         {
             return true;
         }
+        return false;
+    }
+
+    /**
+     * check if method active or not
+     * @param string $settingsType
+     *
+     * @return bool
+     */
+    protected function isMethodActive($settingsType)
+    {
+        $methodSettings = $this->paymentService->loadMethodSettings($settingsType);
+        $active = $methodSettings['enabled'];
+        $showSeparately = $methodSettings['showSeparately'];
+        if ($active && $showSeparately) {
+            return true;
+        }
+
         return false;
     }
 

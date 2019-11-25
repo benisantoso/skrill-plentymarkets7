@@ -38,4 +38,22 @@ class AmxPaymentMethod extends AbstractPaymentMethod
 	 * @var settingsType
 	 */
 	protected $settingsType = 'skrill_amx';
+
+	/**
+     * Check whether the payment method is active
+     *
+     * @return bool
+     */
+	public function isActive()
+	{
+		if (!$this->isMethodActive('skrill_acc')
+			&& $this->isEnabled()
+			&& $this->isShowSeparately()
+			&& $this->isBillingCountriesAllowed()
+		) {
+			return true;
+		}
+
+		return false;
+	}
 }

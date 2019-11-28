@@ -1,5 +1,5 @@
 <div class="alert alert-warning" role="alert">
-    <strong><i>Wichtig:</i></strong> Das Skrill-Plugin wurde zur Verwendung mit dem Online-Store Ceres entwickelt und funkioniert nur mit dessen Struktur oder Plugins anderer Vorlagen. Ein IO-Plugin wird benötigt. Für die optimale Kompatibilität empfiehlt sich IO/Ceres Version 1.4.0 - 4.3.2.
+    <strong><i>Wichtig:</i></strong> Das Skrill-Plugin wurde zur Verwendung mit dem Online-Store Ceres entwickelt und funkioniert nur mit dessen Struktur oder Plugins anderer Vorlagen. Ein IO-Plugin wird benötigt. Für die optimale Kompatibilität empfiehlt sich IO/Ceres Version 1.4.0 - 4.4.1.
 </div>
 <br>
 <div class="alert alert-warning" role="alert">

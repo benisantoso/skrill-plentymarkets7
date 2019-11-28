@@ -157,10 +157,11 @@
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 * DE Übersetzung hinzufügen.
 
-## Veröffentlichung 1.0.22 (2019-11-21)
+## Veröffentlichung 1.0.22 (2019-11-28)
 
 ### Erweiterungen :
 * Fügen Sie Griechenland als unterstütztes Land für Paysafecash hinzu
 * Fügen Sie die Schweiz als unterstütztes Land für Paysafecash hinzu
 * Fehlerbehebung: Auf der Seite mit den ausgewählten Zahlungsmethoden werden gleichzeitig alle Kreditkarten und die VISA-Kreditkarte angezeigt
 * Fehlerbehebung: Zahlungs-Widget wird nicht richtig angezeigt
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.

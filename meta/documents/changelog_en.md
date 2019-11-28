@@ -157,10 +157,11 @@
 * update user_gude_de and user_guide_en files.
 * add DE translation.
 
-## Release 1.0.22 (2019-11-21)
+## Release 1.0.22 (2019-11-28)
 
 #### Features :
 * Add Greece as supported country for Paysafecash
 * Add Switzerland as supported country for Paysafecash
 * bug fix: at select_payment_method page showing at the same time All Credit cards and VISA credit card
 * bug fix: payment widget not showing properly
+* update user_gude_de and user_guide_en files.

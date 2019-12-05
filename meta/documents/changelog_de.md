@@ -165,3 +165,4 @@
 * Fehlerbehebung: Auf der Seite mit den ausgewählten Zahlungsmethoden werden gleichzeitig alle Kreditkarten und die VISA-Kreditkarte angezeigt
 * Fehlerbehebung: Zahlungs-Widget wird nicht richtig angezeigt
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.

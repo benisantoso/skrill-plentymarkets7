@@ -165,3 +165,4 @@
 * bug fix: at select_payment_method page showing at the same time All Credit cards and VISA credit card
 * bug fix: payment widget not showing properly
 * update user_gude_de and user_guide_en files.
+* update user_gude_de and user_guide_en files.

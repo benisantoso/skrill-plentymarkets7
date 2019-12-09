@@ -232,6 +232,21 @@ class PaymentService
 	}
 
 	/**
+	 * Load the card settings from the database for the given settings type
+	 *
+	 * @param $settingsType
+	 * @return array|null
+	 */
+	public function loadMethodSettings($settingsType)
+	{
+		$setting = $this->settingsService->loadSetting($this->systemService->getPlentyId(), $settingsType);
+		if (is_array($setting) && count($setting) > 0)
+		{
+			return $setting;
+		}
+	}	
+
+	/**
 	 * get the settings from the database for the given settings type is skrill_general
 	 *
 	 * @return array|null

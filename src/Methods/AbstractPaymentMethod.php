@@ -137,12 +137,16 @@ class AbstractPaymentMethod extends PaymentMethodService
      */
     protected function isShowSeparately()
     {
-        if (array_key_exists('showSeparately', $this->paymentService->settings) &&
-            $this->paymentService->settings['showSeparately'] == 1)
-        {
-            return true;
+        if ($this->settingsType == 'skrill_acc') {
+            if (array_key_exists('showSeparately', $this->paymentService->settings) &&
+                $this->paymentService->settings['showSeparately'] == 1)
+            {
+                return true;
+            }
+            return false;
         }
-        return false;
+
+        return true;
     }
 
     /**

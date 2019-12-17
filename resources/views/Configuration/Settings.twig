@@ -196,14 +196,16 @@
 					</div>
 				{% endif %}
 				<div class="div-separator clear"></div>
-				<div>
-					<label for="Show Separately">{{ trans('Skrill::Settings.SKRILL_BACKEND_PM_MODE', [], 'messages', locale) }}</label>
-					{% if setting.showSeparately %}
-						<input type="checkbox" name="showSeparately" value="1" checked="checked" />
-					{% else %}
-						<input type="checkbox" name="showSeparately" value="1"/>
-					{% endif %}
-				</div>
+				{% if settingType == 'skrill_acc' %}
+					<div>
+						<label for="Show Separately">{{ trans('Skrill::Settings.SKRILL_BACKEND_PM_MODE', [], 'messages', locale) }}</label>
+						{% if setting.showSeparately %}
+							<input type="checkbox" name="showSeparately" value="1" checked="checked" />
+						{% else %}
+							<input type="checkbox" name="showSeparately" value="1"/>
+						{% endif %}
+					</div>
+				{% endif %}
 			{% endif %}
 			<div class="div-separator clear"></div>
 			<div>

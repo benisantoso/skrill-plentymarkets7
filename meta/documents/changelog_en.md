@@ -4,6 +4,7 @@
 
 #### Features :
 * adjust username, password field in Setup>skrill>General Settings
+* bug fix: remove "Show separately" for all payment methods except CC/ Visa, Master, AmEx
 
 ## Release 1.0.22 (2019-11-28)
 

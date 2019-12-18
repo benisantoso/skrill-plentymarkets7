@@ -44,7 +44,7 @@ class AccPaymentMethod extends AbstractPaymentMethod
 		if (($this->isMethodActive('skrill_amx')
 			|| $this->isMethodActive('skrill_msc')
 			|| $this->isMethodActive('skrill_vsa'))
-			&& !$this->isShowSeparately()
+			&& !$this->isMethodActive('skrill_acc')
 		) {
 			return false;
 		}

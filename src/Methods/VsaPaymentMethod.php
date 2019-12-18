@@ -43,7 +43,6 @@ class VsaPaymentMethod extends AbstractPaymentMethod
 	{
 		if (!$this->isMethodActive('skrill_acc')
 			&& $this->isEnabled()
-			&& $this->isShowSeparately()
 			&& $this->isBillingCountriesAllowed()
 		) {
 			return true;

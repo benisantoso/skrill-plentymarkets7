@@ -123,10 +123,15 @@ class AbstractPaymentMethod extends PaymentMethodService
         $methodSettings = $this->paymentService->loadMethodSettings($settingsType);
         $active = $methodSettings['enabled'];
         $showSeparately = $methodSettings['showSeparately'];
-        if ($active && $showSeparately) {
+        if ($active) {
+            if ($settingsType == 'skrill_acc') {
+                if ($showSeparately) {
+                    return true;
+                }
+                return false;
+            }
             return true;
         }
-
         return false;
     }
 

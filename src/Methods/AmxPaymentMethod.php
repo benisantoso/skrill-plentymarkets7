@@ -46,7 +46,7 @@ class AmxPaymentMethod extends AbstractPaymentMethod
      */
 	public function isActive()
 	{
-		if (!$this->isMethodActive('skrill_acc')
+		if ($this->isShowSeparately()
 			&& $this->isEnabled()
 			&& $this->isBillingCountriesAllowed()
 		) {

@@ -33,22 +33,4 @@ class AccPaymentMethod extends AbstractPaymentMethod
 	 * @var settingsType
 	 */
 	protected $settingsType = 'skrill_acc';
-
-	/**
-     * Check whether the payment method is active
-     *
-     * @return bool
-     */
-	public function isActive()
-	{
-		if (($this->isMethodActive('skrill_amx')
-			|| $this->isMethodActive('skrill_msc')
-			|| $this->isMethodActive('skrill_vsa'))
-			&& !$this->isMethodActive('skrill_acc')
-		) {
-			return false;
-		}
-
-		return true;
-	}
 }

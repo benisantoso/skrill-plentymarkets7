@@ -41,13 +41,14 @@ class VsaPaymentMethod extends AbstractPaymentMethod
      */
 	public function isActive()
 	{
-		if ($this->isShowSeparately()
-			&& $this->isEnabled()
+		if ($this->isAllCardActive() && !$this->isShowSeparately()) {
+			return false;
+		} elseif (
+			$this->isShowSeparately()
+			|| $this->isEnabled()
 			&& $this->isBillingCountriesAllowed()
 		) {
 			return true;
 		}
-
-		return false;
 	}
 }

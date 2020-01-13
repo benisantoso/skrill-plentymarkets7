@@ -130,6 +130,23 @@ class AbstractPaymentMethod extends PaymentMethodService
     }
 
     /**
+     * Check whether the payment setting is all Card Active
+     *
+     * @return bool
+     */
+    protected function isAllCardActive()
+    {
+        $methodSettings = $this->paymentService->loadMethodSettings('skrill_acc');
+        $enabled = $methodSettings['enabled'];
+
+        if ($enabled) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * get allowed billing countries
      *
      * @return array

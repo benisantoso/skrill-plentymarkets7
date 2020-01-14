@@ -6,6 +6,7 @@
 * Passen Sie den Benutzernamen und das Passwortfeld in Setup> Befehl> Allgemeine Einstellungen an
 * Fehlerbehebung: "Separat anzeigen" für alle Zahlungsmethoden außer CC / Visa, Master, AmEx entfernen
 * Fehlerbehebung: "Separat anzeigen" für alle Zahlungsmethoden außer CC / Visa, Master, AmEx entfernen
+* füge neue unterstützte Länder für PaysafeCash hinzu
 
 ## Veröffentlichung 1.0.22 (2019-11-28)
 

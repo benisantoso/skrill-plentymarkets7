@@ -8,6 +8,7 @@
 * Fehlerbehebung: "Separat anzeigen" für alle Zahlungsmethoden außer CC / Visa, Master, AmEx entfernen
 * füge neue unterstützte Länder für PaysafeCash hinzu
 * Fehlerbehebung: Alipay für Kunden aus Großbritannien verfügbar
+* Fehlerbehebung: Nach erfolgreicher Zahlung wird der Shop in deutscher Sprache geschaltet
 
 ## Veröffentlichung 1.0.22 (2019-11-28)
 

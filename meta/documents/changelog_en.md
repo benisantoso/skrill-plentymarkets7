@@ -8,6 +8,7 @@
 * bug fix: remove "Show separately" for all payment methods except CC/ Visa, Master, AmEx
 * add new supported countries for PaysafeCash
 * bug fix: Alipay available for customers from UK
+* bug fix: after success payment the shop switching in German language
 
 ## Release 1.0.22 (2019-11-28)
 

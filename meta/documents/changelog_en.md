@@ -9,6 +9,7 @@
 * add new supported countries for PaysafeCash
 * bug fix: Alipay available for customers from UK
 * bug fix: after success payment the shop switching in German language
+* bug fix: the message "Your setting have been saved" never hiding
 
 ## Release 1.0.22 (2019-11-28)
 

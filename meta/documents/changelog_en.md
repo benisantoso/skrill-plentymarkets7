@@ -10,6 +10,7 @@
 * bug fix: Alipay available for customers from UK
 * bug fix: after success payment the shop switching in German language
 * bug fix: the message "Your setting have been saved" never hiding
+* bug fix: error404 while trying to get payment success page
 
 ## Release 1.0.22 (2019-11-28)
 

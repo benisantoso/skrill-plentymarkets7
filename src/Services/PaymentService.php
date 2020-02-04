@@ -369,17 +369,30 @@ class PaymentService
     			[
     				'typeId' 	=> 1,
     				'value' 	=> "1"
+    			],
+    			[
+    				'typeId' 	=> 66,
+    				'value' 	=> 'Skrill'
+    			],
+    			[
+    				'typeId'	=> 3,
+    				'value'		=> (string)$basket->methodOfPaymentId
     			]
     		],
     		'addressRelations' 	=> $this->getAddressRelations(),
     		'relations' 			=> [
     			[
     				'referenceType' => 'contact',
-	    			'referenceId' 	=> $basket->customerId,
 	    			'relation' 		=> 'receiver'
     			]
     		]
     	];
+
+    	if ($this->paymentHelper->getIsLogin()) {
+    		$basketsData['relations'][0]['referenceId'] = $basket->customerId;
+    	} else {
+    		$basketsData['relations'][0]['referenceId'] = 0;
+    	}
 
     	return $basketsData;
     }

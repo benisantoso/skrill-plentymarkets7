@@ -9,6 +9,7 @@
 * füge neue unterstützte Länder für PaysafeCash hinzu
 * Fehlerbehebung: Alipay für Kunden aus Großbritannien verfügbar
 * Fehlerbehebung: Nach erfolgreicher Zahlung wird der Shop in deutscher Sprache geschaltet
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 
 ## Veröffentlichung 1.0.22 (2019-11-28)
 

@@ -10,6 +10,7 @@
 * bug fix: Alipay available for customers from UK
 * bug fix: after success payment the shop switching in German language
 * update user_gude_de and user_guide_en files.
+* bug fix: pressing Cancel button on Skrill gateway page, switching the shop in German language.
 
 ## Release 1.0.22 (2019-11-28)
 

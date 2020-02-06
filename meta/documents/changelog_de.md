@@ -10,6 +10,7 @@
 * Fehlerbehebung: Alipay für Kunden aus Großbritannien verfügbar
 * Fehlerbehebung: Nach erfolgreicher Zahlung wird der Shop in deutscher Sprache geschaltet
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+* Fehlerbehebung: Klicken Sie auf der Skrill-Gateway-Seite auf die Schaltfläche Abbrechen, um den Shop in deutscher Sprache zu schalten.
 
 ## Veröffentlichung 1.0.22 (2019-11-28)
 

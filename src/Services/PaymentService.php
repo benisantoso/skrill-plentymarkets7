@@ -528,7 +528,7 @@ class PaymentService
 				'/payment/skrill/return?basketId='.$basket->id.'&mopId='.$mopId,
 			'status_url' => $this->paymentHelper->getDomain().
 				'/payment/skrill/status?&paymentKey='.$paymentKey.'&mopId='.$mopId.'&basketId='.$basket->id,
-			'cancel_url' => $this->paymentHelper->getDomain().'/checkout',
+			'cancel_url' => $this->paymentHelper->getDomain().'/'.strtolower($this->getLanguage()).'/checkout',
 			'language' => $this->getLanguage(),
 			'logo_url' => $additionalParams['logoUrl'],
 			'prepare_only' => 1,

@@ -21,8 +21,10 @@ $(document).ready(function () {
 			}).done(function(r){
 				if (r == 'success') {
 					$('#successMessage').css('display', 'block');
+					setTimeout(function(){ $('#successMessage').css('display', 'none'); }, 3000);
 				} else {
 					$('#errorMessage').css('display', 'block');
+					setTimeout(function(){ $('#errorMessage').css('display', 'none'); }, 3000);
 				}
 			});
 		});

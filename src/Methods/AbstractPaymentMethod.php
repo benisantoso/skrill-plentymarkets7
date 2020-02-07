@@ -113,17 +113,16 @@ class AbstractPaymentMethod extends PaymentMethodService
     }
 
     /**
-     * check if method active or not
-     * @param string $settingsType
+     * Check whether the payment setting is show separately
      *
      * @return bool
      */
-    protected function isMethodActive($settingsType)
+    protected function isShowSeparately()
     {
-        $methodSettings = $this->paymentService->loadMethodSettings($settingsType);
-        $active = $methodSettings['enabled'];
+        $methodSettings = $this->paymentService->loadMethodSettings('skrill_acc');
         $showSeparately = $methodSettings['showSeparately'];
-        if ($active && $showSeparately) {
+
+        if ($showSeparately) {
             return true;
         }
 
@@ -131,17 +130,19 @@ class AbstractPaymentMethod extends PaymentMethodService
     }
 
     /**
-     * Check whether the payment setting is show separately
+     * Check whether the payment setting is all Card Active
      *
      * @return bool
      */
-    protected function isShowSeparately()
+    protected function isAllCardActive()
     {
-        if (array_key_exists('showSeparately', $this->paymentService->settings) &&
-            $this->paymentService->settings['showSeparately'] == 1)
-        {
+        $methodSettings = $this->paymentService->loadMethodSettings('skrill_acc');
+        $enabled = $methodSettings['enabled'];
+
+        if ($enabled) {
             return true;
         }
+
         return false;
     }
 
@@ -243,7 +244,7 @@ class AbstractPaymentMethod extends PaymentMethodService
      */
     public function isActive()
     {
-        if ($this->isEnabled() && $this->isShowSeparately() && $this->isBillingCountriesAllowed())
+        if ($this->isEnabled() && $this->isBillingCountriesAllowed())
         {
             return true;
         }

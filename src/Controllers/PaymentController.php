@@ -8,6 +8,7 @@ use Plenty\Plugin\Http\Response;
 use Plenty\Modules\Basket\Contracts\BasketItemRepositoryContract;
 use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
+use Plenty\Modules\Order\RelationReference\Models\OrderRelationReference;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Authorization\Services\AuthHelper;
@@ -131,11 +132,24 @@ class PaymentController extends Controller
 			$language = $order->properties[1]->value;
 		}
 
+		$customerId = 0;
+        foreach ($order->relations as $relation)
+        {
+            if($relation->referenceType == OrderRelationReference::REFERENCE_TYPE_CONTACT)
+            {
+                $customerId = $relation->referenceId;
+            }
+        }
+
 		if ($orderId > 0) {
 			$this->resetBasket();
 		}
 
-		return $this->response->redirectTo($language.'/execute-payment/'.$orderId);
+		if ($customerId > 0) {
+			return $this->response->redirectTo($language.'/execute-payment/'.$orderId);
+		} else {
+			return $this->response->redirectTo($language.'/confirmation/'.$orderId);
+		}
 	}
 
 	/**

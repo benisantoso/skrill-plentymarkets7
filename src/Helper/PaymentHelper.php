@@ -16,6 +16,7 @@ use Plenty\Modules\Basket\Events\Basket\AfterBasketCreate;
 use Plenty\Modules\Basket\Events\BasketItem\AfterBasketItemAdd;
 use Plenty\Modules\Frontend\Events\FrontendLanguageChanged;
 use Plenty\Modules\Frontend\Events\FrontendShippingCountryChanged;
+use Plenty\Modules\Order\Shipping\Events\AfterShippingCostCalculated;
 use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Modules\Item\VariationDescription\Contracts\VariationDescriptionRepositoryContract;
@@ -207,7 +208,8 @@ class PaymentHelper
             AfterBasketItemAdd::class,
             AfterBasketCreate::class,
             FrontendLanguageChanged::class,
-            FrontendShippingCountryChanged::class
+            FrontendShippingCountryChanged::class,
+            AfterShippingCostCalculated::class
         ];
     }
 

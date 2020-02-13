@@ -4,6 +4,7 @@
 
 ### Erweiterungen :
 * Fehlerbehebung: Zahlungsmethoden werden ohne Seitenaktualisierung nicht angezeigt
+* Fügen Sie Griechenland als unterstütztes Land für Rapid Transfer hinzu
 
 ## Release Note für Skrill
 

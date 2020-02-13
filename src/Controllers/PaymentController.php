@@ -8,8 +8,11 @@ use Plenty\Plugin\Http\Response;
 use Plenty\Modules\Basket\Contracts\BasketItemRepositoryContract;
 use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
+use Plenty\Modules\Order\RelationReference\Models\OrderRelationReference;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Templates\Twig;
+use Plenty\Modules\Authorization\Services\AuthHelper;
+use Plenty\Modules\Order\Models\Order;
 use Skrill\Services\GatewayService;
 use Skrill\Constants\SessionKeys;
 use Skrill\Models\Repositories\SkrillOrderTransactionRepository;
@@ -108,17 +111,45 @@ class PaymentController extends Controller
 	 */
 	public function handleReturnUrl()
 	{
+		$language = 'de';
 		$this->getLogger(__METHOD__)->error('Skrill:return_url', $this->request->all());
 		$this->sessionStorage->getPlugin()->setValue(SessionKeys::SESSION_KEY_TRANSACTION_ID, $this->request->get('transaction_id'));
 		sleep(10);
 		$skrillOrderTrx = $this->skrillOrderTransaction->getSkrillOrderTransactionByTransactionId($this->request->get('transaction_id'));
 		$this->getLogger(__METHOD__)->error('Skrill:skrillOrderTrx', $skrillOrderTrx);
 
-		if ($skrillOrderTrx->order_id > 0) {
+		$orderRepo = pluginApp(OrderRepositoryContract::class);
+		$authHelper = pluginApp(AuthHelper::class);
+		$orderId = $skrillOrderTrx->order_id;
+		$order = $authHelper->processUnguarded(
+						function () use ($orderRepo, $orderId) {
+							return $orderRepo->findOrderById($orderId);
+						}
+		);
+
+		if (!is_null($order) && $order instanceof Order)
+		{
+			$language = $order->properties[1]->value;
+		}
+
+		$customerId = 0;
+        foreach ($order->relations as $relation)
+        {
+            if($relation->referenceType == OrderRelationReference::REFERENCE_TYPE_CONTACT)
+            {
+                $customerId = $relation->referenceId;
+            }
+        }
+
+		if ($orderId > 0) {
 			$this->resetBasket();
 		}
 
-		return $this->response->redirectTo('execute-payment/'.$skrillOrderTrx->order_id);
+		if ($customerId > 0) {
+			return $this->response->redirectTo($language.'/execute-payment/'.$orderId);
+		} else {
+			return $this->response->redirectTo($language.'/confirmation/'.$orderId);
+		}
 	}
 
 	/**

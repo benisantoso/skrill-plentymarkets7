@@ -27,7 +27,7 @@ class PchPaymentMethod extends AbstractPaymentMethod
 	/**
 	 * @var allowedBillingCountries
 	 */
-	protected $allowedBillingCountries = array('AUT','HRV','HUN','ITA','MLT','PRT','ROU','SVN','ESP','GRC','CHE');
+	protected $allowedBillingCountries = array('AUT','BEL','CAN','CHE','CZE','DNK','FRA','GRC','HRV','HUN','IRL','ITA','LUX','MLT','NLD','POL','PRT','ROU','SVK','SVN','SWE','ESP', 'GBR');
 
 	/**
 	 * @var logoFileName

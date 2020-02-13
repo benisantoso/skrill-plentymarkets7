@@ -27,7 +27,7 @@ class AliPaymentMethod extends AbstractPaymentMethod
 	/**
 	 * @var allowedBillingCountries
 	 */
-	protected $allowedBillingCountries = array('CHN','GBR');
+	protected $allowedBillingCountries = array('CHN');
 
 	/**
 	 * @var logoFileName

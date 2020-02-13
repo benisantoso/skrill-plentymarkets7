@@ -369,17 +369,30 @@ class PaymentService
     			[
     				'typeId' 	=> 1,
     				'value' 	=> "1"
+    			],
+    			[
+    				'typeId' 	=> 66,
+    				'value' 	=> 'Skrill'
+    			],
+    			[
+    				'typeId'	=> 3,
+    				'value'		=> (string)$basket->methodOfPaymentId
     			]
     		],
     		'addressRelations' 	=> $this->getAddressRelations(),
     		'relations' 			=> [
     			[
     				'referenceType' => 'contact',
-	    			'referenceId' 	=> $basket->customerId,
 	    			'relation' 		=> 'receiver'
     			]
     		]
     	];
+
+    	if ($this->paymentHelper->getIsLogin()) {
+    		$basketsData['relations'][0]['referenceId'] = $basket->customerId;
+    	} else {
+    		$basketsData['relations'][0]['referenceId'] = 0;
+    	}
 
     	return $basketsData;
     }
@@ -528,7 +541,7 @@ class PaymentService
 				'/payment/skrill/return?basketId='.$basket->id.'&mopId='.$mopId,
 			'status_url' => $this->paymentHelper->getDomain().
 				'/payment/skrill/status?&paymentKey='.$paymentKey.'&mopId='.$mopId.'&basketId='.$basket->id,
-			'cancel_url' => $this->paymentHelper->getDomain().'/checkout',
+			'cancel_url' => $this->paymentHelper->getDomain().'/'.strtolower($this->getLanguage()).'/checkout',
 			'language' => $this->getLanguage(),
 			'logo_url' => $additionalParams['logoUrl'],
 			'prepare_only' => 1,

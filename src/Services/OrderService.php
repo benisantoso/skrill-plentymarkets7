@@ -92,7 +92,7 @@ class OrderService
 			$sessionStorageService->setSessionValue(SessionStorageKeys::LATEST_ORDER_ID, $order->id);
 		}
 
-		return LocalizedOrder::wrap($order, "de");
+		return LocalizedOrder::wrap($order, $sessionStorageService->getLang());
 	}
 
 	/**

@@ -5,6 +5,7 @@
 #### Features :
 * bug fix: payment methods are not showing without page refresh
 * Add Greece as supported country for Rapid Transfer
+* remove image preview_0.png
 
 ## Release Note for Skrill
 

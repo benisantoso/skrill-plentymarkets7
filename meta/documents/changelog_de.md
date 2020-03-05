@@ -1,5 +1,10 @@
 ## Release Note für Skrill
 
+## Veröffentlichung 1.0.25 (2020-03-05)
+
+### Erweiterungen :
+* Promo-Angebots
+
 ## Veröffentlichung 1.0.24 (2020-02-12)
 
 ### Erweiterungen :

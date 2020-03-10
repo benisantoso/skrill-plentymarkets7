@@ -32,7 +32,7 @@
     "require"           : ["IO"],
     "dependencies"      : [],
     "runOnBuild"        : [
-        "Skrill\\Migrations\\CreateSkrillTables_1_0_24"
+        "Skrill\\Migrations\\CreateSkrillTables_1_0_25"
     ],
     "dataProviders"     :
     [

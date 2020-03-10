@@ -51,12 +51,6 @@
                                 "entryPoint": "index.html?action=skrill_mae"
                             },
                             {
-                                "label": "American Express",
-                                "menu": "settings/orders/skrill",
-                                "urlKey": "settings-skrill-amx",
-                                "entryPoint": "index.html?action=skrill_amx"
-                            },
-                            {
                                 "label": "Carte Bleue by Visa",
                                 "menu": "settings/orders/skrill",
                                 "urlKey": "settings-skrill-gcb",

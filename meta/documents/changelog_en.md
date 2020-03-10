@@ -11,6 +11,7 @@
 * bug fix: payment methods are not showing without page refresh
 * Add Greece as supported country for Rapid Transfer
 * remove image preview_0.png
+* Remove AMEX as a possible payment option
 
 ## Release Note for Skrill
 

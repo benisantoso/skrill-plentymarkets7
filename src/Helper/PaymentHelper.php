@@ -27,7 +27,6 @@ use Skrill\Methods\AccPaymentMethod;
 use Skrill\Methods\AciPaymentMethod;
 use Skrill\Methods\AdbPaymentMethod;
 use Skrill\Methods\AliPaymentMethod;
-use Skrill\Methods\AmxPaymentMethod;
 use Skrill\Methods\AobPaymentMethod;
 use Skrill\Methods\ApmPaymentMethod;
 use Skrill\Methods\AupPaymentMethod;
@@ -254,9 +253,6 @@ class PaymentHelper
         		break;
         	case AliPaymentMethod::class:
         		$instance = pluginApp(AliPaymentMethod::class);
-        		break;
-        	case AmxPaymentMethod::class:
-        		$instance = pluginApp(AmxPaymentMethod::class);
         		break;
         	case AobPaymentMethod::class:
         		$instance = pluginApp(AobPaymentMethod::class);

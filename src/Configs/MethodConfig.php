@@ -6,7 +6,6 @@ use Skrill\Methods\AccPaymentMethod;
 use Skrill\Methods\AciPaymentMethod;
 use Skrill\Methods\AdbPaymentMethod;
 use Skrill\Methods\AliPaymentMethod;
-use Skrill\Methods\AmxPaymentMethod;
 use Skrill\Methods\AobPaymentMethod;
 use Skrill\Methods\ApmPaymentMethod;
 use Skrill\Methods\AupPaymentMethod;
@@ -65,10 +64,6 @@ class MethodConfig extends BaseConfig implements MethodConfigContract
         AliPaymentMethod::class => [
             self::ARRAY_KEY_KEY => AliPaymentMethod::KEY,
             self::ARRAY_KEY_DEFAULT_NAME => AliPaymentMethod::DEFAULT_NAME
-        ],
-        AmxPaymentMethod::class => [
-            self::ARRAY_KEY_KEY => AmxPaymentMethod::KEY,
-            self::ARRAY_KEY_DEFAULT_NAME => AmxPaymentMethod::DEFAULT_NAME
         ],
         AobPaymentMethod::class => [
             self::ARRAY_KEY_KEY => AobPaymentMethod::KEY,

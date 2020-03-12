@@ -1,11 +1,17 @@
 ## Release Note for Skrill
 
+## Release 1.0.25 (2020-03-05)
+
+#### Features :
+* Skrill Promotion
+
 ## Release 1.0.24 (2020-02-13)
 
 #### Features :
 * bug fix: payment methods are not showing without page refresh
 * Add Greece as supported country for Rapid Transfer
 * remove image preview_0.png
+* Remove AMEX as a possible payment option
 
 ## Release Note for Skrill
 

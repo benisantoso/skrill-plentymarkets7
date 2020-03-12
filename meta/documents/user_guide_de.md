@@ -10,7 +10,11 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/I8msslID-sA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
 <br>
-Für weitere Details bezüglich des Promo-Angebots klicken Sie bitte <a href="https://www.skrill.com/de/promo-plentymarkets/?utm_source=plentymarkets&utm_medium=banner&utm_campaign=RTautumn%20" target="_blank">hier</a>.
+Unsere Zahlungsplattform hält ein exklusives Angebot für Sie bereit – mit ermäßigten Gebühren von 0,9% auf Debit-/Prepaid-/Kreditkarten-Transaktionen (VISA, Mastercard, Maestro) und 0,5% auf Rapid-Transfer-Transaktionen.*
+<br>
+Um Zahlungen mit Skrill zu akzeptieren, melden Sie sich <a href="https://www.skrill.com/de/business/ecommerce-promotion/?utm_source=plentymarkets&utm_medium=banner&utm_campaign=ecomprom&utm_content=product-page&rid=21477252">jetzt an</a>.
+<br>
+*Gebühren für neue Händler nur innerhalb eingeschränkter Branchensektoren gültig. <a href="https://www.skrill.com/de/fusszeile/allgemeinegeschaeftsbedingungen/fees-reduction-promotion/">Es gelten unsere AGBs</a>.
 <br>
 <br>
 Plugins, die Sie auf plentyMarketplace gekauft haben, werden im Menü Plugins » Purchases (Plugins » Käufe) Ihres plentymarkets-Systems abgelegt. Im Folgenden wird beschrieben, wie Sie die gekauften Plugins installieren.

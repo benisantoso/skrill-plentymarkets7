@@ -12,10 +12,10 @@ use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 /**
 * Migration to create skrill configuration tables
 *
-* Class CreateSkrillTables_1_0_24
+* Class CreateSkrillTables_1_0_25
 * @package Skrill\Migrations
 */
-class CreateSkrillTables_1_0_24
+class CreateSkrillTables_1_0_25
 {
 
 	private $paymentHelper;

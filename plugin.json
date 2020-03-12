@@ -3,7 +3,7 @@
     "marketplaceName": {"de":"Skrill", "en":"Skrill"},
     "namespace": "Skrill",
     "type": "payment",
-    "version": "1.0.24",
+    "version": "1.0.26",
     "license": "OSL-3.0",
     "pluginIcon": "icon_plugin_xs.png",
     "price": 0.00,
@@ -32,7 +32,7 @@
     "require"           : ["IO"],
     "dependencies"      : [],
     "runOnBuild"        : [
-        "Skrill\\Migrations\\CreateSkrillTables_1_0_24"
+        "Skrill\\Migrations\\CreateSkrillTables_1_0_26"
     ],
     "dataProviders"     :
     [

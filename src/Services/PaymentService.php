@@ -564,7 +564,7 @@ class PaymentService
 
 		if ($paymentKey == 'SKRILL_ACC')
 		{
-			$parameters['payment_methods'] = 'VSA, MSC, AMX';
+			$parameters['payment_methods'] = 'VSA, MSC';
 		}
 		elseif ($paymentKey != 'SKRILL_APM')
 		{

@@ -443,13 +443,6 @@ class PaymentService
 							'value' => "1"
 						]
 					];
-
-					$orderItems[$key]['orderProperties'] = [
-						[
-							'propertyId' => 4,
-							'value' => $basketItem['variation']['data']['images']['all'][0]['url']
-						]
-					];
 				}
 			}
 		} 

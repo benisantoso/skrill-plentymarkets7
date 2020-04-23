@@ -154,6 +154,7 @@ class RestApiService
 		}
 
 		unset($parameters['id'], $parameters['createdAt'], $parameters['updatedAt'], $parameters['basketId']);
+		$this->getLogger(__METHOD__)->error('Skrill:placeOrder parameters', $parameters);
 		$orderData = $this->requestResponse($ordersUrl, $headers, 'POST', json_encode($parameters));
 		$this->getLogger(__METHOD__)->error('Skrill:orderData', $orderData);
 

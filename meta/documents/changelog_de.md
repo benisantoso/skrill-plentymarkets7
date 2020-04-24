@@ -1,5 +1,12 @@
 ## Release Note für Skrill
 
+## Veröffentlichung 1.0.27 (2020-04-21)
+
+### Erweiterungen :
+* Fehlerbehebung: Weiterleitung auf 404-Seite nach erfolgreicher Zahlung
+
+## Release Note für Skrill
+
 ## Veröffentlichung 1.0.26 (2020-03-12)
 
 ### Erweiterungen :

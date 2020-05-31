@@ -1,9 +1,10 @@
 ## Release Note for Skrill
 
-## Release 1.0.28 (2020-05-28)
+## Release 1.0.28 (2020-05-29)
 
 #### Features :
 * Add Iceland and Paraguay as new supported countries for Paysafecard
+* Add Cyprus and Lithuania as new supported countries for Paysafecash
 
 ## Release Note for Skrill
 

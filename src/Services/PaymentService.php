@@ -537,6 +537,7 @@ class PaymentService
 			'language' => $this->getLanguage(),
 			'logo_url' => $additionalParams['logoUrl'],
 			'prepare_only' => 1,
+			'pay_from_email' => $billingAddress['email'],
 			'firstname' => $billingAddress->firstName,
 			'lastname' => $billingAddress->lastName,
 			'address' => $billingAddress->address1,

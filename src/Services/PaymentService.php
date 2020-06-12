@@ -443,13 +443,6 @@ class PaymentService
 							'value' => "1"
 						]
 					];
-
-					$orderItems[$key]['orderProperties'] = [
-						[
-							'propertyId' => 4,
-							'value' => $basketItem['variation']['data']['images']['all'][0]['url']
-						]
-					];
 				}
 			}
 		} 
@@ -544,6 +537,7 @@ class PaymentService
 			'language' => $this->getLanguage(),
 			'logo_url' => $additionalParams['logoUrl'],
 			'prepare_only' => 1,
+			'pay_from_email' => $billingAddress['email'],
 			'firstname' => $billingAddress->firstName,
 			'lastname' => $billingAddress->lastName,
 			'address' => $billingAddress->address1,
@@ -564,7 +558,7 @@ class PaymentService
 
 		if ($paymentKey == 'SKRILL_ACC')
 		{
-			$parameters['payment_methods'] = 'VSA, MSC, AMX';
+			$parameters['payment_methods'] = 'VSA, MSC';
 		}
 		elseif ($paymentKey != 'SKRILL_APM')
 		{

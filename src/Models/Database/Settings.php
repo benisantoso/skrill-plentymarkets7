@@ -53,10 +53,6 @@ class Settings extends Model
 			'de' => array('paymentName' => 'Maestro'),
 			'en' => array('paymentName' => 'Maestro'),
 		),
-		'skrill_amx' => array(
-			'de' => array('paymentName' => 'American Express'),
-			'en' => array('paymentName' => 'American Express'),
-		),
 		'skrill_gcb' => array(
 			'de' => array('paymentName' => 'Carte Bleue by Visa'),
 			'en' => array('paymentName' => 'Carte Bleue by Visa'),

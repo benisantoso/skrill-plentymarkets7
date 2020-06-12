@@ -28,8 +28,8 @@ class PscPaymentMethod extends AbstractPaymentMethod
 	 * @var allowedBillingCountries
 	 */
 	protected $allowedBillingCountries = array(
-		'ASM','AUT','BEL','CAN','HRV','CYP','CZE','DNK','FIN','FRA','DEU','GUM','HUN','IRL','ITA','LVA','LUX','MLT',
-		'MEX','NLD','MNP','NOR','POL','PRT','PRI','ROU','SVK','SVN','ESP','SWE','CHE','TUR','GBR','USA','VIR'
+		'ASM','AUT','BEL','CAN','HRV','CYP','CZE','DNK','FIN','FRA','DEU','GUM','HUN','IRL','ISL','ITA','LVA','LUX','MLT',
+		'MEX','NLD','MNP','NOR','POL','PRT','PRI','PRY','ROU','SVK','SVN','ESP','SWE','CHE','TUR','GBR','USA','VIR'
 	);
 
 	/**

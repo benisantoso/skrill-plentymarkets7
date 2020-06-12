@@ -1,5 +1,29 @@
 ## Release Note for Skrill
 
+## Release 1.0.28 (2020-05-29)
+
+#### Features :
+* Add Iceland and Paraguay as new supported countries for Paysafecard
+* Add Cyprus and Lithuania as new supported countries for Paysafecash
+* Adjustments about e-mail field on Skrill Payment widget
+* update user_gude_de and user_guide_en files.
+
+## Release Note for Skrill
+
+## Release 1.0.27 (2020-04-21)
+
+#### Features :
+* Bug fix : redirect to 404 page after do success payment
+
+## Release Note for Skrill
+
+## Release 1.0.26 (2020-03-12)
+
+#### Features :
+* Remove AMEX as a possible payment option
+
+## Release Note for Skrill
+
 ## Release 1.0.25 (2020-03-05)
 
 #### Features :

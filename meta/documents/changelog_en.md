@@ -6,6 +6,7 @@
 * Add Iceland and Paraguay as new supported countries for Paysafecard
 * Add Cyprus and Lithuania as new supported countries for Paysafecash
 * Adjustments about e-mail field on Skrill Payment widget
+* update user_gude_de and user_guide_en files.
 
 ## Release Note for Skrill
 

@@ -4,7 +4,9 @@
 
 ### Erweiterungen :
 * Fügen Sie Island und Paraguay als neue unterstützte Länder für Paysafecard hinzu
+* Fügen Sie Zypern und Litauen als neue unterstützte Länder für Paysafecash hinzu
 * Anpassungen am E-Mail-Feld im Skrill Payment-Widget
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 
 ## Release Note für Skrill
 

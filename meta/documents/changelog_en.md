@@ -1,3 +1,11 @@
+
+## Release Note for Skrill
+
+## Release 1.0.29 (2020-08-05)
+
+#### Features :
+* Compatibility Testing - Ceres 5.0.7
+
 ## Release Note for Skrill
 
 ## Release 1.0.28 (2020-05-29)

@@ -1,5 +1,12 @@
 ## Release Note für Skrill
 
+## Veröffentlichung 1.0.29 (2020-07-05)
+
+### Erweiterungen :
+* Kompatilitätsprüfung  - Ceres 5.0.7
+
+## Release Note für Skrill
+
 ## Veröffentlichung 1.0.28 (2020-05-28)
 
 ### Erweiterungen :

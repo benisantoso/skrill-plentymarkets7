@@ -5,6 +5,7 @@
 
 #### Features :
 * Compatibility Testing - Ceres 5.0.7
+* bug fix: replace reference_id with transaction_id parameter
 
 ## Release Note for Skrill
 

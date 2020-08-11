@@ -4,6 +4,7 @@
 
 ### Erweiterungen :
 * Kompatilitätsprüfung  - Ceres 5.0.7
+* Fehlerbehebung: Ersetzen Sie reference_id durch den Parameter transaction_id.
 
 ## Release Note für Skrill
 

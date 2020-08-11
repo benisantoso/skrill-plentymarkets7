@@ -752,9 +752,9 @@ class PaymentHelper
 		$paymentBookingText = [];
 		$countryRepository = pluginApp(CountryRepositoryContract::class);
 
-		if (isset($paymentStatus['transaction_id']))
+		if (isset($paymentStatus['mb_transaction_id']))
 		{
-			$paymentBookingText[] = "Transaction ID : " . (string) $paymentStatus['transaction_id'];
+			$paymentBookingText[] = "Transaction ID : " . (string) $paymentStatus['mb_transaction_id'];
 		}
 		if (isset($paymentStatus['payment_type']))
 		{

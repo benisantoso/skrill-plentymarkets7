@@ -7,6 +7,7 @@
 * Compatibility Testing - Ceres 5.0.7
 * bug fix: replace reference_id with transaction_id parameter
 * update user_gude_de and user_guide_en files.
+* Remove SEPA and Bitcoin as supported payment methods.
 
 ## Release Note for Skrill
 

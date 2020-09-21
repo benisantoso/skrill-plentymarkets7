@@ -8,6 +8,7 @@
 * bug fix: replace reference_id with transaction_id parameter
 * update user_gude_de and user_guide_en files.
 * Remove SEPA and Bitcoin as supported payment methods.
+* change "Sign Up" URL for Plentymarkets.
 
 ## Release Note for Skrill
 

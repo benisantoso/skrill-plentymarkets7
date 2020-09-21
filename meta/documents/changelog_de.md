@@ -7,6 +7,7 @@
 * Fehlerbehebung: Ersetzen Sie reference_id durch den Parameter transaction_id.
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 * Entfernen Sie SEPA und Bitcoin als unterstützte Zahlungsmethoden.
+* Ändern Sie die URL "Anmelden" für Plentymarkets.
 
 ## Release Note für Skrill
 

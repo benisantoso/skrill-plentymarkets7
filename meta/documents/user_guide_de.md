@@ -12,7 +12,7 @@
 <br>
 Unsere Zahlungsplattform hält ein exklusives Angebot für Sie bereit – mit ermäßigten Gebühren von 0,9% auf Debit-/Prepaid-/Kreditkarten-Transaktionen (VISA, Mastercard, Maestro) und 0,5% auf Rapid-Transfer-Transaktionen.*
 <br>
-Um Zahlungen mit Skrill zu akzeptieren, melden Sie sich <a href="https://www.skrill.com/de/business/ecommerce-promotion/?utm_source=plentymarkets&utm_medium=banner&utm_campaign=ecomprom&utm_content=product-page&rid=21477252">jetzt an</a>.
+Um Zahlungen mit Skrill zu akzeptieren, melden Sie sich <a href="https://www.skrill.com/de/geschaeftlich/shopping-carts/plentymarkets/">jetzt an</a>.
 <br>
 *Gebühren für neue Händler nur innerhalb eingeschränkter Branchensektoren gültig. <a href="https://www.skrill.com/de/fusszeile/allgemeinegeschaeftsbedingungen/fees-reduction-promotion/">Es gelten unsere AGBs</a>.
 <br>

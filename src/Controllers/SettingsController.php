@@ -10,6 +10,7 @@ use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Frontend\Services\SystemService;
 use Skrill\Services\Database\SettingsService;
+use Skrill\Services\RestApiService;
 
 /**
 * Class SettingsController
@@ -41,6 +42,12 @@ class SettingsController extends Controller
 	private $settingsService;
 
 	/**
+	 *
+	 * @var RestApiService
+	 */
+	private $restApiService;
+
+	/**
 	 * SettingsController constructor.
 	 *
 	 * @param Request $request
@@ -52,12 +59,14 @@ class SettingsController extends Controller
 					Request $request,
 					Response $response,
 					SystemService $systemService,
-					SettingsService $settingsService
+					SettingsService $settingsService,
+					RestApiService $restApiService
 	) {
 		$this->request = $request;
 		$this->response = $response;
 		$this->systemService = $systemService;
 		$this->settingsService = $settingsService;
+		$this->restApiService = $restApiService;
 	}
 
 	/**
@@ -190,15 +199,21 @@ class SettingsController extends Controller
 			);
 		};
 
-		$result = $this->settingsService->saveSettings($settingType, $settings);
+		$validateCredentials = $this->restApiService->validateCredentials($this->request->get('backendUsername'), $backendPassword);
 
-		if ($result == 1)
-		{
-			$status = 'success';
-		}
-		else
-		{
-			$status = 'failed';
+		if (isset($validateCredentials->error)) {
+			$status = 'invalid_credentials';
+		} else {
+			$result = $this->settingsService->saveSettings($settingType, $settings);
+
+			if ($result == 1)
+			{
+				$status = 'success';
+			}
+			else
+			{
+				$status = 'failed';
+			}
 		}
 
 		return $status;

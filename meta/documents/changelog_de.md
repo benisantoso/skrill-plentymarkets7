@@ -8,6 +8,7 @@
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 * Entfernen Sie SEPA und Bitcoin als unterstützte Zahlungsmethoden.
 * Ändern Sie die URL "Anmelden" für Plentymarkets.
+* Hinzufügen von Validierungsdaten in den Backend-Einstellungen.
 
 ## Release Note für Skrill
 

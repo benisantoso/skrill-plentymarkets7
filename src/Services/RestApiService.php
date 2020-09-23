@@ -121,6 +121,31 @@ class RestApiService
 	}
 
 	/**
+     * validate credentials
+     *
+     * @param string $username
+     * @param string $password
+     * @return json
+     */
+	public function validateCredentials($username, $password)
+	{
+		$validateCredentialUrl = $this->shopUrl . 'rest/login';
+		$headers = [
+			'Content-Type: application/json'
+		];
+
+		$parameters = [
+			'username' => $username,
+			'password' => $password
+		];
+
+		$validateCredentialResponse = $this->requestResponse($validateCredentialUrl, $headers, 'POST', json_encode($parameters));
+		$this->getLogger(__METHOD__)->error('Skrill:validateCredentialResponse', $validateCredentialResponse);
+
+		return json_decode($validateCredentialResponse);
+	}
+
+	/**
      * place Order
      *
      * @param int $basketId

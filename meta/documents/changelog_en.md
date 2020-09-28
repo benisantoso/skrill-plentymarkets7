@@ -10,6 +10,7 @@
 * Remove SEPA and Bitcoin as supported payment methods.
 * change "Sign Up" URL for Plentymarkets.
 * add validation credentials in backend settings.
+* update user_gude_de and user_guide_en files.
 
 ## Release Note for Skrill
 

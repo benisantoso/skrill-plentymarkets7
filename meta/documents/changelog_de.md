@@ -10,6 +10,7 @@
 * Ändern Sie die URL "Anmelden" für Plentymarkets.
 * Hinzufügen von Validierungsdaten in den Backend-Einstellungen.
 * Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+* Ein Problem mit der Einreichung des Plenty-Plugins v1.0.29 für Marketplace.
 
 ## Release Note für Skrill
 

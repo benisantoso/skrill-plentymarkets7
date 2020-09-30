@@ -11,6 +11,7 @@
 * change "Sign Up" URL for Plentymarkets.
 * add validation credentials in backend settings.
 * update user_gude_de and user_guide_en files.
+* An issue with Plenty plugin v1.0.29 submission for Marketplace.
 
 ## Release Note for Skrill
 

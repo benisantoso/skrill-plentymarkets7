@@ -1,220 +1,223 @@
 <!doctype html>
 <html>
 <head>
-<title>Skrill Settings</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="{{ plugin_path('Skrill') }}/css/settings.css" />
-<script type="text/javascript" src="{{ plugin_path('Skrill') }}/js/settings.js" ></script>
+	<title>Skrill Settings</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ plugin_path('Skrill') }}/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="{{ plugin_path('Skrill') }}/css/settings.css" />
+	<script type="text/javascript" src="{{ plugin_path('Skrill') }}/js/settings.js" ></script>
 </head>
-<body>
-
+<body style="max-width: 99%;">
+	<div id="loader" style="width: 100%; height: 100%; z-index:10000; position:fixed; display:none; opacity: 0.8; background:#000 url('{{ plugin_path('Skrill') }}/images/assets/loader.gif') center center no-repeat;"></div>
 {% if settingType is not empty %}
-	<h3>{{ trans('Skrill::Settings.' ~ settingType ~ '_title', [], 'messages', locale) }}</h3>
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="col-md-12">{{ trans('Skrill::Settings.' ~ settingType ~ '_title', [], 'messages', locale) }}</h3>
+		</div>
+	</div>
 		<div class="message success" id="successMessage" style="display: none;">
 			{{ trans('Skrill::Settings.BACKEND_GENERAL_SETTINGS_SAVED', [], 'messages', locale) }}
 		</div>
 		<div class="message failed" id="errorMessage" style="display: none;">
 			{{ trans('Skrill::Settings.ERROR_GENERAL_SAVE_SETTINGS', [], 'messages', locale) }}
 		</div>
-		<div class="message failed" id="errorMessageInvalidCredentials" style="display: none;">
-			{{ trans('Skrill::Settings.ERROR_INVALID_CREDENTIALS', [], 'messages', locale) }}
+	<div class="row">
+		<div class="skrill-client col-xs-4 col-sm-2 col-md-2">
+			<ul class="shop-client">
+				{% for key, values in clients %}
+					<li class="shop-client-item" client-id="{{ values.storeIdentifier }}" setting-type="{{ settingType }}">
+						{{ values.name }}
+					</li>
+				{% endfor %}
+			</ul>
 		</div>
-
-	<div id="skrillSettings">
-		<form method="post" name="saveSettings" id="saveSettings" class="settings">
-			<input type="hidden" name="settingType" value="{{ settingType }}" />
-			<input type="hidden" name="plentyId" value="{{ plentyId }}" />
-			{% if settingType == 'skrill_general' %}
-				<div>
-					<label for="Merchant ID">{{ trans('Skrill::Settings.SKRILL_BACKEND_MID', [], 'messages', locale) }} *</label>
-					<input type="text" class="input-text" name="merchantId" value="{{ setting.merchantId }}" required />
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_MID', [], 'messages', locale) }}</span>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Merchant Account">{{ trans('Skrill::Settings.SKRILL_BACKEND_MERCHANT', [], 'messages', locale) }} *</label>
-					<input type="text" class="input-text" name="merchantAccount" value="{{ setting.merchantAccount }}" required />
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_MERCHANT', [], 'messages', locale) }}</span>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Recipient">{{ trans('Skrill::Settings.SKRILL_BACKEND_RECIPIENT', [], 'messages', locale) }} *</label>
-					<input type="text" class="input-text" name="recipient" value="{{ setting.recipient }}" required />
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_RECIPIENT', [], 'messages', locale) }}</span>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Logo Url">{{ trans('Skrill::Settings.SKRILL_BACKEND_LOGO', [], 'messages', locale) }} *</label>
-					<input type="text" class="input-text" name="logoUrl" value="{{ setting.logoUrl }}" required />
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_LOGO', [], 'messages', locale) }}</span>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Shop Url">{{ trans('Skrill::Settings.SKRILL_BACKEND_SHOPURL', [], 'messages', locale) }}</label>
-					<input type="text" class="input-text" name="shopUrl" value="{{ setting.shopUrl }}"/>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="API Password">{{ trans('Skrill::Settings.SKRILL_BACKEND_APIPASS', [], 'messages', locale) }} *</label>
-					<input type="password" class="input-text" name="apiPassword" value="*****" required />
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_APIPW', [], 'messages', locale) }}</span>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Secret Word">{{ trans('Skrill::Settings.SKRILL_BACKEND_SECRETWORD', [], 'messages', locale) }} *</label>
-					<input type="password" class="input-text" name="secretWord" value="*****" required />
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_SECRET', [], 'messages', locale) }}</span>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Display">{{ trans('Skrill::Settings.SKRILL_BACKEND_DISPLAY', [], 'messages', locale) }}</label>
-					<select name="display" value="{{ setting.display }}">
-						{% if setting.display == 'IFRAME' %}
-							<option value="IFRAME" selected="selected">{{ trans('Skrill::Settings.SKRILL_BACKEND_IFRAME', [], 'messages', locale) }}</option>
-						{% else %}
-							<option value="IFRAME">{{ trans('Skrill::Settings.SKRILL_BACKEND_IFRAME', [], 'messages', locale) }}</option>
-						{% endif %}
-						{% if setting.display == 'REDIRECT' %}
-							<option value="REDIRECT" selected="selected">{{ trans('Skrill::Settings.SKRILL_BACKEND_REDIRECT', [], 'messages', locale) }}</option>
-						{% else %}
-							<option value="REDIRECT">{{ trans('Skrill::Settings.SKRILL_BACKEND_REDIRECT', [], 'messages', locale) }}</option>
-						{% endif %}
-					</select>
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_DISPLAY', [], 'messages', locale) }}</span>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Merchant Email">{{ trans('Skrill::Settings.SKRILL_BACKEND_MERCHANTEMAIL', [], 'messages', locale) }}</label>
-					<input type="text" class="input-text" name="merchantEmail" value="{{ setting.merchantEmail }}"/>
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_MERCHANTEMAIL', [], 'messages', locale) }}</span>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Backend Username">{{ trans('Skrill::Settings.SKRILL_BACKEND_USERNAME', [], 'messages', locale) }}</label>
-					<input type="text" class="input-text" name="backendUsername" value="{{ setting.backendUsername }}"/>
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_USERNAME', [], 'messages', locale) }}</span>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Backend Password">{{ trans('Skrill::Settings.SKRILL_BACKEND_PASSWORD', [], 'messages', locale) }}</label>
-					<input type="password" class="input-text" name="backendPassword" value="*****"/>
-				</div>
-				<div class="clear"></div>
-				<div class="div-tooltips">
-					<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_PASSWORD', [], 'messages', locale) }}</span>
-				</div>
-			{% else %}
-				<div class="div-separator clear"></div>
-				<div class="div-img">
-					{% if settingType == 'skrill_adb' %}
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/santander-rio.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/itau.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/banco-do-brasil.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/bradesco.png" />
-					{% elseif settingType == 'skrill_aob' %}
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/hsbc.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/caixa.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/santander.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/PSEi.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/webpaylogo.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/bancolombia.jpg" />
-					{% elseif settingType == 'skrill_aci' %}
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/red-link.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/pago-facil.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/boleto-bancario.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/servi-pag.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/efecty.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/davivienda.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/exito.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/banco-de-occidente.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/carulla.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/edeq.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/surtimax.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/bancomer_m.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/oxxo.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/banamex.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/santander.png" />
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/red-pagos.png" />
-					{% else %}
-						<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/{{ settingType | replace({'skrill_': ''}) }}.png" />
-					{% endif %}
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					{{ trans('Skrill::Settings.' ~ settingType ~ '_countries', [], 'messages', locale) }}
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Languages">{{ trans('Skrill::Settings.BACKEND_GENERAL_LANGUAGE', [], 'messages', locale) }}</label>
-					<select onChange="changeLanguage(this.value);" id="skrillLanguage" name="skrillLanguage" value="en">
-						<option value="en">{{ trans('Skrill::Settings.BACKEND_GENERAL_ENGLISH', [], 'messages', locale) }}</option>
-						<option value="de">{{ trans('Skrill::Settings.BACKEND_GENERAL_GERMAN', [], 'messages', locale) }}</option>
-					</select>
-				</div>
-				<div class="div-separator clear"></div>
-				<div>
-					<label for="Payment Name">{{ trans('Skrill::Settings.BACKEND_GENERAL_PAYMENTMETHOD_NAME', [], 'messages', locale) }}</label>
-					<input type="text" class="input-text" id="skrillPaymentNameEn" name="languageEnPaymentName" value="{{ setting.language.en.paymentName }}"/>
-					<input style="display: none;" type="text" class="input-text" id="skrillPaymentNameDe" name="languageDePaymentName" value="{{ setting.language.de.paymentName }}"/>
-				</div>
-				{% if settingType == 'skrill_apm' %}
-					<input type="hidden" name="enabled" value="1" />
-				{% else %}
+		<div id="skrillSettings" class="col-xs-7 col-md-10 col-sm-10" style="display: none;">
+			<form method="post" name="saveSettings" id="saveSettings" class="settings">
+				<input type="hidden" name="settingType" value="{{ settingType }}" />
+				<input type="hidden" name="plentyId" value="{{ plentyId }}" />
+				{% if settingType == 'skrill_general' %}
+					<div>
+						<label for="Merchant ID">{{ trans('Skrill::Settings.SKRILL_BACKEND_MID', [], 'messages', locale) }} *</label>
+						<input type="text" class="input-text" name="merchantId" value="{{ setting.merchantId }}" required />
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_MID', [], 'messages', locale) }}</span>
+					</div>
 					<div class="div-separator clear"></div>
 					<div>
-						<label for="Enabled">{{ trans('Skrill::Settings.BACKEND_CH_ACTIVE', [], 'messages', locale) }}</label>
-						{% if setting.enabled == 1 %}
-							<input type="checkbox" name="enabled" value="1" checked />
+						<label for="Merchant Account">{{ trans('Skrill::Settings.SKRILL_BACKEND_MERCHANT', [], 'messages', locale) }} *</label>
+						<input type="text" class="input-text" name="merchantAccount" value="{{ setting.merchantAccount }}" required />
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_MERCHANT', [], 'messages', locale) }}</span>
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						<label for="Recipient">{{ trans('Skrill::Settings.SKRILL_BACKEND_RECIPIENT', [], 'messages', locale) }} *</label>
+						<input type="text" class="input-text" name="recipient" value="{{ setting.recipient }}" required />
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_RECIPIENT', [], 'messages', locale) }}</span>
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						<label for="Logo Url">{{ trans('Skrill::Settings.SKRILL_BACKEND_LOGO', [], 'messages', locale) }} *</label>
+						<input type="text" class="input-text" name="logoUrl" value="{{ setting.logoUrl }}" required />
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_LOGO', [], 'messages', locale) }}</span>
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						<label for="Shop Url">{{ trans('Skrill::Settings.SKRILL_BACKEND_SHOPURL', [], 'messages', locale) }}</label>
+						<input type="text" class="input-text" name="shopUrl" value="{{ setting.shopUrl }}"/>
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						<label for="API Password">{{ trans('Skrill::Settings.SKRILL_BACKEND_APIPASS', [], 'messages', locale) }} *</label>
+						<input type="password" class="input-text" name="apiPassword" value="*****" required />
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_APIPW', [], 'messages', locale) }}</span>
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						<label for="Secret Word">{{ trans('Skrill::Settings.SKRILL_BACKEND_SECRETWORD', [], 'messages', locale) }} *</label>
+						<input type="password" class="input-text" name="secretWord" value="*****" required />
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_SECRET', [], 'messages', locale) }}</span>
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						<label for="Display">{{ trans('Skrill::Settings.SKRILL_BACKEND_DISPLAY', [], 'messages', locale) }}</label>
+						<select name="display" value="{{ setting.display }}">
+							{% if setting.display == 'IFRAME' %}
+								<option value="IFRAME" selected="selected">{{ trans('Skrill::Settings.SKRILL_BACKEND_IFRAME', [], 'messages', locale) }}</option>
+							{% else %}
+								<option value="IFRAME">{{ trans('Skrill::Settings.SKRILL_BACKEND_IFRAME', [], 'messages', locale) }}</option>
+							{% endif %}
+							{% if setting.display == 'REDIRECT' %}
+								<option value="REDIRECT" selected="selected">{{ trans('Skrill::Settings.SKRILL_BACKEND_REDIRECT', [], 'messages', locale) }}</option>
+							{% else %}
+								<option value="REDIRECT">{{ trans('Skrill::Settings.SKRILL_BACKEND_REDIRECT', [], 'messages', locale) }}</option>
+							{% endif %}
+						</select>
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_DISPLAY', [], 'messages', locale) }}</span>
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						<label for="Merchant Email">{{ trans('Skrill::Settings.SKRILL_BACKEND_MERCHANTEMAIL', [], 'messages', locale) }}</label>
+						<input type="text" class="input-text" name="merchantEmail" value="{{ setting.merchantEmail }}"/>
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_MERCHANTEMAIL', [], 'messages', locale) }}</span>
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						<label for="Backend Username">{{ trans('Skrill::Settings.SKRILL_BACKEND_USERNAME', [], 'messages', locale) }}</label>
+						<input type="text" class="input-text" name="backendUsername" value="{{ setting.backendUsername }}"/>
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_USERNAME', [], 'messages', locale) }}</span>
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						<label for="Backend Password">{{ trans('Skrill::Settings.SKRILL_BACKEND_PASSWORD', [], 'messages', locale) }}</label>
+						<input type="password" class="input-text" name="backendPassword" value="*****"/>
+					</div>
+					<div class="clear"></div>
+					<div class="div-tooltips">
+						<span>{{ trans('Skrill::Settings.SKRILL_BACKEND_TT_PASSWORD', [], 'messages', locale) }}</span>
+					</div>
+				{% else %}
+					<div class="div-separator clear"></div>
+					<div class="div-img">
+						{% if settingType == 'skrill_adb' %}
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/santander-rio.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/itau.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/banco-do-brasil.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/bradesco.png" />
+						{% elseif settingType == 'skrill_aob' %}
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/hsbc.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/caixa.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/santander.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/PSEi.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/webpaylogo.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/bancolombia.jpg" />
+						{% elseif settingType == 'skrill_aci' %}
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/red-link.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/pago-facil.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/boleto-bancario.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/servi-pag.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/efecty.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/davivienda.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/exito.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/banco-de-occidente.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/carulla.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/edeq.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/surtimax.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/bancomer_m.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/oxxo.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/banamex.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/santander.png" />
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/red-pagos.png" />
 						{% else %}
-							<input type="checkbox" name="enabled" value="1"/>
+							<img alt"{{ settingType }}" src="{{ plugin_path('Skrill') }}/images/logos/{{ settingType | replace({'skrill_': ''}) }}.png" />
 						{% endif %}
+					</div>
+					<div class="div-separator clear"></div>
+					<div>
+						{{ trans('Skrill::Settings.' ~ settingType ~ '_countries', [], 'messages', locale) }}
+					</div>
+					<div class="div-separator clear"></div>
+					<div class="form-group row">
+						<label for="Languages" class="col-sm-2 col-form-label">{{ trans('Skrill::Settings.BACKEND_GENERAL_LANGUAGE', [], 'messages', locale) }}</label>
+						<div class="col-md-6">
+							<select onChange="changeLanguage(this.value);" class="form-control" id="skrillLanguage" name="skrillLanguage" value="en">
+								<option value="en">{{ trans('Skrill::Settings.BACKEND_GENERAL_ENGLISH', [], 'messages', locale) }}</option>
+								<option value="de">{{ trans('Skrill::Settings.BACKEND_GENERAL_GERMAN', [], 'messages', locale) }}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="Payment Name" class="col-sm-2 col-form-label">{{ trans('Skrill::Settings.BACKEND_GENERAL_PAYMENTMETHOD_NAME', [], 'messages', locale) }}</label>
+						<div class="col-md-6">
+							<input type="text" class="form-control" id="skrillPaymentNameEn" name="languageEnPaymentName" value="{{ setting.language.en.paymentName }}"/>
+							<input style="display: none;" type="text" class="form-control" id="skrillPaymentNameDe" name="languageDePaymentName" value="{{ setting.language.de.paymentName }}"/>
+						</div>
+					</div>
+					{% if settingType == 'skrill_apm' %}
+						<input type="hidden" name="enabled" value="1" />
+					{% else %}
+						<div class="form-group row">
+							<label for="Enabled" class="col-sm-2 form-check-label">{{ trans('Skrill::Settings.BACKEND_CH_ACTIVE', [], 'messages', locale) }}</label>
+							<input type="checkbox" class="col-sm-1 col-xs-2 form-check-input" name="enabled" id="enabled" value="1"/>
+						</div>
+					{% endif %}
+					<div class="form-group row">
+						<label for="Show Separately" class="col-sm-2 form-check-label">{{ trans('Skrill::Settings.SKRILL_BACKEND_PM_MODE', [], 'messages', locale) }}</label>
+						<input type="checkbox" class="col-sm-1 col-xs-2 form-check-input" name="showSeparately" id="showSeparately" value="1"/>
 					</div>
 				{% endif %}
 				<div class="div-separator clear"></div>
-				{% if settingType == 'skrill_acc' %}
-					<div>
-						<label for="Show Separately">{{ trans('Skrill::Settings.SKRILL_BACKEND_PM_MODE', [], 'messages', locale) }}</label>
-						{% if setting.showSeparately %}
-							<input type="checkbox" name="showSeparately" value="1" checked="checked" />
-						{% else %}
-							<input type="checkbox" name="showSeparately" value="1"/>
-						{% endif %}
-					</div>
-				{% endif %}
-			{% endif %}
-			<div class="div-separator clear"></div>
-			<div>
-				<input name="saveButton" type="submit" class="input-button" value="{{ trans('Skrill::Settings.BACKEND_CH_SAVE', [], 'messages', locale) }}" />
-			</div>
-		</form>
+				<div class="form-group">
+					<input name="saveButton" type="submit" class="input-button" value="{{ trans('Skrill::Settings.BACKEND_CH_SAVE', [], 'messages', locale) }}" />
+				</div>
+			</form>
+		</div>
 	</div>
 {% endif %}
 

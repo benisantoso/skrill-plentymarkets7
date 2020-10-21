@@ -128,21 +128,31 @@ class SettingsService extends DatabaseBaseService
 	public function getClients()
 	{
 		$webstoreRepository = pluginApp(WebstoreRepositoryContract::class);
-
-		$clients = array();
-
 		$result = $webstoreRepository->loadAll();
-		$this->getLogger(__METHOD__)->error('Skrill:result', $result);
 
-		foreach ($result as $record)
+		return $result;
+	}
+
+	/**
+	 * Get clients ID of the system
+	 *
+	 * @return array
+	 */
+	public function getClientsId()
+	{
+		$clientsId = array();
+
+		$clients = $this->getClients();
+
+		foreach ($clients as $record)
 		{
 			if ($record->storeIdentifier > 0)
 			{
-				$clients[] = $record->storeIdentifier;
+				$clientsId[] = $record->storeIdentifier;
 			}
 		}
 
-		return $clients;
+		return $clientsId;
 	}
 
 	/**
@@ -151,10 +161,10 @@ class SettingsService extends DatabaseBaseService
 	 */
 	public function setInitialSettings()
 	{
-		$clients = $this->getClients();
+		$clientsId = $this->getClientsId();
 		$paymentMethods = Settings::AVAILABLE_PAYMENT_METHODS;
 
-		foreach ($clients as $plentyId)
+		foreach ($clientsId as $plentyId)
 		{
 			foreach ($paymentMethods as $key => $value)
 			{

@@ -107,15 +107,18 @@ class SettingsController extends Controller
 	 * Display Skrill backend configuration
 	 *
 	 * @param Twig $twig
+	 * @param string $plentyId
 	 * @param string $settingType
 	 * @return void
 	 */
-	public function loadConfiguration(Twig $twig, $settingType)
+	public function loadConfiguration(Twig $twig, $plentyId, $settingType)
 	{
-		$plentyId = $this->systemService->getPlentyId();
+		$clients = $this->settingsService->getClients();
 
 		try {
 			$configuration = $this->settingsService->loadSetting($plentyId, $settingType);
+			unset($configuration['apiPassword']);
+			unset($configuration['secretWord']);
 		}
 		catch (\Exception $e)
 		{
@@ -126,14 +129,34 @@ class SettingsController extends Controller
 			die('access denied...');
 		}
 
-		return $twig->render(
-						'Skrill::Configuration.Settings',
+		echo json_encode(
 						array(
 							'status' => $this->request->get('status'),
 							'locale' => substr($_COOKIE['plentymarkets_lang_'], 0, 2),
 							'plentyId' => $plentyId,
 							'settingType' => $settingType,
-							'setting' => $configuration
+							'settings' => $configuration
+						)
+		);
+	}
+
+	/**
+	 * Display Shop Client
+	 *
+	 * @param Twig $twig
+	 * @param string $settingType
+	 * @return void
+	 */
+	public function loadShopClient(Twig $twig, $settingType)
+	{
+		$clients = $this->settingsService->getClients();
+
+		return $twig->render(
+						'Skrill::Configuration.Settings',
+						array(
+							'locale' => substr($_COOKIE['plentymarkets_lang_'], 0, 2),
+							'clients' => $clients,
+							'settingType' => $settingType
 						)
 		);
 	}

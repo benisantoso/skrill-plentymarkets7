@@ -31,6 +31,7 @@ var shopClientItems = document.querySelectorAll('.shop-client-item');
 					$('[name=display]').val(settings.display);
 					$('[name=recipient]').val(settings.recipient);
 					$('[name=shopUrl]').val(settings.shopUrl);
+					$('[name=backendUsername]').val(settings.backendUsername);
 				} else {
 					$('[name=languageEnPaymentName]').val(settings.language.en.paymentName);
 					$('[name=languageDePaymentName]').val(settings.language.de.paymentName);

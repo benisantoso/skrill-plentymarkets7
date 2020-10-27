@@ -507,9 +507,9 @@ class PaymentService
         string $transactionId,
         array $additionalParams = []
     ){
-    	$this->getLogger(__METHOD__)->error('Skrill:Start', $basketArray);
-
         $basketArray = $basket->toArray();
+        $this->getLogger(__METHOD__)->error('Skrill:Start', $basketArray);
+
         $paymentKey = $this->methodConfigContract->getPaymentMethodKey($paymentMethod);
 
         // set customer personal information & address data
@@ -528,9 +528,9 @@ class PaymentService
 			'recipient_description' => $additionalParams['recipient'],
 			'transaction_id' => $transactionId,
 			'return_url' => $this->paymentHelper->getDomain().
-				'/payment/skrill/return?basketId='.$basket->id.'&mopId='.$mopId,
+				'/payment/skrill/return/?&basketId='.$basket->id.'&mopId='.$mopId,
 			'status_url' => $this->paymentHelper->getDomain().
-				'/payment/skrill/status?&paymentKey='.$paymentKey.'&mopId='.$mopId.'&basketId='.$basket->id,
+				'/payment/skrill/status/?&paymentKey='.$paymentKey.'&mopId='.$mopId.'&basketId='.$basket->id,
 			'cancel_url' => $this->paymentHelper->getDomain().'/'.strtolower($this->getLanguage()).'/checkout',
 			'language' => $this->getLanguage(),
 			'logo_url' => $additionalParams['logoUrl'],
@@ -566,6 +566,8 @@ class PaymentService
 		{
 			$parameters['status_url2'] = 'mailto:' . $additionalParams['merchantEmail'];
 		}
+
+		$this->getLogger(__METHOD__)->error('Skrill:requestParameters', $parameters);
 
 		return $parameters;
     }

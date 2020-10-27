@@ -74,13 +74,18 @@ class PaymentNotificationController extends Controller
 		$plentyId = $orderData->plentyId;
 		$transactionId = $paymentStatus['transaction_id'];
 
+		$this->getLogger(__METHOD__)->error('Skrill:orderData', $orderData);
+
 		$paymentStatus['orderId'] = $orderId;
 		$this->paymentHelper->updatePlentyPayment($paymentStatus);
 		
 		$paymentStatus['plentyId'] = $plentyId;
 		$this->skrillOrderTransaction->createOrUpdateRelation($orderId, $paymentStatus);
+		
+		$this->getLogger(__METHOD__)->error('Skrill:paymentStatus', $paymentStatus);
 
 		$skrillOrderTrx = $this->skrillOrderTransaction->getSkrillOrderTransactionByTransactionId($transactionId);
+		$this->getLogger(__METHOD__)->error('Skrill:skrillOrderTrx', $skrillOrderTrx);
 		return 'ok';
 	}
 

@@ -205,6 +205,8 @@ class SettingsController extends Controller
 				'backendUsername' => $this->request->get('backendUsername'),
 				'backendPassword' => $backendPassword
 			);
+
+			$validateCredentials = $this->restApiService->validateCredentials($this->request->get('backendUsername'), $backendPassword);
 		}
 		else
 		{
@@ -222,9 +224,7 @@ class SettingsController extends Controller
 			);
 		};
 
-		$validateCredentials = $this->restApiService->validateCredentials($this->request->get('backendUsername'), $backendPassword);
-
-		if (isset($validateCredentials->error)) {
+		if (isset($validateCredentials->error) && $settingType == 'skrill_general') {
 			$status = 'invalid_credentials';
 		} else {
 			$result = $this->settingsService->saveSettings($settingType, $settings);

@@ -34,7 +34,7 @@
     },
     "dependencies"      : [],
     "runOnBuild"        : [
-        "Skrill\\Migrations\\CreateSkrillTables_1_0_29"
+        "Skrill\\Migrations\\CreateSkrillTables_develop_1_0_29"
     ],
     "dataProviders"     :
     [

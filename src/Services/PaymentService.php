@@ -528,7 +528,7 @@ class PaymentService
 			'recipient_description' => $additionalParams['recipient'],
 			'transaction_id' => $transactionId,
 			'return_url' => $this->paymentHelper->getDomain().
-				'/payment/skrill/return/?&basketId='.$basket->id.'&mopId='.$mopId,
+				'/payment/skrill/return/?&basketId='.$basket->id.'&mopId='.$mopId.'&lang='.strtolower($this->getLanguage()),
 			'status_url' => $this->paymentHelper->getDomain().
 				'/payment/skrill/status/?&paymentKey='.$paymentKey.'&mopId='.$mopId.'&basketId='.$basket->id,
 			'cancel_url' => $this->paymentHelper->getDomain().'/'.strtolower($this->getLanguage()).'/checkout',

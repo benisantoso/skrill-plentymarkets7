@@ -5,6 +5,7 @@
 ### Erweiterungen :
 * Behebung des Problems "Ungültige Anmeldeinformationen" beim Versuch, Text über "Name der Zahlungsmethode" hinzuzufügen
 * Problem mit dem Plenty-Plugin - Fehler 404 auf der Zahlungsbestätigungsseite
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
 
 ## Release Note für Skrill
 

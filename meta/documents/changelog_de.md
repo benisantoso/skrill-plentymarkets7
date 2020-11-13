@@ -1,5 +1,12 @@
 ## Release Note für Skrill
 
+## Veröffentlichung 1.0.30 (2020-11-13)
+
+### Erweiterungen :
+* Behebung des Problems "Ungültige Anmeldeinformationen" beim Versuch, Text über "Name der Zahlungsmethode" hinzuzufügen
+
+## Release Note für Skrill
+
 ## Veröffentlichung 1.0.29 (2020-07-05)
 
 ### Erweiterungen :

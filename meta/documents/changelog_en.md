@@ -1,3 +1,9 @@
+## Release Note for Skrill
+
+## Release 1.0.30 (2020-11-13)
+
+#### Features :
+* Fix issues "Invalid credentials" message while trying to add text over "Payment Method Name"
 
 ## Release Note for Skrill
 

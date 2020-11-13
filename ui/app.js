@@ -26,7 +26,18 @@ $(document).ready(function () {
 				} else {
 					$('#errorMessageInvalidCredentials').css('display', 'block');
 				}
-			});
+
+				setTimeout(removeMessage, 5000);
+			}); 
 		});
+	}
+
+	function removeMessage() {
+		if ($('#successMessage').is(":visible")) {
+			$('#successMessage').css('display', 'none');
+		}
+		if ($('#errorMessage').is(":visible")) {
+			$('#errorMessage').css('display', 'none');
+		}
 	}
 })

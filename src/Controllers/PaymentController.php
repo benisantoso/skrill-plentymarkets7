@@ -111,7 +111,6 @@ class PaymentController extends Controller
 	 */
 	public function handleReturnUrl()
 	{
-		$language = 'de';
 		$this->getLogger(__METHOD__)->error('Skrill:return_url', $this->request->all());
 		$this->sessionStorage->getPlugin()->setValue(SessionKeys::SESSION_KEY_TRANSACTION_ID, $this->request->get('transaction_id'));
 		sleep(10);
@@ -127,10 +126,7 @@ class PaymentController extends Controller
 						}
 		);
 
-		if (!is_null($order) && $order instanceof Order)
-		{
-			$language = $order->properties[1]->value;
-		}
+		$language = $this->request->get('lang');
 
 		$customerId = 0;
         foreach ($order->relations as $relation)

@@ -4,6 +4,7 @@
 
 #### Features :
 * Fix issues "Invalid credentials" message while trying to add text over "Payment Method Name"
+* Issue with Plenty plugin - error 404 on payment confirmation page
 
 ## Release Note for Skrill
 

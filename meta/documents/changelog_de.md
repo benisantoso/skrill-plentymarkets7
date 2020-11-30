@@ -1,5 +1,12 @@
 ## Release Note für Skrill
 
+## Veröffentlichung 1.0.31 (2020-11-30)
+
+### Erweiterungen :
+* Fügen Sie USA als unterstütztes Land für Paysafecash hinzu
+
+## Release Note für Skrill
+
 ## Veröffentlichung 1.0.30 (2020-11-13)
 
 ### Erweiterungen :

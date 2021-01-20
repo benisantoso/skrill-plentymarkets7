@@ -3,7 +3,7 @@
 ## Release 1.0.31 (2020-11-30)
 
 #### Features :
-* Add USA as a supported country for Paysafecash
+* Add USA, Bulgaria, Latvia and Mexico as a supported country for Paysafecash
 
 ## Release Note for Skrill
 

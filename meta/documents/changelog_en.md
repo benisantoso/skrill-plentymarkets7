@@ -1,5 +1,12 @@
 ## Release Note for Skrill
 
+## Release 1.0.32 (2021-03-02)
+
+#### Features :
+* change plugin backend info
+
+## Release Note for Skrill
+
 ## Release 1.0.31 (2020-11-30)
 
 #### Features :

@@ -3,6 +3,13 @@
 ## Veröffentlichung 1.0.31 (2020-11-30)
 
 ### Erweiterungen :
+* Ändern Sie die Backend-Informationen des Plugins
+
+## Release Note für Skrill
+
+## Veröffentlichung 1.0.31 (2020-11-30)
+
+### Erweiterungen :
 * Fügen Sie USA, Bulgarien, Lettland und Mexiko als unterstütztes Land für Paysafecash hinzu
 
 ## Release Note für Skrill

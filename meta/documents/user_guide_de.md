@@ -10,7 +10,7 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/I8msslID-sA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
 <br>
-Unsere Zahlungsplattform hält ein exklusives Angebot für Sie bereit – mit ermäßigten Gebühren von 0,9% auf Debit-/Prepaid-/Kreditkarten-Transaktionen (VISA, Mastercard, Maestro) und 0,5% auf Rapid-Transfer-Transaktionen.*
+Die Gebühren von Skrill sind mit 1.2%+0,29 EUR und 1%+0,29 EUR sehr kompetitiv/wettbewerbsfähig. Diese Gebühren sind nur für neue Partner (oder Merchants) ab 1. März 2021 gültig.
 <br>
 Um Zahlungen mit Skrill zu akzeptieren, melden Sie sich <a href="https://www.skrill.com/de/geschaeftlich/shopping-carts/plentymarkets/">jetzt an</a>.
 <br>

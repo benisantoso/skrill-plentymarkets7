@@ -10,7 +10,7 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/s34TCs3rIF4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br>
 <br>
-Our payments platform comes with an exclusive reduced fee offer of 0.9% on Debit Card/Prepaid Card/Credit Card (VISA, Mastercard, Maestro) transactions, and 0.5% fees on Rapid Transfer transactions.*
+The Skrill fee structure is a competitive 1.2%+0.29 EUR and 1%+0.29 EUR for Instant bank transfer. * Fees apply to new merchants only. From 1st March 2021.
 <br> 
 To begin accepting payments with Skrill <a href="https://www.skrill.com/en/business/shopping-carts/plentymarkets/">sign up now</a>.
 <br>

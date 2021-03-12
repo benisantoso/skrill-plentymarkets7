@@ -425,7 +425,7 @@ class PaymentService
 						[
 							'isSystemCurrency' => true,
 							'currency' => $basket->currency,
-							'exchangeRate' => 1,
+							'exchangeRate' => 2,
 							'priceOriginalGross' => $basketItem['variation']['data']['prices']['default']['data']['basePrice'],
 							'priceOriginalNet' => $basketItem['variation']['data']['prices']['default']['data']['basePriceNet'],
 							'priceGross' => $basketItem['variation']['data']['prices']['default']['data']['unitPrice'],

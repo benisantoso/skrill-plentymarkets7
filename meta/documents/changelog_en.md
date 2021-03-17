@@ -1,5 +1,12 @@
 ## Release Note for Skrill
 
+## Release 1.0.33 (2021-03-17)
+
+#### Features :
+* fixing of Plentymarkets exchange rate
+
+## Release Note for Skrill
+
 ## Release 1.0.32 (2021-03-02)
 
 #### Features :

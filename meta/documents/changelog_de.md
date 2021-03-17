@@ -1,6 +1,13 @@
 ## Release Note für Skrill
 
-## Veröffentlichung 1.0.31 (2020-11-30)
+## Veröffentlichung 1.0.33 (2021-03-17)
+
+### Erweiterungen :
+* festsetzung des Wechselkurses von Plentymarkets
+
+## Release Note für Skrill
+
+## Veröffentlichung 1.0.32 (2021-03-02)
 
 ### Erweiterungen :
 * Ändern Sie die Backend-Informationen des Plugins

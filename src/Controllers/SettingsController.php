@@ -10,6 +10,7 @@ use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Frontend\Services\SystemService;
 use Skrill\Services\Database\SettingsService;
+use Skrill\Services\RestApiService;
 
 /**
 * Class SettingsController
@@ -41,6 +42,12 @@ class SettingsController extends Controller
 	private $settingsService;
 
 	/**
+	 *
+	 * @var RestApiService
+	 */
+	private $restApiService;
+
+	/**
 	 * SettingsController constructor.
 	 *
 	 * @param Request $request
@@ -52,12 +59,14 @@ class SettingsController extends Controller
 					Request $request,
 					Response $response,
 					SystemService $systemService,
-					SettingsService $settingsService
+					SettingsService $settingsService,
+					RestApiService $restApiService
 	) {
 		$this->request = $request;
 		$this->response = $response;
 		$this->systemService = $systemService;
 		$this->settingsService = $settingsService;
+		$this->restApiService = $restApiService;
 	}
 
 	/**
@@ -98,15 +107,18 @@ class SettingsController extends Controller
 	 * Display Skrill backend configuration
 	 *
 	 * @param Twig $twig
+	 * @param string $plentyId
 	 * @param string $settingType
 	 * @return void
 	 */
-	public function loadConfiguration(Twig $twig, $settingType)
+	public function loadConfiguration(Twig $twig, $plentyId, $settingType)
 	{
-		$plentyId = $this->systemService->getPlentyId();
+		$clients = $this->settingsService->getClients();
 
 		try {
 			$configuration = $this->settingsService->loadSetting($plentyId, $settingType);
+			unset($configuration['apiPassword']);
+			unset($configuration['secretWord']);
 		}
 		catch (\Exception $e)
 		{
@@ -117,14 +129,34 @@ class SettingsController extends Controller
 			die('access denied...');
 		}
 
-		return $twig->render(
-						'Skrill::Configuration.Settings',
+		echo json_encode(
 						array(
 							'status' => $this->request->get('status'),
 							'locale' => substr($_COOKIE['plentymarkets_lang_'], 0, 2),
 							'plentyId' => $plentyId,
 							'settingType' => $settingType,
-							'setting' => $configuration
+							'settings' => $configuration
+						)
+		);
+	}
+
+	/**
+	 * Display Shop Client
+	 *
+	 * @param Twig $twig
+	 * @param string $settingType
+	 * @return void
+	 */
+	public function loadShopClient(Twig $twig, $settingType)
+	{
+		$clients = $this->settingsService->getClients();
+
+		return $twig->render(
+						'Skrill::Configuration.Settings',
+						array(
+							'locale' => substr($_COOKIE['plentymarkets_lang_'], 0, 2),
+							'clients' => $clients,
+							'settingType' => $settingType
 						)
 		);
 	}
@@ -173,6 +205,8 @@ class SettingsController extends Controller
 				'backendUsername' => $this->request->get('backendUsername'),
 				'backendPassword' => $backendPassword
 			);
+
+			$validateCredentials = $this->restApiService->validateCredentials($this->request->get('backendUsername'), $backendPassword);
 		}
 		else
 		{
@@ -190,15 +224,19 @@ class SettingsController extends Controller
 			);
 		};
 
-		$result = $this->settingsService->saveSettings($settingType, $settings);
+		if (isset($validateCredentials->error) && $settingType == 'skrill_general') {
+			$status = 'invalid_credentials';
+		} else {
+			$result = $this->settingsService->saveSettings($settingType, $settings);
 
-		if ($result == 1)
-		{
-			$status = 'success';
-		}
-		else
-		{
-			$status = 'failed';
+			if ($result == 1)
+			{
+				$status = 'success';
+			}
+			else
+			{
+				$status = 'failed';
+			}
 		}
 
 		return $status;

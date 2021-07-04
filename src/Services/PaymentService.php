@@ -38,9 +38,7 @@ use Skrill\Methods\AliPaymentMethod;
 use Skrill\Methods\AobPaymentMethod;
 use Skrill\Methods\ApmPaymentMethod;
 use Skrill\Methods\AupPaymentMethod;
-use Skrill\Methods\BtcPaymentMethod;
 use Skrill\Methods\CsiPaymentMethod;
-use Skrill\Methods\DidPaymentMethod;
 use Skrill\Methods\DnkPaymentMethod;
 use Skrill\Methods\EbtPaymentMethod;
 use Skrill\Methods\EpyPaymentMethod;
@@ -427,7 +425,6 @@ class PaymentService
 						[
 							'isSystemCurrency' => true,
 							'currency' => $basket->currency,
-							'exchangeRate' => 1,
 							'priceOriginalGross' => $basketItem['variation']['data']['prices']['default']['data']['basePrice'],
 							'priceOriginalNet' => $basketItem['variation']['data']['prices']['default']['data']['basePriceNet'],
 							'priceGross' => $basketItem['variation']['data']['prices']['default']['data']['unitPrice'],
@@ -509,9 +506,9 @@ class PaymentService
         string $transactionId,
         array $additionalParams = []
     ){
-    	$this->getLogger(__METHOD__)->error('Skrill:Start', $basketArray);
-
         $basketArray = $basket->toArray();
+        $this->getLogger(__METHOD__)->error('Skrill:Start', $basketArray);
+
         $paymentKey = $this->methodConfigContract->getPaymentMethodKey($paymentMethod);
 
         // set customer personal information & address data
@@ -530,9 +527,9 @@ class PaymentService
 			'recipient_description' => $additionalParams['recipient'],
 			'transaction_id' => $transactionId,
 			'return_url' => $this->paymentHelper->getDomain().
-				'/payment/skrill/return?basketId='.$basket->id.'&mopId='.$mopId,
+				'/payment/skrill/return/?&basketId='.$basket->id.'&mopId='.$mopId.'&lang='.strtolower($this->getLanguage()),
 			'status_url' => $this->paymentHelper->getDomain().
-				'/payment/skrill/status?&paymentKey='.$paymentKey.'&mopId='.$mopId.'&basketId='.$basket->id,
+				'/payment/skrill/status/?&paymentKey='.$paymentKey.'&mopId='.$mopId.'&basketId='.$basket->id,
 			'cancel_url' => $this->paymentHelper->getDomain().'/'.strtolower($this->getLanguage()).'/checkout',
 			'language' => $this->getLanguage(),
 			'logo_url' => $additionalParams['logoUrl'],
@@ -568,6 +565,8 @@ class PaymentService
 		{
 			$parameters['status_url2'] = 'mailto:' . $additionalParams['merchantEmail'];
 		}
+
+		$this->getLogger(__METHOD__)->error('Skrill:requestParameters', $parameters);
 
 		return $parameters;
     }

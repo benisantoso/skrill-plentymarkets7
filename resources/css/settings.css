@@ -77,3 +77,54 @@ img {
 		width: 100%;
 	}
 }
+
+/* Style for Button client Shop listed */
+li.shop-client-item {
+    list-style: none;
+    text-align: center;
+    background: #5b5d66;
+    color: white;
+    line-height: 35px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+li.shop-client-item:hover, li.shop-client-item.active {
+    list-style: none;
+    text-align: center;
+    background: #0cb3e6;
+    color: white;
+    line-height: 35px;
+    cursor: pointer;
+    margin-top: 2px !important;
+}
+
+.skrill-view {
+    height: 100%;
+}
+
+.skrill-wrapper {
+    height: 100%;
+    background-color: #F3F3F3;
+}
+
+.skrill-scroller {
+    position: relative;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 100%;
+    white-space: nowrap;
+    font-size: 0;
+}
+
+@media screen and (max-width: 768px) {
+	.div-tooltips {
+		margin-left: 0px;
+	}
+	.input-text, label, span {
+		width: 98%;
+	}
+	select {
+		width: 100%;
+	}
+}

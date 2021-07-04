@@ -1,5 +1,19 @@
 ## Release Note für Skrill
 
+## Veröffentlichung 1.0.29 (2020-07-05)
+
+### Erweiterungen :
+* Kompatilitätsprüfung  - Ceres 5.0.7
+* Fehlerbehebung: Ersetzen Sie reference_id durch den Parameter transaction_id.
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+* Entfernen Sie SEPA und Bitcoin als unterstützte Zahlungsmethoden.
+* Ändern Sie die URL "Anmelden" für Plentymarkets.
+* Hinzufügen von Validierungsdaten in den Backend-Einstellungen.
+* Aktualisieren Sie die Dateien user_gude_de und user_guide_en.
+* Ein Problem mit der Einreichung des Plenty-Plugins v1.0.29 für Marketplace.
+
+## Release Note für Skrill
+
 ## Veröffentlichung 1.0.28 (2020-05-28)
 
 ### Erweiterungen :

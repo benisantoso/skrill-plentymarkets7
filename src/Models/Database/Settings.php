@@ -77,10 +77,6 @@ class Settings extends Model
 			'de' => array('paymentName' => 'Giropay'),
 			'en' => array('paymentName' => 'Giropay'),
 		),
-		'skrill_did' => array(
-			'de' => array('paymentName' => 'Direct Debit / ELV'),
-			'en' => array('paymentName' => 'Direct Debit / ELV'),
-		),
 		'skrill_sft' => array(
 			'de' => array('paymentName' => 'Klarna'),
 			'en' => array('paymentName' => 'Klarna'),
@@ -132,10 +128,6 @@ class Settings extends Model
 		'skrill_aup' => array(
 			'de' => array('paymentName' => 'Unionpay'),
 			'en' => array('paymentName' => 'Unionpay'),
-		),
-		'skrill_btc' => array(
-			'de' => array('paymentName' => 'Bitcoin'),
-			'en' => array('paymentName' => 'Bitcoin'),
 		)
 	);
 

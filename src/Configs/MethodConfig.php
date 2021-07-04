@@ -9,9 +9,7 @@ use Skrill\Methods\AliPaymentMethod;
 use Skrill\Methods\AobPaymentMethod;
 use Skrill\Methods\ApmPaymentMethod;
 use Skrill\Methods\AupPaymentMethod;
-use Skrill\Methods\BtcPaymentMethod;
 use Skrill\Methods\CsiPaymentMethod;
-use Skrill\Methods\DidPaymentMethod;
 use Skrill\Methods\DnkPaymentMethod;
 use Skrill\Methods\EbtPaymentMethod;
 use Skrill\Methods\EpyPaymentMethod;
@@ -77,17 +75,9 @@ class MethodConfig extends BaseConfig implements MethodConfigContract
             self::ARRAY_KEY_KEY => AupPaymentMethod::KEY,
             self::ARRAY_KEY_DEFAULT_NAME => AupPaymentMethod::DEFAULT_NAME
         ],
-        BtcPaymentMethod::class => [
-            self::ARRAY_KEY_KEY => BtcPaymentMethod::KEY,
-            self::ARRAY_KEY_DEFAULT_NAME => BtcPaymentMethod::DEFAULT_NAME
-        ],
         CsiPaymentMethod::class => [
             self::ARRAY_KEY_KEY => CsiPaymentMethod::KEY,
             self::ARRAY_KEY_DEFAULT_NAME => CsiPaymentMethod::DEFAULT_NAME
-        ],
-        DidPaymentMethod::class => [
-            self::ARRAY_KEY_KEY => DidPaymentMethod::KEY,
-            self::ARRAY_KEY_DEFAULT_NAME => DidPaymentMethod::DEFAULT_NAME
         ],
         DnkPaymentMethod::class => [
             self::ARRAY_KEY_KEY => DnkPaymentMethod::KEY,

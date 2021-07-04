@@ -30,9 +30,7 @@ use Skrill\Methods\AliPaymentMethod;
 use Skrill\Methods\AobPaymentMethod;
 use Skrill\Methods\ApmPaymentMethod;
 use Skrill\Methods\AupPaymentMethod;
-use Skrill\Methods\BtcPaymentMethod;
 use Skrill\Methods\CsiPaymentMethod;
-use Skrill\Methods\DidPaymentMethod;
 use Skrill\Methods\DnkPaymentMethod;
 use Skrill\Methods\EbtPaymentMethod;
 use Skrill\Methods\EpyPaymentMethod;
@@ -263,14 +261,8 @@ class PaymentHelper
         	case AupPaymentMethod::class:
         		$instance = pluginApp(AupPaymentMethod::class);
         		break;
-        	case BtcPaymentMethod::class:
-        		$instance = pluginApp(BtcPaymentMethod::class);
-        		break;
         	case CsiPaymentMethod::class:
         		$instance = pluginApp(CsiPaymentMethod::class);
-        		break;
-        	case DidPaymentMethod::class:
-        		$instance = pluginApp(DidPaymentMethod::class);
         		break;
         	case DnkPaymentMethod::class:
         		$instance = pluginApp(DnkPaymentMethod::class);
@@ -752,9 +744,9 @@ class PaymentHelper
 		$paymentBookingText = [];
 		$countryRepository = pluginApp(CountryRepositoryContract::class);
 
-		if (isset($paymentStatus['transaction_id']))
+		if (isset($paymentStatus['mb_transaction_id']))
 		{
-			$paymentBookingText[] = "Transaction ID : " . (string) $paymentStatus['transaction_id'];
+			$paymentBookingText[] = "Transaction ID : " . (string) $paymentStatus['mb_transaction_id'];
 		}
 		if (isset($paymentStatus['payment_type']))
 		{

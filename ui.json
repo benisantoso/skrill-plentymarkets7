@@ -87,12 +87,6 @@
                                 "entryPoint": "index.html?action=skrill_gir"
                             },
                             {
-                                "label": "Direct Debit / ELV",
-                                "menu": "settings/orders/skrill",
-                                "urlKey": "settings-skrill-did",
-                                "entryPoint": "index.html?action=skrill_did"
-                            },
-                            {
                                 "label": "Klarna",
                                 "menu": "settings/orders/skrill",
                                 "urlKey": "settings-skrill-sft",
@@ -169,12 +163,6 @@
                                 "menu": "settings/orders/skrill",
                                 "urlKey": "settings-skrill-aup",
                                 "entryPoint": "index.html?action=skrill_aup"
-                            },
-                            {
-                                "label": "Bitcoin",
-                                "menu": "settings/orders/skrill",
-                                "urlKey": "settings-skrill-btc",
-                                "entryPoint": "index.html?action=skrill_btc"
                             },
                             {
                                 "label": "Paysafecash",

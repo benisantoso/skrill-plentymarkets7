@@ -17,6 +17,9 @@
 		<div class="message failed" id="errorMessage" style="display: none;">
 			{{ trans('Skrill::Settings.ERROR_GENERAL_SAVE_SETTINGS', [], 'messages', locale) }}
 		</div>
+		<div class="message failed" id="errorMessageInvalidCredentials" style="display: none;">
+			{{ trans('Skrill::Settings.ERROR_INVALID_CREDENTIALS', [], 'messages', locale) }}
+		</div>
 
 	<div id="skrillSettings">
 		<form method="post" name="saveSettings" id="saveSettings" class="settings">

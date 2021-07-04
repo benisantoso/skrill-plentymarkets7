@@ -21,8 +21,10 @@ $(document).ready(function () {
 			}).done(function(r){
 				if (r == 'success') {
 					$('#successMessage').css('display', 'block');
-				} else {
+				} else if (r == 'error') {
 					$('#errorMessage').css('display', 'block');
+				} else {
+					$('#errorMessageInvalidCredentials').css('display', 'block');
 				}
 			});
 		});
